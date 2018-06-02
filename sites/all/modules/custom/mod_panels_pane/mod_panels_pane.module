@@ -1,0 +1,23 @@
+<?php
+/*
+ *  @Author : Henry Tran
+ *  @skype: trankienan
+ *  @mail : kienan91@gmail.com
+ *
+ */
+
+
+/**
+ * @file
+ * Additional styles for the Panels module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function mod_panels_pane_ctools_plugin_directory($owner, $plugin_type)
+{
+    if($owner == 'panels'){
+        return "plugins/$plugin_type";
+    }
+}

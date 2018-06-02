@@ -1,0 +1,54 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the website_screenshot_field module.
+ */
+
+/**
+ * Implementation of hook_install().
+ *
+ * It creates website_screenshot folders: it is necessary?
+ */
+function website_screenshot_install() {
+  $path =   file_default_scheme() . '://'. 'website_screenshot';
+  if(file_prepare_directory($path, FILE_CREATE_DIRECTORY)){
+    drupal_set_message(t("OK: Directory %file created!", array('%file' => $path)));
+  }
+  else{
+    drupal_set_message(t("Error: Directory %file not created!", array('%file' => $path)), 'error');
+  }
+  file_unmanaged_copy(drupal_get_path('module', 'website_screenshot') . '/wss.gif',
+                      file_default_scheme() . '://'. 'wss.gif' , FILE_EXISTS_REPLACE);
+}
+
+/**
+ * Implements hook_field_schema().
+ *
+ * Defines the database schema of the field, using the format used by the
+ * Schema API.
+ *
+ * The data we will store here is just one 7-character element, even
+ * though the widget presents the three portions separately.
+ *
+ * All implementations of hook_field_schema() must be in the module's
+ * .install file.
+ *
+ * @see http://drupal.org/node/146939
+ * @see schemaapi
+ * @see hook_field_schema()
+ * @ingroup field_example
+ */
+function website_screenshot_field_schema($field) {
+  $columns = array(
+    'url'         => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+    'description' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''),
+    'file_id'     => array('type' => 'varchar', 'length' => 40, 'not null' => FALSE, 'default' => NULL),
+  );
+  $indexes = array(
+    'url' => array('url'),
+  );
+  return array(
+    'columns' => $columns,
+    'indexes' => $indexes,
+  );
+}

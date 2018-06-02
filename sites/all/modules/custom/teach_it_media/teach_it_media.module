@@ -1,0 +1,491 @@
+<?php
+
+/**
+* Implements hook_form_alter().
+*/
+function teach_it_media_form_alter(&$form, $form_state, $form_id) {
+  $key = '4ebd30e69cb6422190dd1c374a1dd69e';
+  if(isset($_GET['edit'])){
+    $data = $_GET['edit'];
+    $rand = substr(uniqid('', true), -5);
+    if ($form_id == 'blog_node_form') {
+	  $url = parse_url($data['url']);
+      $scheme = $url['scheme'];
+	  $url = $url['host'].$url['path'];
+	  if (strpos($url, 'amazon.com') !== false) {
+		$response = drupal_http_request('http://api.embed.ly/1/oembed?url='.$url.'&key='.$key);
+		if ($response->code == 200) {
+		  $json = json_decode($response->data);
+		  $form['title']['#default_value'] = $data['title'];
+		  $form_state['input']['title'] = $json->title;
+		  if(isset($json->thumbnail_url)){
+			$image = file_get_contents($json->thumbnail_url); // string
+			$file = file_save_data($image, 'public://image_'.$rand.'.png',FILE_EXISTS_REPLACE);
+			$form['field_media_multi']['und'][0]['#default_value']['fid'] = $file->fid;
+		  }
+		  $form['body']['und'][0]['#default_value'] = $json->description;
+		  $form['field_screenshot']['und'][0]['url']['#default_value'] = $json->url;
+		}
+	  }else{
+		$response = drupal_http_request('http://api.embed.ly/1/extract?url='.$url.'&key='.$key);
+		if ($response->code == 200) {
+		  $json = json_decode($response->data);
+		  $form['title']['#default_value'] = $data['title'];
+		  $form_state['input']['title'] = $json->title;
+		  if(isset($json->images[0]->url)){
+			$image = file_get_contents($json->images[0]->url); // string
+			$file = file_save_data($image, 'public://image_'.$rand.'.png',FILE_EXISTS_REPLACE);
+			$form['field_media_multi']['und'][0]['#default_value']['fid'] = $file->fid;
+		  }
+		  $form['body']['und'][0]['#default_value'] = $json->content;
+		  $form['field_screenshot']['und'][0]['url']['#default_value'] = $scheme.'://'. $url;
+		}
+	  }
+    }
+    if ($form_id == 'article_node_form') {
+	  $url = explode('#', $data['url'])[0];
+      $response = drupal_http_request('http://api.embed.ly/1/extract?url='.$url.'&key='.$key);
+      if ($response->code == 200) {
+        $json = json_decode($response->data);
+		$form['title']['#default_value'] = $data['title'];
+		$form_state['input']['title'] = $json->title;
+        if($json->images[0]->url){
+          $image = file_get_contents($json->images[0]->url); // string
+          $file = file_save_data($image, 'public://image_'.$rand.'.png',FILE_EXISTS_REPLACE);
+        }
+		$form['body']['und'][0]['#default_value'] = $json->content;
+		$form['field_screenshot']['und'][0]['url']['#default_value'] = $data['url'];
+		$form['field_image']['und'][0]['#default_value']['fid'] = $file->fid;
+      }
+    }
+    if ($form_id == 'page_node_form') {
+      $response = drupal_http_request('http://api.embed.ly/1/extract?url='.$data['url'].'&key='.$key);
+      if ($response->code == 200) {
+        $json = json_decode($response->data);
+      }
+      $form['body']['und'][0]['#default_value'] = $json->content;
+      $form['field_author']['und'][0]['value']['#default_value'] = $json->provider_url;
+    }
+
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function teach_it_media_menu() {
+  $items['home'] = array(
+    'title' => 'TEACH IT Media',
+    'page callback' => 'teach_it_home_page_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  $items['teach-test'] = array(
+    'title' => 'TEACH IT Media',
+    'page callback' => 'teach_it_test_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  return $items;
+}
+function teach_it_test_callback(){
+
+  $nodes = db_select('node','n')
+    ->fields('n',array('nid','title'))
+    ->condition('n.type','blog')
+    ->condition('n.status',1)
+    ->orderBy('n.created','DESC')
+    ->range(0,3)
+    ->execute()->fetchAll(PDO::FETCH_ASSOC);
+  return theme('news_test',array('nodes'=>$nodes));
+}
+/**
+ * Implements hook_theme().
+ */
+function teach_it_media_theme($existing, $type, $theme, $path) {
+  return array(
+    'home'=>array(
+      'variables' => array(),
+      'template' => 'home'
+    ),
+    'sub'=>array(
+      'variables' => array(),
+      'template' => 'sub'
+    ),
+    'news_letter'=>array(
+      'variables' => array(),
+      'template' => 'templates/news_letter'
+    ),
+    'news_test'=>array(
+      'variables' => array(),
+      'template' => 'templates/news-test'
+    ),
+    'donate_paypal'=>array(
+        'variables' => array(),
+        'template' => 'donate-paypal'
+    )
+  );
+}
+/*
+ *  callback page home
+ */
+function teach_it_home_page_callback(){
+    $vid = taxonomy_vocabulary_machine_name_load("category_blog")->vid;
+    $terms = taxonomy_get_tree($vid);
+    if($terms[0]->tid){
+        $content = taxonomy_select_nodes($terms[0]->tid, $pager = TRUE, $limit = 5, $order = array('t.created' => 'DESC'));
+    }
+    $nodes_main = node_load_multiple($content);
+    $title_main = l($terms[0]->name,'taxonomy/term/'.$terms[0]->tid);
+    $return = theme('home',array('nodes'=>$nodes_main,'title'=>$title_main));
+    $return .= '<div class="region-sub">';
+    foreach ($terms as $key => $value){
+        if($key!=0){
+            $content = taxonomy_select_nodes($value->tid, $pager = TRUE, $limit = 5, $order = array('t.created' => 'DESC'));
+            $nodes_sub = node_load_multiple($content);
+            $title_sub = l($value->name,'taxonomy/term/'.$value->tid);
+            if($nodes_sub){
+                $return .= theme('sub',array('nodes'=>$nodes_sub,'title'=>$title_sub));
+            }
+        }
+    }
+    $return .= '</div>';
+    return $return;
+}
+function teach_it_media_preprocess_home(&$var){
+    if($var['nodes']){
+        $sticky =0;
+        foreach ($var['nodes'] as $key=>$node){
+            if($node->sticky==1){
+                $sticky = 1;
+                $var['main_node'] = $node;
+                unset($var['nodes'][$key]);
+                break;
+            }
+        }
+        if($sticky == 0){
+            $var['main_node'] = reset($var['nodes']);
+            $firstKey = key($var['nodes']);
+            unset($var['nodes'][$firstKey]);
+        }
+    }else{
+	  $var['main_node'] = '';
+	}
+}
+function teach_it_media_preprocess_sub(&$var){
+    if($var['nodes']){
+        $sticky =0;
+        foreach ($var['nodes'] as $key=>$node){
+            if($node->sticky==1){
+                $sticky = 1;
+                $var['main_node'] = $node;
+                unset($var['nodes'][$key]);
+                break;
+            }
+        }
+        if($sticky == 0){
+            $var['main_node'] = reset($var['nodes']);
+            $firstKey = key($var['nodes']);
+            unset($var['nodes'][$firstKey]);
+        }
+    }
+}
+function video_image($url,$size="large"){
+    if($size=="thumb"){
+        $size=1;
+    }else{
+        $size=0;
+    }
+
+    $image_url = parse_url($url);
+    if($image_url['host'] == 'www.youtube.com' || $image_url['host'] == 'youtube.com'){
+        $array = explode("&", $image_url['query']);
+        return "http://img.youtube.com/vi/".substr($array[0], 2)."/" . $size . ".jpg";
+    } elseif($image_url['host'] == 'www.vimeo.com' || $image_url['host'] == 'vimeo.com'){
+        $hash = unserialize(file_get_contents("http://vimeo.com/api/v2/video/".substr($image_url['path'], 1).".php"));
+        return $hash[0]["thumbnail_large"];
+    }
+}
+function videoType($url) {
+    if (strpos($url, 'youtube') > 0) {
+        return 'youtube';
+    } elseif (strpos($url, 'vimeo') > 0) {
+        return 'vimeo';
+    }elseif (strpos($url, 'soundcloud') > 0){
+        return 'soundcloud';
+    }elseif (strpos($url, 'facebook') > 0){
+        return 'facebook';
+    }elseif (strpos($url, 'flickr') > 0){
+        return 'flickr';
+    } else {
+        return 'unknown';
+    }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function teach_it_media_node_insert($node)
+{
+    if($node->type = 'blog'){
+        global $base_url;
+        $title = $node->title;
+        module_load_include('inc', 'pathauto', 'pathauto'); // include the inc file for Pathauto module
+
+        pathauto_create_alias('node', 'insert', 'node/'.$node->nid, array('node' => $node), $node->type); // Language is optional
+        $alias = drupal_get_path_alias('node/'.$node->nid);
+        $alias = $base_url.'/'.$alias;
+        $url = '';
+        if(isset($node->field_media_multi['und'][0]['fid'])){
+            $file = file_load($node->field_media_multi['und'][0]['fid']);
+            $e_mine = explode('/',$file->filemime);
+            $mine = $e_mine[0];
+            switch ($mine){
+                case 'video':
+                    $vid = explode('/',$file->uri);
+                    if($e_mine[1] =='youtube'){
+                        $url = 'https://img.youtube.com/vi/'.$vid[3].'/hqdefault.jpg';
+                    }elseif ($e_mine[1]=='vimeo'){
+                        $hash = unserialize(file_get_contents("http://vimeo.com/api/v2/video/".$vid[3].".php"));
+                        $url = $hash[0]["thumbnail_large"];
+                    }else{
+
+                    }
+                    break;
+                case 'image':
+                    $url = file_create_url($file->uri);
+                    break;
+            }
+        }
+        _teach_it_media_tweet($title.' '.$alias,$url);
+    }
+}
+function _teach_it_media_tweet($message,$image) {
+
+// add the codebird library
+    require_once('codebird/src/codebird.php');
+    $consumerKey = variable_get('consumerKey','');
+    $consumerSecret = variable_get('consumerSecret','');
+    $accessToken = variable_get('accessToken','');
+    $accessTokenSecret = variable_get('accessTokenSecret','');
+  if(strpos( $_SERVER['HTTP_HOST'], 'education') !== false){
+    $consumerKey = 'QP9eZV4lYdkyk3o7GQoHT2WsL';
+    $consumerSecret = '6AXrFAI9A7GkUv1Zf9MwIZIfNsTThlLYcJDmb9RCB7Vr6pFB57';
+    $accessToken = '952565968949035008-hS6NUwKsqqKYaTiHOZAlvZOM9ZoLfav';
+    $accessTokenSecret = 'ePLSHJ1vCn56Sa6oLdEijlx9fMAL7M2nOPrCJRzwkfSBO';
+  }
+// note: consumerKey, consumerSecret, accessToken, and accessTokenSecret all come from your twitter app at https://apps.twitter.com/
+    \Codebird\Codebird::setConsumerKey($consumerKey, $consumerSecret);
+    $cb = \Codebird\Codebird::getInstance();
+    $cb->setToken($accessToken, $accessTokenSecret);
+
+//build an array of images to send to twitter
+    if($image){
+        $reply = $cb->media_upload(array(
+            'media' => $image
+        ));
+//upload the file to your twitter account
+        $mediaID = $reply->media_id_string;
+    }else{
+        $mediaID = '';
+    }
+
+//build the data needed to send to twitter, including the tweet and the image id
+    $params = array(
+        'status' => $message,
+        'media_ids' => $mediaID
+    );
+//post the tweet with codebird
+
+    $reply = $cb->statuses_update($params);
+
+}
+
+function teach_it_media_update_projects_alter(&$projects){
+  unset($projects['website_screenshot']); // Use the project name of the module to disable update checking on.
+}
+/**
+ * Delete {system} records for long-lost modules.
+ */
+function teach_it_media_update_7100() {
+    $modules = array(
+        'media_oembed',
+        'oembedcore',
+        'webform',
+        'advagg',
+        'advagg_bundler',
+        'advagg_css_compress',
+        'advagg_ext_compress',
+        'advagg_js_compress',
+        'advagg_mod',
+        'advagg_relocate',
+        'advagg_sri',
+        'advagg_validator',
+        'captcha',
+        'googleanalytics',
+        'image_captcha',
+        'infolinks',
+        'oembed',
+        'oembedembedly',
+        'oembedprovider',
+        'recaptcha',
+    );
+    db_delete('system')
+        ->condition('name', $modules, 'IN')
+        ->condition('type', 'module')
+        ->execute();
+}
+/**
+ * Delete {system} records for long-lost modules v2.
+ */
+function teach_it_media_update_7102() {
+  $modules = array(
+    'google_cse',
+    'advagg_css_cdn',
+    'google_fonts_api',
+    'advagg_font',
+    'imageapi_optimize',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+/**
+ * Delete {system} records for long-lost modules v2.
+ */
+function teach_it_media_update_7103() {
+  $modules = array(
+    'wss_shrinktheweb',
+    'wss_thumbalizr',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+function teach_it_media_update_7104() {
+  $modules = array(
+    'commerce_customer',
+    'commerce_customer',
+    'commerce_price',
+    'commerce_line_item',
+    'commerce_product_reference',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+function teach_it_media_update_7105() {
+  $modules = array(
+    'mod_media_multi',
+    'mod_none',
+    'mod_sharepost',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+function teach_it_media_update_7106() {
+  $modules = array(
+    'commerce_line_item',
+    'commerce_price',
+    'commerce_customer',
+    'commerce_product_reference',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+function teach_it_media_update_7107() {
+  $modules = array(
+    'nd_visualshortcodes',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+/**
+ * Implements hook_cron().
+ */
+function teach_it_media_cron() {
+  $mail_list = db_select('newsletter_subscriber','ns')
+    ->fields('ns',array('email'))
+    ->execute()->fetchAll();
+  $nodes = db_select('node','n')
+    ->fields('n',array('nid','title'))
+    ->condition('n.type','blog')
+    ->condition('n.status',1)
+    ->orderBy('n.created','DESC')
+    ->range(0,3)
+    ->execute()->fetchAll();
+  foreach ($mail_list as $mail){
+    $params = array('first_name' => 'Bob');
+    $params['subject'] = 'Newsletter';
+    $params['nodes'] = $nodes;
+    drupal_mail('teach_it_media', 'teachit_newsletter', $mail->email, language_default(), $params);
+  }
+}
+
+/**
+ * implements hook_mail_alter()
+ */
+function teach_it_media_mail_alter(&$message) {
+  $headers = array(
+    'MIME-Version' => '1.0',
+    'Content-Type' => 'text/html; charset=iso-8859-1; format=flowed',
+    'Content-Transfer-Encoding' => '8Bit',
+    'X-Mailer' => 'Drupal',
+  );
+  foreach ($headers as $key => $value) {
+    $message['headers'][$key] = $value;
+  }
+}
+
+/**
+ * Implement hook_preprocess_template()
+ */
+function teach_it_media_preprocess_news_letter(&$vars){
+  $vars['logo'] = file_create_url(theme_get_setting('logo_path','superblog'));
+
+}
+/**
+ * Implement hook_preprocess_template()
+ */
+function teach_it_media_preprocess_news_test(&$vars){
+  $vars['logo'] = file_create_url(theme_get_setting('logo_path','superblog'));
+}
+/**
+ * Implements hook_mail().
+ */
+
+function teach_it_media_mail($key,&$message,$params) {
+  switch ($key) {
+    case 'teachit_newsletter':
+      $content = [];
+      if ($params['nodes']) {
+        foreach ($params['nodes'] as $k => $val) {
+          $node = node_load($val->nid);
+          $file = file_load($node->field_media_multi['und'][0]['fid']);
+          $content[] = [
+            'url' => l($node->title, 'node/' . $node->nid, ['absolute' => TRUE]),
+            'body' => isset($node->body['und'][0]['value']) ? $node->body['und'][0]['value'] : '',
+            'image' => image_style_url('thumbnail', $file->uri)
+          ];
+        }
+      }
+      $message['subject'] = t($params['subject']);
+      $message['body'][] = theme('news_letter', ['content' => $content]);
+      $message['format'] = 'html';
+      break;
+  }
+}

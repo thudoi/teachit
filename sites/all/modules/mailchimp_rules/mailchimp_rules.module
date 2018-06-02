@@ -1,0 +1,286 @@
+<?php
+
+/**
+ * @file
+ * Mailchimp rules module.
+ */
+
+use \Mailchimp\MailchimpLists;
+use \Mailchimp\MailchimpAPIException;
+
+/**
+ * Implements hook_permission().
+ */
+function mailchimp_rules_permission() {
+  return array(
+    'administer mailchimp rules' => array(
+      'title' => t('Administer Mailchimp Rules'),
+      'description' => t('Change the API key on the Mailchimp Rules settings page.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mailchimp_rules_menu() {
+  $items = array();
+  $items['admin/config/services/mailchimp-rules'] = array(
+    'title' => 'Mailchimp Rules',
+    'description' => 'Manage the API key to use with Mailchimp Rules.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mailchimp_rules_admin'),
+    'access arguments' => array('administer mailchimp rules'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Admin page callback.
+ */
+function mailchimp_rules_admin() {
+  $form = array();
+  $form['mailchimp_rules_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mailchimp API Key'),
+    '#default_value' => variable_get('mailchimp_rules_api_key'),
+    '#description' => t("Enter your API key here."),
+    '#required' => TRUE,
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function mailchimp_rules_libraries_info() {
+  $libraries['mailchimp'] = array(
+    'name' => 'MailChimp API',
+    'vendor url' => 'https://github.com/thinkshout/mailchimp-api-php',
+    'download url' => 'https://github.com/thinkshout/mailchimp-api-php/archive/v1.0.5.zip',
+    'version arguments' => array(
+      'file' => 'composer.json',
+      'pattern' => '/"version": "([0-9a-zA-Z.-]+)"/',
+    ),
+    'files' => array(
+      'php' => array(
+        'src/Mailchimp.php',
+        'src/MailchimpAPIException',
+        'src/MailchimpCampaigns.php',
+        'src/MailchimpLists.php',
+        'src/MailchimpReports.php',
+        'src/MailchimpTemplates.php',
+        'vendor/autoload.php',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Returns a new instance of an MailChimp API class.
+ *
+ * @param string $class_name
+ *   The class name you want an instance from.
+ * @param string $api_key
+ *   The MailChimp api key to use if not the default, which is retrieved from
+ *   the variable mailchimp_rules_api_key.
+ *
+ * @return object||null
+ *   Either an instance of an MailChimp API class or NULL, if the library is
+ *   missing or could not be loaded.
+ */
+function mailchimp_rules_get_api_object($class_name = 'Mailchimp', $api_key = NULL) {
+  $class_name = 'Mailchimp\\' . $class_name;
+
+  // Try to load the library via the libraries module.
+  if (module_exists('libraries')) {
+    $library = libraries_load('mailchimp');
+  }
+
+  // Check if the composer autoload file loaded the mailchimp library.
+  if (!class_exists($class_name)) {
+    watchdog('mailchimp_rules', 'Failed to load MailChimp PHP library. Please refer to the installation requirements.', array(), WATCHDOG_ERROR);
+
+    return NULL;
+  }
+
+  if (!$api_key) {
+    $api_key = variable_get('mailchimp_rules_api_key');
+  }
+
+  if (empty($api_key)) {
+    watchdog('mailchimp_rules', 'Please set an API key for the MailChimp integration.', array(), WATCHDOG_ERROR);
+  }
+
+  // Set the timeout to something that won't take down the Drupal site:
+  $timeout = 60;
+
+  return new $class_name($api_key, 'apikey', $timeout);
+}
+
+/**
+ * Retrieves the lists for the set API key.
+ *
+ * @return array
+ *   A list of MailChimp lists with the id as key and name as value.
+ */
+function mailchimp_rules_retrieve_lists() {
+  $lists_api = mailchimp_rules_get_api_object('MailchimpLists');
+
+  $lists = array();
+  try {
+    // Only get the first 500 for now.
+    $res = $lists_api->getLists(array('count' => 500));
+
+    foreach ($res->lists as $list) {
+      $lists[$list->id] = $list->name;
+    }
+  }
+  catch (MailchimpAPIException $exception) {
+    watchdog('mailchimp_rules',
+      'Could not retrieve the mailchimp lists due to @exception.',
+      array('@exception' => $exception->getMessage()), WATCHDOG_ERROR);
+  }
+
+  return $lists;
+}
+
+/**
+ * Subscribes the given user to the given list.
+ *
+ * @param string $list_id
+ *   The ID for the list to which the mail should be subscribed.
+ * @param string $mail
+ *   The mail address that should be subscribed.
+ * @param array $parameters
+ *   Parameters like merge fields, interest groups or language.
+ */
+function mailchimp_rules_subscribe_mail($list_id, $mail, $parameters = array()) {
+  $lists_api = mailchimp_rules_get_api_object('MailchimpLists');
+
+  // We can't do anything without this two parameters.
+  if (empty($mail) || empty($list_id)) {
+    return;
+  }
+
+  try {
+    if (empty($parameters['status'])) {
+      $parameters['status'] = (variable_get('mailchimp_rules_double_optin', FALSE)) ? MailchimpLists::MEMBER_STATUS_PENDING : MailchimpLists::MEMBER_STATUS_SUBSCRIBED;
+    }
+    $lists_api->addOrUpdateMember($list_id, $mail, $parameters);
+  }
+  catch (MailchimpAPIException $exception) {
+    watchdog('mailchimp_rules',
+      'Could not subscribe mail @mail to mailchimp list with id @list_id due to @exception.',
+      array(
+        '@mail' => $mail,
+        '@list_id' => $list_id,
+        '@exception' => $exception->getMessage(),
+      ),
+      WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Unsubscribe the given user from the given list.
+ *
+ * @param string $list_id
+ *   The ID for the list to which the mail should be subscribed.
+ * @param string $mail
+ *   The mail address that should be subscribed.
+ */
+function mailchimp_rules_unsubscribe_mail($list_id, $mail) {
+  $lists_api = mailchimp_rules_get_api_object('MailchimpLists');
+
+  // We can't do anything without this two parameters.
+  if (empty($mail) || empty($list_id)) {
+    return;
+  }
+
+  try {
+    $lists_api->removeMember($list_id, $mail);
+  }
+  catch (MailchimpAPIException $exception) {
+    watchdog('mailchimp_rules',
+      'Could not unsubscribe mail @mail to mailchimp list with id @list_id due to @exception.',
+      array(
+        '@mail' => $mail,
+        '@list_id' => $list_id,
+        '@exception' => $exception->getMessage(),
+      ),
+      WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Unsubscribe the given user from all lists available.
+ *
+ * @param string $mail
+ *   The mail address that should be subscribed.
+ */
+function mailchimp_rules_unsubscribe_mail_all_lists($mail) {
+  $lists_api = mailchimp_rules_get_api_object('MailchimpLists');
+  // We can't do anything without this parameter.
+  if (empty($mail)) {
+    return;
+  }
+
+  try {
+    $lists = $lists_api->getListsForEmail($mail);
+    foreach ($lists as $list) {
+      mailchimp_rules_unsubscribe_mail($list->id, $mail);
+    }
+  }
+  catch (MailchimpAPIException $exception) {
+    watchdog('mailchimp_rules',
+      'Could not retrieve the lists for the mail @mail due to @exception.',
+      array(
+        '@mail' => $mail,
+        '@exception' => $exception->getMessage(),
+      ),
+      WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Checks if the given $mail is subscribed to the given list.
+ *
+ * @param string $list_id
+ *   The ID for the list to which the mail is subscribed.
+ * @param string $mail
+ *   The mail address that should be checked
+ *
+ * @return bool
+ *   TRUE if is subscribed, FALSE if not or there was an error.
+ */
+function mailchimp_rules_mail_is_subscribed($list_id, $mail) {
+  $lists_api = mailchimp_rules_get_api_object('MailchimpLists');
+
+  // We can't do anything without this two parameters.
+  if (empty($mail) || empty($list_id)) {
+    return;
+  }
+
+  try {
+    $lists = $lists_api->getListsForEmail($mail);
+    foreach ($lists as $list) {
+      if ($list->id == $list_id) {
+        return TRUE;
+      }
+    }
+  }
+  catch (MailchimpAPIException $exception) {
+    watchdog('mailchimp_rules',
+      'Could not check if the mail @mail is subscribed to the  list with the id @list_id due to @exception.',
+      array(
+        '@mail' => $mail,
+        '@list_id' => $list_id,
+        '@exception' => $exception->getMessage(),
+      ),
+      WATCHDOG_ERROR);
+  }
+  return FALSE;
+}

@@ -1,0 +1,307 @@
+<?php
+
+
+
+function mod_superblog_menu()
+{
+  $items = array();
+  for($i=1;$i<=5;$i++) {
+    $items['home-page-'.$i] = array(
+      'title'            => 'Home Page '.$i,
+      'description'      => 'This home page '.$i,
+      'type'             => MENU_CALLBACK,
+      'access arguments' => array('access content'),
+      'page callback'    => 'mod_home_page'
+    );
+  }
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function mod_superblog_block_info()
+{
+  $block = array();
+    $block['mod_title'] = array(
+        'info' => t('Title Superblog'),
+        'cache' => DRUPAL_NO_CACHE
+    );
+    $block['mod_header'] = array(
+        'info' => t('Header Superblog'),
+        'cache' => DRUPAL_NO_CACHE
+    );
+  return $block;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mod_superblog_block_view($delta = '')
+{
+$block = array();
+  switch($delta){
+      case 'mod_title':
+
+          $breadcrumbs = drupal_get_breadcrumb();
+          $list_bread  = '';
+          if(isset($breadcrumbs)){
+              $list_bread = '<ul class="breadcrumb" id="breadcrumb">';
+              foreach ($breadcrumbs as $delta => $bread){
+                  $list_bread.= '<li>'.$bread.'</li>';
+              }
+              $list_bread.= '</ul>';
+          }
+          $block['content'] = array(
+              '#markup' => '<div class="wrap-title"><h1 class="entry-title">'.drupal_get_title().'</h1>'.$list_bread.'</div>',
+              '#attached' => array(
+                  'css' => array(
+                      drupal_get_path('module','mod_superblog').'/css/mod_title_background.css'
+                  )
+              )
+          );
+          break;
+      case 'mod_header':
+
+          $block['content'] = array(
+              '#markup' => '<div class="wrap-title"></div>',
+              '#attached' => array(
+                  'css' => array(
+                      drupal_get_path('module','mod_superblog').'/css/mod_title_background.css'
+                  )
+              )
+          );
+          break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function mod_superblog_block_configure($delta = '')
+{
+  $form = array();
+  switch ($delta){
+      case 'mod_title':
+          $form['mod_background'] = array(
+              '#type' => 'fieldset',
+              '#title' => t('Background Title'),
+              '#collapsible' => TRUE,
+              '#collapsed' => FALSE,
+          );
+          $bg_img = variable_get('mod_superblog_title_bg');
+          if(isset($bg_img)){
+              $file = file_load($bg_img);
+              $background = array(
+                  'path'  => $file->uri,
+                  'height'=> null,
+                  'width' => null,
+                  'title' => null,
+                  'alt'   => null,
+              );
+              $form['mod_background']['preview_bg'] = array(
+                  '#type'  => 'markup',
+                  '#theme' => 'image',
+                  '#path'  => $file->uri,
+                  '#height'=> null,
+                  '#width' => '500px',
+                  '#title' => '250px',
+                  '#alt'   => null,
+              );
+          }
+          $form['mod_background']['bg_image'] = array(
+              '#type' => 'managed_file',
+              '#title' => t('Upload image'),
+              '#progress_message' => t('Please wait...'),
+              '#progress_indicator' => 'bar',
+              '#required' => TRUE,
+              '#description' => t('Upload image make background for title'),
+              '#upload_location' => 'public://background_title',
+              '#upload_validators' => array(
+                  'file_validate_extensions' => array('png jpg'),
+              ),
+              '#default_value' => isset($bg_img) ? $bg_img : ''
+          );
+          $backgroud_ration = variable_get('mod_superblog_background_ratio');
+          $form['mod_background']['background_ratio'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Background Ratio'),
+              '#description' => t('Enter number ration for background'),
+              '#required' => true,
+              '#default_value' => isset($backgroud_ration) ? $backgroud_ration : ''
+          );
+
+          break;
+      case 'mod_header':
+          $form['mod_background'] = array(
+              '#type' => 'fieldset',
+              '#title' => t('Background Title'),
+              '#collapsible' => TRUE,
+              '#collapsed' => FALSE,
+          );
+          $bg_img = variable_get('mod_superblog_header_bg');
+          if(isset($bg_img)){
+              $file = file_load($bg_img);
+              $background = array(
+                  'path'  => $file->uri,
+                  'height'=> null,
+                  'width' => null,
+                  'title' => null,
+                  'alt'   => null,
+              );
+              $form['mod_background']['preview_bg'] = array(
+                  '#type'  => 'markup',
+                  '#theme' => 'image',
+                  '#path'  => $file->uri,
+                  '#height'=> null,
+                  '#width' => '500px',
+                  '#title' => '250px',
+                  '#alt'   => null,
+              );
+          }
+          $form['mod_background']['bg_image'] = array(
+              '#type' => 'managed_file',
+              '#title' => t('Upload image'),
+              '#progress_message' => t('Please wait...'),
+              '#progress_indicator' => 'bar',
+              '#required' => TRUE,
+              '#description' => t('Upload image make background for header'),
+              '#upload_location' => 'public://background_header',
+              '#upload_validators' => array(
+                  'file_validate_extensions' => array('png jpg'),
+              ),
+              '#default_value' => isset($bg_img) ? $bg_img : ''
+          );
+          $backgroud_ration = variable_get('mod_superblog_background_ratio');
+          $form['mod_background']['background_ratio'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Background Ratio'),
+              '#description' => t('Enter number ration for background'),
+              '#required' => true,
+              '#default_value' => isset($backgroud_ration) ? $backgroud_ration : ''
+          );
+
+          break;
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function mod_superblog_block_save($delta = '', $edit = array())
+{
+  switch($delta){
+    case 'mod_title':
+      if (isset($edit['bg_image'])) {
+        //remove existing document while clicking remove button
+        if ($edit['bg_image'] == 0){
+          //get existing file id to delete
+          $document_exist_id = variable_get('mod_superblog_title_bg');
+          $document_exist_file = file_load($document_exist_id);
+          if (!empty($document_exist_file)) {
+            //delete file usage
+            file_usage_delete($document_exist_file,'mod_superblog','block', $document_exist_id);
+            // The file_delete() function takes a file object and checks to see if
+            // the file is being used by any other modules. If it is the delete
+            // operation is canceled, otherwise the file is deleted.
+            file_delete($document_exist_file, TRUE);
+            drupal_set_message(t('Old document removed.'));
+          }
+        }
+        else {
+          //adding document
+          $current_document = file_load($edit['bg_image']);
+          if (!empty($current_document->fid)) {
+            //get currently uploaded file id
+            $file_id = $current_document->fid;
+            //setting file id to its variable
+            variable_set('mod_superblog_title_bg', $file_id);
+            file_usage_add($current_document,'mod_superblog','block', $file_id);
+            //make file status as permanent
+            $current_document->status = FILE_STATUS_PERMANENT;
+            file_save($current_document);
+            drupal_set_message("Background title uploaded successfully.");
+          }
+        }
+      }
+      if(isset($edit['background_ratio']))
+      {
+        variable_set('mod_superblog_background_ratio',$edit['background_ratio']);
+      }
+          break;
+      case 'mod_header':
+          if (isset($edit['bg_image'])) {
+              //remove existing document while clicking remove button
+              if ($edit['bg_image'] == 0){
+                  //get existing file id to delete
+                  $document_exist_id = variable_get('mod_superblog_header_bg');
+                  $document_exist_file = file_load($document_exist_id);
+                  if (!empty($document_exist_file)) {
+                      //delete file usage
+                      file_usage_delete($document_exist_file,'mod_superblog','block', $document_exist_id);
+                      // The file_delete() function takes a file object and checks to see if
+                      // the file is being used by any other modules. If it is the delete
+                      // operation is canceled, otherwise the file is deleted.
+                      file_delete($document_exist_file, TRUE);
+                      drupal_set_message(t('Old document removed.'));
+                  }
+              }
+              else {
+                  //adding document
+                  $current_document = file_load($edit['bg_image']);
+                  if (!empty($current_document->fid)) {
+                      //get currently uploaded file id
+                      $file_id = $current_document->fid;
+                      //setting file id to its variable
+                      variable_set('mod_superblog_header_bg', $file_id);
+                      file_usage_add($current_document,'mod_superblog','block', $file_id);
+                      //make file status as permanent
+                      $current_document->status = FILE_STATUS_PERMANENT;
+                      file_save($current_document);
+                      drupal_set_message("Background header uploaded successfully.");
+                  }
+              }
+          }
+          if(isset($edit['background_ratio']))
+          {
+              variable_set('mod_superblog_background_ratio',$edit['background_ratio']);
+          }
+          break;
+  }
+}
+
+function mod_superblog_preprocess_page(&$variables)
+{
+  $variables['title'] = '';
+  $variables['breadcrumb'] = '';
+}
+
+function mod_superblog_preprocess_block(&$variables){
+  $block = &$variables['block'];
+    if($block->delta == 'mod_title'){
+        $variables['content'] = '<div class="container">'.$variables['content'].'</div>';
+        $variables['classes_array'][] = 'wrap_bg_header';
+        $background_block = file_load(variable_get('mod_superblog_title_bg'));
+        $ratio = variable_get('mod_superblog_background_ratio');
+        if(isset($background_block)) {
+            $variables['attributes_array']['style'] = 'background-image:url(' . file_create_url($background_block->uri) . ')';
+        }
+        if(isset($ratio)){
+            $variables['attributes_array']['data-stellar-background-ratio'] = $ratio;
+        }
+    }
+    if($block->delta == 'mod_header'){
+        $variables['content'] = '<div class="container">'.$variables['content'].'</div>';
+        $variables['classes_array'][] = 'wrap_bg_header';
+        $background_block = file_load(variable_get('mod_superblog_header_bg'));
+        $ratio = variable_get('mod_superblog_background_ratio');
+        if(isset($background_block)) {
+            $variables['attributes_array']['style'] = 'background-image:url(' . file_create_url($background_block->uri) . ')';
+        }
+        if(isset($ratio)){
+            $variables['attributes_array']['data-stellar-background-ratio'] = $ratio;
+        }
+    }
+}

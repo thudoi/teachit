@@ -1,0 +1,9 @@
+name = Visual Shortcodes
+description = Visual Shortcodes Editor
+package = Custom module - Required                                                      
+core = 7.x
+dependencies[] = filter
+dependencies[] = shortcode
+configure = admin/config/content/nd_visualshortcodes
+version = "7.x-1.0"
+core = "7.x"

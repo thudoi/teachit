@@ -1,0 +1,105 @@
+<?php
+/**
+ * Implements hook_permission().
+ */
+function mod_menu_link_permission() {
+	return array(
+		'administer mod link text' => array(
+			'title' => t('Administer menu link text'),
+			'description' => t('Administer menu link text configuration.'),
+		),
+	);
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function mod_menu_link_form_alter(&$form, &$form_state, $form_id) {
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds menu attribute options to the edit menu item form.
+ *
+ * @see menu_edit_item()
+ * @see _menu_attributes_form_alter()
+ * @see menu_attributes_form_menu_edit_item_submit()
+ */
+function mod_menu_link_form_menu_edit_item_alter(&$form, $form_state) {
+	$item = $form['original_item']['#value'];
+   if(!user_access('administer mod link text')) {
+	 return;
+   }
+  	_menu_text_form_alter($form, $item, $form);
+}
+
+/**
+ * Implement hook_form_FORM_ID_alter()
+ * @param $form
+ * @param $form_state
+ */
+
+function _menu_text_form_alter(array &$form, array $item = array(), array &$complete_form)
+{
+
+	$form['options']['group_mod_menu'] = array(
+		'#type' => 'fieldset',
+		'#title' => 'Menu Text',
+		'#collapsible' => TRUE,
+		'#collapsed' => FALSE,
+		'#weight' => 0,
+	);
+	$form['options']['group_mod_menu']['menu_prefix'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Prefix'),
+		'#default_value' => isset($item['options']['group_mod_menu']['menu_prefix']) ? $item['options']['group_mod_menu']['menu_prefix'] : '',
+	);
+	$form['options']['group_mod_menu']['menu_suffix'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Suffix'),
+		'#default_value' => isset($item['options']['group_mod_menu']['menu_suffix']) ? $item['options']['group_mod_menu']['menu_suffix'] : '',
+
+	);
+  $form['#submit'][] = 'mod_menu_link_form_submit';
+
+}
+
+
+function mod_menu_link_form_submit(&$form,&$form_state)
+{
+  $item = &$form_state['values'];
+  if(isset($item['menu_prefix'])) {
+	$item['options']['group_mod_menu']['menu_prefix'] = $item['menu_prefix'];
+  }
+  if(isset($item['menu_suffix'])) {
+	$item['options']['group_mod_menu']['menu_suffix'] = $item['menu_suffix'];
+  }
+  menu_link_save($item);
+}
+
+
+/**
+ * hook_menu_link_alter()
+ * @param $item
+ */
+
+function mod_menu_link_menu_link_alter(&$item) {
+
+  	$item['options']['html'] = TRUE;
+}
+
+function mod_menu_link_preprocess_menu_link(&$variables) {
+	$element = &$variables['element'];
+	$options = &$variables['element']['#localized_options'];
+	if(isset($options['group_mod_menu']['menu_prefix'])){
+		$element['#title'] =  $options['group_mod_menu']['menu_prefix'] . $element['#title'];
+	}
+	if(isset($options['group_mod_menu']['menu_suffix']))
+	{
+		$element['#title'] =  $element['#title'] . $options['group_mod_menu']['menu_suffix'];
+	}
+
+}

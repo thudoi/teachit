@@ -1,0 +1,25 @@
+.post-media{
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.post-media .post-img img{
+    -webkit-transition: all 2s ease 0s;
+    -moz-transition: all 2s ease 0s;
+    -o-transition: all 2s ease 0s;
+    -ms-transition: all 2s ease 0s;
+    transition: all 2s ease 0s;
+    opacity: 1;
+}
+
+.post-media .post-img:hover img{
+    opacity: 0.7;
+
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+}

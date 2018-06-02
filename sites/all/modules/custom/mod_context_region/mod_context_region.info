@@ -1,0 +1,5 @@
+name = Mod context region
+description = "Providers plugin reaction context for add class region
+core = 7.x
+package = Custom module - Required
+dependencies[] = context

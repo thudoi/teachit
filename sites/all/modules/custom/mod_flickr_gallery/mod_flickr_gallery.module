@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function mod_flickr_gallery_block_info() {
+  $block = array();
+  $block['mod_flickr_gallery'] = array(
+    'info' => t('Mod: Flickr Gallery'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  return $block;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function mod_flickr_gallery_block_configure($delta = '') {
+  switch($delta){
+    case 'mod_flickr_gallery':
+      $form['flickr_user_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Input id of Account Flickr'),
+        '#description' => 'Example:https://www.flickr.com/photos/<strong>139910291@N07</strong>/albums/72157663705755660',
+        '#default_value' => variable_get('flickr_user_id')
+      );
+      $form['flickr_album_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Input id of Album Flickr'),
+        '#description' => 'Example:https://www.flickr.com/photos/139910291@N07/albums/<strong>72157663705755660</strong>',
+        '#default_value' => variable_get('flickr_album_id'),
+      );
+      $form['flickr_range_item'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Input number ranger'),
+        '#description' => t('This show range of Album'),
+        '#default_value' => variable_get('flickr_range_item')
+      );
+      break;
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function mod_flickr_gallery_block_save($delta = '', $edit = array()) {
+  if($delta == 'mod_flickr_gallery')
+  {
+    variable_set('flickr_album_id', $edit['flickr_album_id']);
+    variable_set('flickr_user_id',$edit['flickr_user_id']);
+    variable_set('flickr_range_item',$edit['flickr_range_item']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mod_flickr_gallery_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'mod_flickr_gallery':
+    $block['content'] = array(
+      '#title' => t('Twitter News :'),
+      '#theme' => 'flickr_news',
+      '#settings' => array(
+        'flickr_user_id' => variable_get('flickr_user_id'),
+        'flickr_album_id' => variable_get('flickr_album_id'),
+        'flickr_range_item' => variable_get('flickr_range_item'),
+      )
+    );
+      break;
+  }
+  return $block;
+}
+
+
+function mod_flickr_gallery_theme()
+{
+  $themes = array();
+  $path = drupal_get_path('module', 'mod_flickr_gallery') . '/template';
+  $themes['flickr_news'] = array(
+    'variables' => array('settings' => array(
+      'flickr_user_id' => NULL,
+      'flickr_album_id' => NULL,
+      'flickr_range_item' => NULL
+    )),
+  );
+  return $themes;
+}
+function theme_flickr_news($variables)
+{
+  $settings = $variables['settings'];
+  drupal_add_css(drupal_get_path('module','mod_flickr_gallery').'/css/flickr_gallery.css');
+  drupal_add_js(array('mod_flickr_gallery'=>$settings),'setting');
+  drupal_add_js(drupal_get_path('module','mod_flickr_gallery').'/js/flicker_api.js');
+  return '<div id="flickr_gallery"></div>';
+}

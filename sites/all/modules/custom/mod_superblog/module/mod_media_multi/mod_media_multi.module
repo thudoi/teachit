@@ -1,0 +1,420 @@
+<?php
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function mod_media_multi_field_formatter_info() {
+
+  $item['media_multi'] = array(
+      'label' => t('Media Multi'),
+      'field types' => array('media'),
+      'settings' => array(
+          'slide_image_style' => null,
+          'setup_slide' => array(
+            'skin' => 'default',
+            'width' => 300,
+            'height' => 150,
+            'space'  => 0,
+            'grabCursor' => true,
+            'swipe' => true,
+            'mouse' => true,
+            'wheel' => false,
+            'keyboard' => false,
+            'autoplay' => false,
+            'loop'  => false,
+            'shuffle' => false,
+            'layout' => 'boxed',
+            'fullscreenMargin' => 0,
+            'heightLimit' => false,
+            'autoHeight' => false,
+            'smoothHeight' => true,
+            'endPause'    => false,
+            'overPause'   => false,
+            'fillMode'    => 'fill',
+            'centerControls' => false,
+            'layersMode' => 'center',
+            'speed' => 17,
+            'dir'   => 'h',
+            'view'  => 'basic',
+          ),
+       ),
+    );
+  return $item;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function mod_media_multi_field_formatter_settings_summary($field, $instance, $view_mode) {
+  
+   $display = $instance['display'][$view_mode];
+   $settings = $display['settings'];
+
+  $image_styles = image_style_options(FALSE, PASS_THROUGH);
+  // Unset possible 'No defined styles' option.
+  unset($image_styles['']);
+   $summary = t('Configure Formatter Media Multi');
+   //$summary = t('Configure:Youtube is @youtube, Vimeo is @vimeo, Gallery is @gallery',array('@youtube'=>($settings['video']['yotube'] == 1) ? 'True' : 'False','@vimeo'=> ($settings['video']['vimeo'] == 1) ? 'True' : 'False','@gallery'=>isset($settings['gallery']) ? $image_styles[$settings['gallery']] : t('Original image')));
+
+
+  return $summary;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function mod_media_multi_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $image_styles = image_style_options(FALSE, PASS_THROUGH);
+  $element['slide_image_style'] = array(
+    '#type' => 'select',
+    '#options' => $image_styles,
+    '#empty_option' => 'None (original image)',
+    '#default_value' => $settings['slide_image_style']
+  );
+  $element['setup_slide'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Setup Slider',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $element['setup_slide']['skin'] = array(
+    '#type' => 'select',
+    '#title' => t('Skin'),
+    '#options' => array('default'=> 'Default','light-2'=> 'Light 2','light-3' => 'Light 3','light-4'=> 'Light 4', 'light-5' => 'Light 5','light-6' => 'Light 6','metro' => 'Metro'),
+    '#default_value' => isset($settings['setup_slide']['skin']) ? $settings['setup_slide']['skin'] : 'default',
+    '#description' => t('Choose Skin Slide')
+    );
+  $element['setup_slide']['layout'] = array(
+    '#type' => 'select',
+    '#title' => t('Layout'),
+    '#options' => array('boxed' => 'Boxed','fullwidth' => 'FullWidth','fullscreen'=>'FullScreen','fillwidth'=> 'FillWidth','autofill'=>'AutoFill','partialview'=>'PartialView'),
+    '#default_value' => isset($settings['setup_slide']['layout']) ? $settings['setup_slide']['layout'] : 'boxed',
+    '#description' => '
+      <p>Specifies layout of the slider, it accepts following values: </p>
+      <ul>
+		<li><strong>boxed: </strong>The default layout of slider, size of the slider does not exceed the specified width and height in slider options.</li>
+		<li><strong>fullwidth: </strong>Forces the slider to adapt width to the browser width.</li>
+		<li><strong>fullscreen: </strong>Forces the slider to adapt width and height to the browser window dimension.</li>
+		<li><strong>fillwidth: </strong>Enables the slider to adapt width to its parent element.</li>
+		<li><strong>autofill: </strong>Enables the slider to adapt width and height to its parent element.</li>
+		<li><strong>partialview: </strong>It like the boxed layout but nearby slides are always visible.</li>
+	  </ul>
+    '
+  );
+  $element['setup_slide']['view'] = array(
+    '#type' => 'select',
+    '#title' => t('View'),
+    '#description' => t('The slide changing transition'),
+    '#options' => array('basic'=>'Basic','fade'=>'Fade','mask'=>'Mask','wave'=>'Wave','flow'=>'Flow','stack'=>'Stack','scale'=>'Scale','focus'=>'Focus'),
+    '#default_value' => isset($settings['setup_slide']['view']) ? $settings['setup_slide']['view'] : 'basic',
+  );
+  $element['setup_slide']['speed'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Speed'),
+    '#description' => t('Specifies slide changing speed. It accepts float values between 0 and 100. '),
+    '#default_value' => isset($settings['setup_slide']['speed']) ? $settings['setup_slide']['speed'] : 17
+  );
+  $element['setup_slide']['dir'] = array(
+    '#type' => 'select',
+    '#tile' => 'Dir',
+    '#description' => t('Specifies slide changing direction. It accepts two values "h" (horizontal) and "v" (vertical). '),
+    '#options' => array('h'=>'horizontal','v'=>'vertical'),
+    '#default_value' => isset($settings['setup_slide']['dir']) ? $settings['setup_slide']['dir'] : 5
+  );
+  $element['setup_slide']['fullwidth'] = array(
+    '#type' => 'checkbox',
+    '#title'=> 'Full Width',
+    '#return_valur' => true,
+    '#description' => t('Forces the slider to fullwidth '),
+    '#default_value' => isset($settings['setup_slide']['fullwidth']) ? $settings['setup_slide']['fullwidth'] : false,
+  );
+  $element['setup_slide']['fullscreenMargin'] = array(
+    '#type' => 'checkbox',
+    '#return_value' => true,
+    '#title' => t('FullScreenMargin'),
+    '#description' => t('Specifies margin space at the bottom of slider, it only affects with "fullscreen" layout.'),
+    '#default_value' => isset($settings['setup_slide']['fullscreenMargin']) ? $settings['setup_slide']['fullscreenMargin'] : false
+  );
+  $element['setup_slide']['width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#description' => t('The base width of slides. It helps the slider to resize in correct ratio.'),
+    '#default_value' => isset($settings['setup_slide']['width']) ? $settings['setup_slide']['width'] : 300,
+  );
+  $element['setup_slide']['height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height'),
+    '#description' => t('The base height of slides, It helps the slider to resize in correct ratio.'),
+    '#default_value' => isset($settings['setup_slide']['height']) ? $settings['setup_slide']['height'] : 150
+  );
+  $element['setup_slide']['space'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Space'),
+    '#description' => t('The spacing value between slides in pixels.'),
+    '#default_value' => isset($settings['setup_slide']['space']) ? $settings['setup_slide']['space'] : 0
+  );
+  $element['setup_slide']['grabCursor'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('grabCursor'),
+    '#return_value' => true,
+    '#description' => t('Whether the slider uses grab mouse cursor.'),
+    '#default_value' => isset($settings['setup_slide']['grabCursor']) ? $settings['setup_slide']['grabCursor'] : false,
+  );
+  $element['setup_slide']['swipe'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Swipe'),
+    '#return_value' => true,
+    '#description' => t('Whether the drag/swipe navigation is enabled.'),
+    '#default_value' => isset($settings['setup_slide']['swipe']) ? $settings['setup_slide']['swipe'] : false
+  );
+  $element['setup_slide']['mouse'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Mouse'),
+    '#return_value' => true,
+    '#description' => t('Whether the user can use mouse drag navigation.'),
+    '#default_value' => isset($settings['setup_slide']['mouse']) ? $settings['setup_slide']['mouse'] : false
+   );
+  $element['setup_slide']['wheel'] = array(
+    '#type' => 'checkbox',
+    '#title'=> t('Wheel'),
+    '#return_value' => true,
+    '#description' => t('Enables mouse scroll wheel navigation.'),
+    '#default_value' => isset($settings['setup_slide']['wheel']) ? $settings['setup_slide']['wheel'] : false
+  );
+  $element['setup_slide']['keyboard'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Keyboard'),
+    '#return_value' => true,
+    '#description' => t('Enables keyboard navigation.'),
+    '#default_value' => isset($settings['setup_slide']['keyboard']) ? $settings['setup_slide']['keyboard'] : false
+  );
+  $element['setup_slide']['autoPlay'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('AutoPlay'),
+    '#return_value' => true,
+    '#description' => t('Enables the autoplay slideshow.'),
+    '#default_value' => isset($settings['setup_slide']['autoPlay']) ? $settings['setup_slide']['autoPlay'] : false
+  );
+  $element['setup_slide']['loop'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Loop'),
+    '#return_value' => true,
+    '#description' => t('Enables the continuous sliding mode.'),
+    '#default_value' => isset($settings['setup_slide']['loop']) ? $settings['setup_slide']['loop'] : false
+  );
+  $element['setup_slide']['shuffle'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Shuffle'),
+    '#return_value' => true,
+    '#description' => t('Enables the shuffle slide order.'),
+    '#default_value' => isset($settings['setup_slide']['shuffle']) ? $settings['setup_slide']['shuffle'] : false
+  );
+  $element['setup_slide']['heightLimit'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('heightLimit'),
+    '#return_value' => true,
+    '#description' => t('It force the slide to use max height value as its base specified height value.'),
+    '#default_value' => isset($settings['setup_slide']['heightLimit']) ? $settings['setup_slide']['heightLimit'] : false
+  );
+  $element['setup_slide']['autoHeight'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('autoHeight'),
+    '#return_value' => true,
+    '#description' => t('Whether the slider adapts its height to each slide height or not. It overrides heightLimit option.'),
+    '#default_value' => isset($settings['setup_slide']['autoHeight']) ? $settings['setup_slide']['autoHeight'] : false
+  );
+  $element['setup_slide']['smoothHeight'] = array(
+    '#type' => 'checkbox',
+    '#return_value' => true,
+    '#title' => t('smoothHeight'),
+    '#description' => t('Whether the slider uses smooth animation while its height changes.'),
+    '#default_value' => isset($settings['setup_slide']['smoothHeight']) ? $settings['setup_slide']['smoothHeight'] : false,
+  );
+  $element['setup_slide']['endPause'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('endPause'),
+    '#return_value' => true,
+    '#description' => t('Whether the slider pauses slideshow when it reaches to last slide.'),
+    '#default_value' => isset($settings['setup_slide']['endPause']) ? $settings['setup_slide']['endPause'] : false
+  );
+  $element['setup_slide']['overPause'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('overPause'),
+    '#return_value' => true,
+    '#description' => 'Whether the slider pauses slideshow on hover.',
+    '#default_value' => isset($settings['setup_slide']['overPause']) ? $settings['setup_slide']['overPause'] : false,
+  );
+  $element['setup_slide']['fillMode']= array(
+    '#type'=> 'select',
+    '#title' => t('FillMode'),
+    '#options' => array('fill' => 'Fill','fit'=> 'Fit','stretch' => 'Stretch','center'=>'Center','tile' => 'Tile'),
+    '#description' => t('Specifies the slide background scaling method. Its acceptable values are "fill", "fit", "stretch", "center" and "tile".'),
+    '#default_value' => $settings['setup_slide']['fillMode']
+  );
+  $element['setup_slide']['centerControls'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('centerControls'),
+    '#description' => t('Whether the slider aligns UI controls to center. This option is only effective in full width mode.'),
+    '#default_value' => $settings['setup_slide']['centerControls'],
+  );
+
+  return $element;
+
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function mod_media_multi_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  if (empty($items)) {
+    return;
+  }
+  $field_name = $instance['field_name'];
+  $entity_type_info = entity_get_info($entity_type);
+  $entity_id = $entity->{$entity_type_info['entity keys']['id']};
+  $settings = $display['settings'];
+  $style = $display['settings']['slide_image_style'];
+  switch ($display['type']) {
+    case 'media_multi':
+      if(count($items) > 1){
+        foreach ($items as $delta => $item) {
+        $file = $item['file'];
+        $file_type = explode('/',$file->filemime)[0];
+        if ($file_type == 'image') {
+          // Generate image
+          if (!empty($style)) {
+            $image = theme_image_style(array(
+              'style_name' => $style,
+              'path'       => $file->uri,
+              'alt'        => isset($file->alt) ? $file->alt : FALSE,
+              'title'      => isset($file->title) ? $file->title : FALSE,
+              'attributes' => NULL,
+              'width'      => '',
+              'height'     => '',
+            ));
+          }
+          else {
+            $image = theme_image(array(
+              'path'       => $file->uri,
+              'alt'        => isset($file->alt) ? $file->alt : FALSE,
+              'title'      => isset($file->title) ? $file->title : FALSE,
+              'attributes' => NULL,
+            ));
+          }
+          $renderitems['items'][] = $image;
+        }
+        if ($file_type == 'video') {
+          $display['settings']['image_style'] = $style;
+
+          if ($file->filemime == 'video/youtube') {
+            $video = media_youtube_file_formatter_image_view($file, $display, LANGUAGE_NONE);
+            $link  = str_replace('watch?v=', 'embed/', file_create_url($file->uri)) . '?hd=1&wmode=opaque&controls=1&showinfo=0';
+          }
+          if ($file->filemime == 'video/vimeo') {
+            $id_video = (substr(parse_url(file_create_url($file->uri), PHP_URL_PATH), 1));
+            $video    = media_vimeo_file_formatter_image_view($file, $display, LANGUAGE_NONE);
+            $link     = 'http://player.vimeo.com/video/' . $id_video . '?&autoplay=1';
+          }
+          $image = theme_image(array(
+            'path'       => $video['#path'],
+            'alt'        => isset($video['#alt']) ? $video['#alt'] : FALSE,
+            'title'      => isset($video['#alt']) ? $video['#alt'] : FALSE,
+            'attributes' => NULL,
+          ));
+          $renderitems['items'][] = array(
+            'img'  => $image,
+            'link' => $link
+          );
+        }
+
+        if ($file->filemime == 'audio/soundcloud') {
+          $display['settings']['image_style'] = $style;
+          $sound                              = media_soundcloud_file_formatter_image_view($file, $display, $langcode);
+          $link                               = file_create_url($file->uri); //'  <a href="https://soundcloud.com/wizkhalifa/bake-sale-ft-travis-scott" data-autoplay="true" data-type="sound"  data-time="2000"></a>';
+          $image                              = theme_image(array(
+            'path'       => $sound['#path'],
+            'alt'        => isset($sound['#alt']) ? $sound['#alt'] : FALSE,
+            'title'      => isset($sound['#alt']) ? $sound['#alt'] : FALSE,
+            'attributes' => NULL,
+          ));
+          $renderitems['items'][]             = array(
+            'img'  => $image,
+            'link' => $link,
+          );
+
+        }
+
+        }
+        drupal_add_js(array('mod_media_multi'=>$settings['setup_slide']),'setting');
+        $element[] = array(
+          '#theme'       => 'gallery_multi',
+          '#items'       => $renderitems,
+          '#setup_slide' => $settings['setup_slide'],
+          '#attached'    => array(
+            'js' => array(
+                drupal_get_path('module','mod_media_multi').'/photos/jquery-sortable-photos.js',
+                drupal_get_path('module','mod_media_multi').'/js/custom.js',
+            ),
+            'css' => array(
+            ),
+          ),
+        );
+      }
+      else if (count($items) == 1){
+        foreach ($items as $delta => $item) {
+          if (!empty($item['file'])) {
+            $files[$item['fid']] = $item['file'];
+          }
+        }
+        if (!empty($files)) {
+          $output = file_view_multiple($files,'default', 0, $langcode);
+          // Remove the first level from the output array.
+          $element = reset($output);
+        }
+      }
+
+
+      break;
+  }
+  //krumo($element);
+  return $element;
+
+
+}
+
+function mod_media_multi_theme()
+{
+  $item['gallery_multi'] = array(
+      'variables' => array(
+        'setup_slide' => null,
+        'items'  => null,
+      ),
+      //'path' => drupal_get_path('module','mod_media_multi').'/themes',
+      //'template' => 'gallery-multi',
+  );
+  return $item;
+}
+function theme_gallery_multi($variables){
+  $setting = $variables['setup_slide'];
+  $items = $variables['items'];
+  $id = drupal_html_id('masterslider');
+  $attributes = array(
+    'class' => array('jQuery-Sortable','ms-skin-'.$setting['skin']),
+  );
+  $list = '';
+   foreach($items['items'] as $delta => $item)
+   {
+     if(is_array($item) && isset($item['img']) && isset($item['link']) ) {
+         $list .= '<div class="ms-slide">' .'<a href="'. (string)$item['link'] .'">'. (string)$item['img'] .'</a></div>';
+     }
+     else {
+       $list .= '<div class="ms-slide">' . $item . '</div>';
+     }
+
+   }
+ return  '<div id="'.$id.'" '.drupal_attributes($attributes).' >'.$list.'</div>';
+}

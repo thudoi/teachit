@@ -1,0 +1,236 @@
+<?php
+
+module_load_include('inc','progressive_shortcodes','includes/html');
+module_load_include('inc','progressive_shortcodes','includes/sitemap');
+module_load_include('inc','progressive_shortcodes','includes/quote');
+module_load_include('inc','progressive_shortcodes','includes/testimonial');
+module_load_include('inc','progressive_shortcodes','includes/progress');
+module_load_include('inc','progressive_shortcodes','includes/spacer');
+module_load_include('inc','progressive_shortcodes','includes/row');
+module_load_include('inc','progressive_shortcodes','includes/col');
+module_load_include('inc','progressive_shortcodes','includes/container');
+module_load_include('inc','progressive_shortcodes','includes/messasge');
+module_load_include('inc','progressive_shortcodes','includes/button');
+module_load_include('inc','progressive_shortcodes','includes/service_box');
+module_load_include('inc','progressive_shortcodes','includes/social_box');
+module_load_include('inc','progressive_shortcodes','includes/pricing_table');
+module_load_include('inc','progressive_shortcodes','includes/view');
+module_load_include('inc','progressive_shortcodes','includes/block');
+module_load_include('inc','progressive_shortcodes','includes/node');
+module_load_include('inc','progressive_shortcodes','includes/quicklinks');
+module_load_include('inc','progressive_shortcodes','includes/video');
+module_load_include('inc','progressive_shortcodes','includes/contact');
+module_load_include('inc','progressive_shortcodes','includes/sequence');
+module_load_include('inc','progressive_shortcodes','includes/sequence_item');
+module_load_include('inc','progressive_shortcodes','includes/accordions');
+module_load_include('inc','progressive_shortcodes','includes/accordions_item');
+module_load_include('inc','progressive_shortcodes','includes/image');
+module_load_include('inc','progressive_shortcodes','includes/gmap');
+module_load_include('inc','progressive_shortcodes','includes/tabs');
+module_load_include('inc','progressive_shortcodes','includes/tabs_item');
+module_load_include('inc','progressive_shortcodes','includes/horizontal_rule');
+module_load_include('inc','progressive_shortcodes','includes/title');
+module_load_include('inc','progressive_shortcodes','includes/styledcontainer');
+module_load_include('inc','progressive_shortcodes','includes/chart');
+module_load_include('inc','progressive_shortcodes','includes/textrotation');
+module_load_include('inc','progressive_shortcodes','includes/icon');
+module_load_include('inc','progressive_shortcodes','includes/owlcarousel');
+module_load_include('inc','progressive_shortcodes','includes/wrapper_div');
+module_load_include('inc','progressive_shortcodes','includes/counter');
+module_load_include('inc','progressive_shortcodes','includes/icon_list');
+module_load_include('inc','progressive_shortcodes','includes/piechart');
+module_load_include('inc','progressive_shortcodes','includes/team');
+/**
+ * Implementation of hook_menu().
+ */
+function progressive_shortcodes_menu() {
+  $items = array();
+  $items['admin/ajax/progressive_shortcodes/livicons_autocomplete'] = array(
+    'page callback' => 'progressive_shortcodes_ajax_livicons_autocomplete',
+    'access arguments' => array('administer nd visualshortcodes'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/ajax/progressive_shortcodes/socialbox_autocomplete'] = array(
+    'page callback' => 'progressive_shortcodes_ajax_socialbox_autocomplete',
+    'access arguments' => array('administer nd visualshortcodes'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Return array with region ID and his HTML class name
+*/
+function progressive_shortcodes_theme() {
+   return array(
+    'progressive_shortcodes_shortcode_chart_settings' => array(
+      'render element' => 'form'
+    ),
+    'progressive_shortcodes_shortcode_icon_list_settings' => array(
+      'render element' => 'form'
+    ),
+    'progressive_shortcodes_shortcode_pricing_settings' => array(
+      'render element' => 'form'
+    ),
+    'progressive_shortcodes_shortcode_precessbar_setting' => array(
+      'render element' => 'form'
+    )
+  );
+}
+
+/**
+ * Implementation of hook_shortcode_info() .
+ * Using the same formatting as hook_filter_info()
+ */
+function progressive_shortcodes_shortcode_info() {
+  $shortcodes = array();
+
+  progressive_shortcodes_html_shortcode_info($shortcodes);
+  progressive_shortcodes_shortcode_sitemap_info($shortcodes);
+  progressive_shortcodes_quote_shorcode_info($shortcodes);
+  progressive_shortcodes_testimonial_shortcode_info($shortcodes);
+  progressive_shortcodes_progress_shortcode_info($shortcodes);
+  progressive_shortcodes_spacer_shortcode_info($shortcodes);
+  progressive_shortcodes_row_shortcode($shortcodes);
+  progressive_shortcodes_col_shortcode($shortcodes);
+  progressive_shortcodes_container_shorcode_info($shortcodes);
+  progressive_shortcodes_messasge_shortcode_info($shortcodes);
+  progressive_shortcodes_button_shortcode_info($shortcodes);
+  progressive_shortcodes_service_box_shortcode_info($shortcodes);
+  progressive_shortcodes_social_box_shortcode_info($shortcodes);
+  progressive_shortcodes_pricing_table_shortcode_info($shortcodes);
+  progressive_shortcodes_view_shortcode_info($shortcodes);
+  progressive_shortcodes_block_shortcode_info($shortcodes);
+  progressive_shortcodes_node_shortcode_info($shortcodes);
+  progressive_shortcodes_quicklinks_shortcode_info($shortcodes);
+  progressive_shortcodes_video_shortcode_info($shortcodes);
+  progressive_shortcodes_contact_shotcode_info($shortcodes);
+  progressive_shortcodes_sequence_shortcode_info($shortcodes);
+  progressive_shortcodes_sequence_item_shortcode_info($shortcodes);
+  progressive_shortcodes_accordions_shortcode_info($shortcodes);
+  progressive_shortcodes_accordions_item_shortcode_info($shortcodes);
+  progressive_shortcodes_image_shortcode_info($shortcodes);
+  progressive_shortcodes_gmap_shortcode_info($shortcodes);
+  progressive_shortcodes_tabs_shortcode_info($shortcodes);
+  progressive_shortcodes_tabs_item_shortcode_info($shortcodes);
+  progressive_shortcodes_horizontal_rule_shortcode_info($shortcodes);
+  progressive_shortcodes_title_shortcode_info($shortcodes);
+  progressive_shortcodes_chart_shortcode_info($shortcodes);
+  progressive_shortcodes_styledcontainer_shortcode_info($shortcodes);
+  progressive_shortcodes_icon_shortcode_info($shortcodes);
+  progressive_shortcodes_styledcontainer_shortcode_info($shortcodes);
+  progressive_shortcodes_textrotation_shortcode_info($shortcodes);
+  progressive_shortcodes_owlcarousels_shortcode_info($shortcodes);
+  progressive_shortcodes_carousel_item_shortcode_info($shortcodes);
+  progressive_shortcodes_wrapper_div_shortcode_info($shortcodes);
+  progressive_shortcodes_counter_shortcode_info($shortcodes);
+  progressive_shortcodes_icon_list_shortcode_info($shortcodes);
+  progressive_shortcodes_piechart_shortcode_info($shortcodes);
+  progressive_shortcodes_team_shortcode_info($shortcodes);
+  return $shortcodes;
+}
+
+function _progressive_shortcodes_shortcode_attributes($attrs) {
+  if(empty($attrs)) {
+    return '';
+  }
+  $allowed_attributes = array('class' => 'class', 'extra_classes' => 'class', 'href' => 'href', 'id' => 'id', 'animation' => 'data-appear-animation', 'animation_delay' => 'data-appear-animation-delay', 'style' => 'style', 'extra_style' => 'style', 'target' => 'target');
+  if (isset($attrs['link']) && $attrs['link'] == $_GET['q']) {
+    $attrs['class'] = (isset($attrs['class']) ? $attrs['class'] : '') . ' active'; 
+  }
+  $output = '';
+  $attrs_array = array();
+  foreach($attrs as $name => $value) {
+    $value = trim($value);
+    if(strpos($name, 'style_') === 0) {
+      $value_style = str_replace(array('style_', '_'), array('', '-'), $name);
+      if(strpos($value_style, 'border-radius') !== FALSE) {
+        $value = strpos($value, '%') !== FALSE ? $value : (int)$value . 'px;';
+        $value = '-webkit-' . $value_style. ': ' . $value . '; -moz-' . $value_style. ': ' . $value . '; ' . $value_style. ': ' . $value . ';';
+      }
+      elseif(strpos($name, 'margin') !== FALSE || strpos($name, 'padding') !== FALSE || strpos($name, 'width') !== FALSE || strpos($name, 'height') !== FALSE) {
+        $value = strpos($value, '%') !== FALSE ? $value : (int)$value . 'px;';
+        $value =  $value_style . ': ' . $value;
+      }
+      elseif(strpos($name, 'color') !== FALSE) {
+        $value =  $value_style . ': #' . trim($value, '#') . ';';
+      }
+      elseif(strpos($value_style, 'image') !== FALSE) {
+        $file = file_load($value);
+        $filename = isset($file->uri) ? file_create_url($file->uri) : '';
+        $value =  $value_style . ': url("' . $filename . '");';
+      }
+      else {
+        $value = $value_style . ': ' . $value . ';';
+      }
+      $name = 'style';
+    }
+    if(isset($allowed_attributes[$name])) {
+      $name = $allowed_attributes[$name];
+      if ($value !== '') {
+        $attrs_array[$name] = (isset($attrs_array[$name]) ? $attrs_array[$name] . ' ' : '') . $value;
+      }
+    }
+    elseif(strpos($name, 'data-') === 0) {
+      if ($value !== '') {
+        $attrs_array[$name] = (isset($attrs_array[$name]) ? $attrs_array[$name] . ' ' : '') . $value;
+      }
+    }
+  }
+  if(isset($attrs['style_background_color']) && strtolower(trim($attrs['style_background_color'], '#')) == '000000') {
+    $attrs_array['class'] = (isset($attrs_array['class']) ? $attrs_array['class'] : '') . ' text-white';
+  }
+  if(isset($attrs['style_background_color']) && strtolower(trim($attrs['style_background_color'], '#')) == 'ffffff') {
+    $attrs_array['class'] = (isset($attrs_array['class']) ? $attrs_array['class'] : '') . ' text-black';
+  }
+  if(isset($attrs['text_align']) && $attrs['text_align']) {
+    $attrs_array['style'] = (isset($attrs_array['style']) ? $attrs_array['style'] : '') . ' text-align:'. $attrs['text_align'] . ';';
+  }
+
+  foreach($attrs_array as $name => $value) {
+    $output .= " $name = '$value'";
+  }
+  return $output;
+}
+
+
+function progressive_shortcodes_ajax_socialbox_autocomplete($str) {
+  $icons = array('icon-twitter', 'icon-dribbble', 'icon-facebook', 'icon-duckduckgo', 'icon-aim', 'icon-delicious', 'icon-paypal', 'icon-android', 'icon-gplus', 'icon-lanyrd', 'icon-stumbleupon', 'icon-fivehundredpx', 'icon-pinterest', 'icon-bitcoin', 'icon-w3c', 'icon-foursquare', 'icon-html5', 'icon-ie', 'icon-grooveshark', 'icon-ninetyninedesigns', 'icon-forrst', 'icon-spotify', 'icon-reddit', 'icon-gowalla', 'icon-appstore', 'icon-blogger', 'icon-cc', 'icon-evernote', 'icon-flickr', 'icon-google', 'icon-viadeo', 'icon-instapaper', 'icon-klout', 'icon-linkedin', 'icon-meetup', 'icon-vk', 'icon-disqus', 'icon-rss', 'icon-skype', 'icon-youtube', 'icon-vimeo', 'icon-windows', 'icon-xing', 'icon-yahoo', 'icon-chrome', 'icon-macstore', 'icon-amazon', 'icon-steam', 'icon-dropbox', 'icon-cloudapp', 'icon-ebay', 'icon-github', 'icon-googleplay', 'icon-itunes', 'icon-plurk', 'icon-songkick', 'icon-lastfm', 'icon-gmail', 'icon-pinboard', 'icon-openid', 'icon-quora', 'icon-soundcloud', 'icon-tumblr', 'icon-eventasaurus', 'icon-wordpress', 'icon-yelp', 'icon-intensedebate', 'icon-eventbrite', 'icon-scribd', 'icon-posterous', 'icon-stripe', 'icon-opentable', 'icon-instagram', 'icon-dwolla', 'icon-appnet', 'icon-statusnet', 'icon-acrobat', 'icon-drupal', 'icon-pocket', 'icon-bitbucket', 'icon-flattr', 'icon-eventful', 'icon-smashmag', 'icon-wordpress', 'icon-calendar', 'icon-call', 'icon-guest', 'icon-weibo', 'icon-plancast', 'icon-email', 'icon-myspace', 'icon-podcast', 'icon-cart');
+  $matches = array();
+  foreach ($icons as $icon) {
+    if(stripos($icon, $str) !== FALSE) {
+      $matches[$icon] = $icon;
+    }
+  }
+  drupal_json_output($matches);
+}
+
+
+
+function progressive_shortcodes_ajax_livicons_autocomplete($str) {
+  $icons = array('address-book', 'adjust', 'alarm', 'albums', 'align-center', 'align-justify', 'align-left', 'align-right', 'anchor', 'android', 'angle-double-down', 'angle-double-left', 'angle-double-right', 'angle-double-up', 'angle-down', 'angle-left', 'angle-right', 'angle-up', 'angle-wide-down', 'angle-wide-left', 'angle-wide-right', 'angle-wide-up', 'apple', 'apple-logo', 'archive-add', 'archive-extract', 'arrow-circle-down', 'arrow-circle-left', 'arrow-circle-right', 'arrow-circle-up', 'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up', 'asterisk', 'balance', 'ban', 'barchart', 'barcode', 'battery', 'beer', 'bell', 'bing', 'biohazard', 'bitbucket', 'blogger', 'bluetooth', 'bold', 'bolt', 'bookmark', 'bootstrap', 'briefcase', 'brightness-down', 'brightness-up', 'brush', 'bug', 'calendar', 'camcoder', 'camera', 'camera-alt', 'car', 'caret-down', 'caret-left', 'caret-right', 'caret-up', 'cellphone', 'certificate', 'check', 'check-circle', 'check-circle-alt', 'checked-off', 'checked-on', 'chevron-down', 'chevron-left', 'chevron-right', 'chevron-up', 'chrome', 'circle', 'circle-alt', 'clapboard', 'clip', 'clock', 'cloud', 'cloud-bolts', 'cloud-down', 'cloud-rain', 'cloud-snow', 'cloud-sun', 'cloud-up', 'code', 'collapse-down', 'collapse-up', 'columns', 'comment', 'comments', 'compass', 'concrete5', 'connect', 'credit-card', 'crop', 'css3', 'dashboard', 'desktop', 'deviantart', 'disconnect', 'doc-landscape', 'doc-portrait', 'download', 'download-alt', 'dribbble', 'drop', 'dropbox', 'edit', 'exchange', 'expand-left', 'expand-right', 'external-link', 'eye-close', 'eye-open', 'eyedropper', 'facebook', 'facebook-alt', 'file-export', 'file-import', 'film', 'filter', 'fire', 'firefox', 'flag', 'flickr', 'flickr-alt', 'folder-add', 'folder-flag', 'folder-lock', 'folder-new', 'folder-open', 'folder-remove', 'font', 'gear', 'gears', 'ghost', 'gift', 'github', 'github-alt', 'glass', 'globe', 'google-plus', 'google-plus-alt', 'hammer', 'hand-down', 'hand-left', 'hand-right', 'hand-up', 'heart', 'heart-alt', 'help', 'home', 'html5', 'ie', 'image', 'inbox', 'inbox-empty', 'inbox-in', 'inbox-out', 'indent-left', 'indent-right', 'info', 'instagram', 'ios', 'italic', 'jquery', 'key', 'lab', 'laptop', 'leaf', 'legal', 'linechart', 'link', 'linkedin', 'linkedin-alt', 'list', 'list-ol', 'list-ul', 'livicon', 'location', 'lock', 'magic', 'magic-alt', 'magnet', 'mail', 'mail-alt', 'map', 'medal', 'message-add', 'message-flag', 'message-in', 'message-lock', 'message-new', 'message-out', 'message-remove', 'microphone', 'minus', 'minus-alt', 'money', 'moon', 'more', 'morph-c-o', 'morph-c-s', 'morph-c-t-down', 'morph-c-t-left', 'morph-c-t-right', 'morph-c-t-up', 'morph-o-c', 'morph-o-s', 'morph-o-t-down', 'morph-o-t-left', 'morph-o-t-right', 'morph-o-t-up', 'morph-s-c', 'morph-s-o', 'morph-s-t-down', 'morph-s-t-left', 'morph-s-t-right', 'morph-s-t-up', 'morph-t-down-c', 'morph-t-down-o', 'morph-t-down-s', 'morph-t-left-c', 'morph-t-left-o', 'morph-t-left-s', 'morph-t-right-c', 'morph-t-right-o', 'morph-t-right-s', 'morph-t-up-c', 'morph-t-up-o', 'morph-t-up-s', 'move', 'music', 'myspace', 'new-window', 'notebook', 'opera', 'pacman', 'paypal', 'pen', 'pencil', 'phone', 'piechart', 'piggybank', 'pin-off', 'pin-on', 'pinterest', 'pinterest-alt', 'plane-down', 'plane-up', 'playlist', 'plus', 'plus-alt', 'presentation', 'printer', 'qrcode', 'question', 'quote-left', 'quote-right', 'raphael', 'recycled', 'reddit', 'redo', 'refresh', 'remove', 'remove-alt', 'remove-circle', 'resize-big', 'resize-big-alt', 'resize-horizontal', 'resize-horizontal-alt', 'resize-small', 'resize-small-alt', 'resize-vertical', 'resize-vertical-alt', 'responsive', 'responsive-menu', 'retweet', 'rocket', 'rotate-left', 'rotate-right', 'rss', 'safari', 'sandglass', 'save', 'scissors', 'screen-full', 'screen-full-alt', 'screen-small', 'screen-small-alt', 'screenshot', 'search', 'servers', 'settings', 'share', 'shield', 'shopping-cart', 'shopping-cart-in', 'shopping-cart-out', 'shuffle', 'sign-in', 'sign-out', 'signal', 'sitemap', 'sky-dish', 'skype', 'sort', 'sort-down', 'sort-up', 'soundcloud', 'speaker', 'spinner-five', 'spinner-four', 'spinner-one', 'spinner-seven', 'spinner-six', 'spinner-three', 'spinner-two', 'star-empty', 'star-full', 'star-half', 'stopwatch', 'striked', 'stumbleupon', 'stumbleupon-alt', 'sun', 'table', 'tablet', 'tag', 'tags', 'tasks', 'text-decrease', 'text-height', 'text-increase', 'text-size', 'text-width', 'thermo-down', 'thermo-up', 'thumbnails-big', 'thumbnails-small', 'thumbs-down', 'thumbs-up', 'timer', 'trash', 'tree', 'trophy', 'truck', 'tumblr', 'twitter', 'twitter-alt', 'umbrella', 'underline', 'undo', 'unlink', 'unlock', 'upload', 'upload-alt', 'user', 'user-add', 'user-ban', 'user-flag', 'user-remove', 'users', 'users-add', 'users-ban', 'users-remove', 'vector-circle', 'vector-curve', 'vector-line', 'vector-polygon', 'vector-square', 'video-backward', 'video-eject', 'video-fast-backward', 'video-fast-forward', 'video-forward', 'video-pause', 'video-play', 'video-play-alt', 'video-step-backward', 'video-step-forward', 'video-stop', 'vimeo', 'vk', 'warning', 'warning-alt', 'webcam', 'wifi', 'wifi-alt', 'windows', 'windows8', 'wordpress', 'wordpress-alt', 'wrench', 'xing', 'yahoo', 'youtube', 'zoom-in', 'zoom-out');
+  $matches = array();
+  foreach ($icons as $icon) {
+    if(stripos($icon, $str) !== FALSE) {
+      $matches[$icon] = $icon;
+    }
+  }
+  drupal_json_output($matches);
+}
+
+
+function progressive_shortcodes_list_view_mode_node()
+{
+  $entity_node = entity_get_info('node');
+  $view_modes  = $entity_node['view modes'];
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function progressive_shortcodes_form_alter(&$form, &$form_state, $form_id)
+{
+
+
+}

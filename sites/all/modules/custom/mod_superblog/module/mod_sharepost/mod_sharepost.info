@@ -1,0 +1,4 @@
+name = Share Post
+description = Generate Block support share Facebook,Twitter,Google,Pinterest
+core = 7.x
+version = 1.0

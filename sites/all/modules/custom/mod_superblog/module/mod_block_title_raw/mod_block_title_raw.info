@@ -1,0 +1,6 @@
+name = Block title raw
+description = This module add plugin title block raw HTML
+core = 7.x
+version = 1.0
+dependencies[] = block
+package = Custom module - Required

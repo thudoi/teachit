@@ -1,0 +1,30 @@
+#block-mod-superblog-mod-title{
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+}
+.wrap_bg_header {
+    background-color: #222;
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#block-mod-superblog-mod-title .content > .container{min-height: 300px;display: table;color:#fff;}
+#block-mod-superblog-mod-title .wrap-title {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+    width: 100%;
+}
+#block-mod-superblog-mod-title ul.breadcrumb{
+    background: rgba(0,0,0,0) none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    line-height: 24px;
+    margin: 15px 0 15px 10px;
+    padding: 0;
+}

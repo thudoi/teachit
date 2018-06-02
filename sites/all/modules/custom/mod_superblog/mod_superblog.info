@@ -1,0 +1,5 @@
+name = Mod Super Blog
+description = All Module support for theme Support Blog
+package = Custom module - Required
+core= 7.x
+version= 1.0

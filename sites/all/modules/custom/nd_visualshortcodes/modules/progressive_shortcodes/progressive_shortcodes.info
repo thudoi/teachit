@@ -1,0 +1,7 @@
+; $Id: 
+name = Progressive Shortcodes
+description = Shortcodes for Progressive theme
+package = Custom module - Required
+dependencies[] = nd_visualshortcodes
+version = "7.x - 1.0"
+core = 7.x

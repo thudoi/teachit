@@ -1,0 +1,5 @@
+name = Mod Bean
+description = Create Type Bean
+core = 7.x
+version = 1.0
+package = Custom module - Required

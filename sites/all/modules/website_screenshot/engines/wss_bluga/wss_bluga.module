@@ -1,0 +1,126 @@
+<?php
+
+
+/** implementation of hook_menu()
+ *
+ **/
+function wss_bluga_menu() {
+  $items = array();
+  $items['admin/config/media/website_screenshot/bluga'] = array(
+	'title' => t('Bluga'),
+	'description' => t('Configure Screenshot Bluga'),
+	'page callback' => 'drupal_get_form',
+	'page arguments' => array('wss_bluga_settings'),
+	'access arguments' => array('administer screenshot'),
+	'file' => 'wss_bluga.admin.inc',
+	'type' => MENU_LOCAL_TASK,
+  );
+  
+  return $items;
+}
+
+
+/** implementation of hook_help()
+ **/
+function wss_bluga_help($path, $arg) {
+  switch($path) {
+	case 'admin/settings/screenshot/bluga':
+	  return t('Configure you Bluga settings here. Any field you leave blank will use a default value.');
+  }
+}
+
+
+/** implementation of hook_screenshot_engines
+return an array of screenshot engine definitions
+ **/
+function wss_bluga_screenshot_engines() {
+  return array(
+	'bluga' => array(
+	  'title' => t('Bluga'),
+	  'multiple' => TRUE,
+	)
+  );
+}
+
+
+function wss_bluga_request($url, &$message) {
+  $bluga_key = variable_get('wss_bluga_api_key', "");
+  return TRUE;
+}
+
+
+
+
+
+/**
+ *
+ * This function must return:
+ *  FALSE = the screenshot is not good
+ *  TRUE  = the screenshot is OK!
+ */
+
+function wss_bluga_status($url, &$message) {
+  $bluga_key = variable_get('wss_bluga_api_key', "");
+  return TRUE;
+}
+
+function wss_bluga_download($url, &$message) {
+  $bluga_key = variable_get('wss_bluga_api_key', "");
+  $path = drupal_get_path('module','wss_bluga');
+  require_once $path.'/Bluga/Autoload.php';
+  
+  try {
+	$webthumb = new Bluga_Webthumb();
+	$webthumb->setApiKey($bluga_key);
+	
+	// -1 for auto height
+	$job = $webthumb->addUrl($url,'full', 1280, 480);
+	
+	// enable fullthumb
+	$job->options->fullthumb = 1;
+	$job->options->outputType = 'png';
+	
+	// if your making a lot of requests use notification, set it like
+	// $job->options->notify = 'http://example.com/notify.php';
+	// see bulk_with_db for a complete example
+	$webthumb->submitRequests();
+	
+	// status webpage
+	
+	// wait for the job to be finished and download, don't do this if you use notify
+	while (!$webthumb->readyToDownload()) {
+	  sleep(5);
+	  $webthumb->checkJobStatus();
+	}
+	
+	$webthumb->fetchToFile($job);
+	$job_id = $job->status->id;
+	$data = "
+     <webthumb>
+    	<apikey>".$bluga_key."</apikey>
+    	<fetch>
+    		<job>".(string)$job_id."</job>
+    		<size>large</size>
+    	</fetch>
+    </webthumb>
+    ";
+	$http = drupal_http_request('http://webthumb.bluga.net/api.php', array('method' => 'POST' , 'data'=>$data));
+	if(variable_get('wss_bluga_debug', 0)){
+	  watchdog('WSS-bluga-debug', "Function: wss_bluga_download data: <pre>%data</pre>",  array('%data'=>  print_r($http, TRUE), WATCHDOG_DEBUG));
+	}
+	if ($http->code == 200 && strlen($http->data) > 500 ) {
+	  return $http->data;
+	}
+	else{
+	  return FALSE;
+	}
+	
+  } catch (Exception $e) {
+	var_dump($e->getMessage());
+  }
+  
+}
+
+function wss_bluga_request_refresh($url) {
+  // TODO: Check if Bluga service has refresh abilities.
+}

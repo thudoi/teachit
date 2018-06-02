@@ -1,0 +1,818 @@
+<?php
+/**
+ * @file
+ 
+ */
+
+/**
+ * @defgroup website_screenshot Example: Field Types API
+ * @ingroup examples
+ * @{
+ * Examples using Field Types API.
+ *
+ * This is updated from Barry Jaspan's presentation at Drupalcon Paris,
+ * @link http://acquia.com/community/resources/acquia-tv/intro-field-api-module-developers Video Presentation @endlink
+ *
+ * Providing a field requires:
+ * - Defining a field:
+ *   - hook_field_info()
+ *   - hook_field_schema() OK
+ *   - hook_field_validate() OK
+ *   - hook_field_is_empty() OK
+ *
+ * - Defining a formatter for the field (the portion that outputs the field for
+ *   display):
+ *   - hook_field_formatter_info() OK
+ *   - hook_field_formatter_view()OK
+ *
+ * - Defining a widget for the edit form:
+ *   - hook_field_widget_info()
+ *   - hook_field_widget_form()
+ *
+ * Our module defines the field in website_screenshot_field_info(),
+ * website_screenshot_field_validate() and website_screenshot_field_is_empty().
+ * website_screenshot_field_schema() is implemented in website_screenshot.install.
+ *
+ * Our module sets up a formatter in website_screenshot_field_formatter_info() and
+ * website_screenshot_field_formatter_view(). These are the API hooks that present
+ * formatted and themed output to the user.
+ 
+ * And finally, our module defines the widet in
+ * website_screenshot_field_widget_info() and website_screenshot_field_widget_form().
+ * The widget is the form element used to receive input from the user
+ * when the field is being populated.
+ *
+ * @see field_types
+ * @see field
+ */
+
+/**
+ * Implements hook_help().
+ */
+function website_screenshot_help($path, $arg) {
+  switch ($path) {
+	case 'admin/help#website_screenshot':
+	  $filepath = dirname(__FILE__) . '/README.TXT';
+	  if (file_exists($filepath)) {
+		$readme = file_get_contents($filepath);
+	  }
+	  
+	  if (!isset($readme)) {
+		return NULL;
+	  }
+	  if (module_exists('markdown')) {
+		$filters = module_invoke('markdown', 'filter_info');
+		$info = $filters['filter_markdown'];
+		
+		if (function_exists($info['process callback'])) {
+		  $output = $info['process callback']($readme, NULL);
+		}
+		else {
+		  $output = '<pre>' . $readme . '</pre>';
+		}
+	  }
+	  else {
+		$output = '<pre>' . $readme . '</pre>';
+	  }
+	  return $output;
+  }
+}
+
+/***************************************************************
+ * Field Type API hooks
+ ***************************************************************/
+
+/**
+ * Implements hook_field_info().
+ *
+ * Provides the description of the field.
+ */
+function website_screenshot_field_info() {
+  return array(
+	// We name our field as the associative name of the array.
+	'website_screenshot_image' => array(
+	  'label' => t('Website Screenshot'),
+	  'description' => t('Demonstrates a field composed of an RGB color.'),
+	  'default_widget' => 'website_screenshot_2text',
+	  'default_formatter' => 'website_screenshot_simple_link',
+	),
+  );
+}
+
+/**
+ * Implements hook_field_validate().
+ *
+ * This hook gives us a chance to validate content that's in our
+ * field. We're really only interested in the $items parameter, since
+ * it holds arrays representing content in the field we've defined.
+ * We want to verify that the items only contain RGB hex values like
+ * this: #RRGGBB. If the item validates, we do nothing. If it doesn't
+ * validate, we add our own error notification to the $errors parameter.
+ *
+ * @see website_screenshot_field_widget_error()
+ */
+function website_screenshot_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+	if (!empty($item['url'])) {
+	  if (! valid_url($item['url'], TRUE)) {
+		$errors[$field['field_name']][$langcode][$delta][] = array(
+		  'error' => 'website_screenshot_invalid',
+		  'message' => t('Verify the syntax of the given URL.'),
+		);
+	  }
+	}
+  }
+}
+
+
+/**
+ * Implements hook_field_is_empty().
+ *
+ * hook_field_is_emtpy() is where Drupal asks us if this field is empty.
+ * Return TRUE if it does not contain data, FALSE if it does. This lets
+ * the form API flag an error when required fields are empty.
+ */
+function website_screenshot_field_is_empty($item, $field) {
+  return empty($item['url']);
+}
+
+
+function website_screenshot_field_delete($entity_type, $entity, $field, $instance, $langcode, &$items){
+  foreach ($items as $delta => $item) {
+	$file = file_load($item['file_id']);
+	if($file->id){
+	  file_delete($file);
+	}
+  }
+}
+
+
+
+
+/**
+ * Implements hook_field_presave().
+ *
+ * hook_field_presave make changes or additions to field values by altering
+ * the $items parameter by reference. There is no return value.
+ *
+ * WSS use this hook to schedule the Snapshot service request.
+ *
+ */
+function website_screenshot_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items){
+  //$engine = $instance['settings']['engine'];
+  $engine = $instance['bundle'];
+  foreach ($items as $delta => $item) {
+	if(property_exists($entity, 'original')){
+	  $old_url_value = $entity->original->{$field['field_name']}[$langcode][$delta]['url'];
+	}
+	else{
+	  $old_url_value = '';
+	}
+	if($item['url'] != $old_url_value){
+	  if(!wss_screenshot_request($item['url'], $engine, $message)){
+		drupal_set_message(t('Error: %eng .....', array('%mes'=>$message, '%eng'=>$engine )), 'error'); //TODO
+	  }
+	}
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ *
+ * We need to tell Drupal that we have two different types of formatters
+ * for this field. One will change the text color, and the other will
+ * change the background color.
+ *
+ * @see website_screenshot_field_formatter_view()
+ */
+function website_screenshot_field_formatter_info() {
+  return array(
+	// This formatter just displays the hex value in the color indicated.
+	'website_screenshot_simple_link' => array(
+	  'label' => t('Simple text-based link'),
+	  'field types' => array('website_screenshot_image'),
+	  'settings' => array('image_style' => '', 'link_destination' => 'url'),
+	),
+	// This formatter changes the background color of the content region.
+	'website_screenshot_image_link' => array(
+	  'label' => t('Simple image-based link'),
+	  'field types' => array('website_screenshot_image'),
+	  'settings' => array('image_style' => '', 'link_destination' => 'url'),
+	),
+  );
+}
+
+function website_screenshot_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items){
+
+}
+
+/*
+ * Implementation of hook_field_formatter_prepare_view()
+ *
+ * I try to download the image from the remote server
+ */
+function website_screenshot_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays){
+  foreach ($items as $delta => $element) {
+    if(isset($instances[$delta]['settings']['engine'])){
+	  $engine = $instances[$delta]['settings']['engine'];
+	  foreach($element as $k=>$v){
+		if ($items[$delta][$k]['file_id']){
+		  $file = file_load($items[$delta][$k]['file_id']);
+		  if (file_exists($file->uri)) {
+			continue;
+		  }
+		}
+		if(wss_screenshot_request_status($v['url'], $engine, $message)){
+		  //Wooow my picture is ready!
+		  if($image_data= wss_screenshot_request_download($v['url'], $engine, $message)){
+			$file = website_screenshot_save_image(md5($image_data), $image_data);
+			if($file){
+			  $record['entity_type'] = $instances[$delta]['entity_type'];
+			  $record['entity_id'] = $delta;
+			  $record['deleted'] = $instances[$delta]['deleted'];
+			  $record['delta'] = $k;
+			  $record['language'] = $entities[$delta]->language;
+			  $record[$field['field_name'] . '_file_id'] = $file->fid;
+			  db_merge('field_data_'. $field['field_name'])
+				->key(array('entity_id' => $record['entity_id'], 'entity_type' => $record['entity_type']))
+				->fields(array(
+				  $field['field_name'] . '_file_id' => $file->fid,
+				))
+				->execute();
+			  $items[$delta][$k]['file_id'] = $file->fid;
+			  field_cache_clear(); // Quick and Dirty :(
+		  
+			  // update field record
+		  
+			}
+		
+		  }
+		}
+		else{
+	 
+		}
+	  }
+   
+	}
+  }
+}
+
+
+
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * Two formatters are implemented.
+ * - website_screenshot_simple_link just outputs markup indicating the color that
+ *   was entered and uses an inline style to set the text color to that value.
+ * - website_screenshot_color_background does the same but also changes the
+ *   background color of div.region-content.
+ *
+ * @see website_screenshot_field_formatter_info()
+ */
+function website_screenshot_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  //dpm($instance, 'website_screenshot_field_formatter_view');
+  //dpm($display, 'website_screenshot_field_formatter_view');
+  $element = array();
+  switch ($display['type']) {
+	// This formatter simply outputs the field as link.
+	case 'website_screenshot_simple_link':
+	  if($display['settings']['link_destination'] == 'url'){
+		
+		foreach ($items as $delta => $item) {
+		  $element[$delta] = array(
+			'#markup' => l(check_plain($item['description']), $item['url']),
+		  );
+		}
+	  }
+	  else {
+		foreach ($items as $delta => $item) {
+		  $element[$delta] = array(
+			'#markup' => check_plain($item['description']),
+		  );
+		}
+	  }
+	  break;
+	
+	
+	case 'website_screenshot_image_link':
+	  //---- Render function ('image_style' vs image)
+	  $image_style = ($display['settings']['image_style']) ? $display['settings']['image_style'] : 'image' ;
+	  $image = array();
+	  $image['style_name'] = $display['settings']['image_style'];
+	  foreach ($items as $delta => $item) {
+		// Screenshot is availlable or spash image?
+		if(!$item['file_id']){
+		  $image['path'] = file_default_scheme() . '://'. 'wss.gif' ;
+		  $image['alt'] = $item['description'];
+		  $image['title'] = 'Snapshot of '. $item['url'];
+		  $image['style_name'] = $image_style;
+		}
+		else{
+		  $file = file_load($item['file_id']);
+		  $image['path'] = $file->uri;
+		  $image['alt'] = $item['description'];
+		  $image['title'] = 'Snapshot of '. $item['url'];
+		  $image['style_name'] = $image_style;
+		}
+		//Render image with preset or original?
+		if($image_style == 'image'){
+		  $html = theme('image', $image);
+		}
+		else{
+		  $image['style_name'] = $image_style;
+		  $html = theme('image_style', $image);
+		}
+		//And the link in witch way?
+		switch ($display['settings']['link_destination']){
+		  case 'url':
+			$html = l($html, $item['url'], array('html'=>TRUE) );
+			break;
+		  case 'file':
+			$html = l($html,  file_create_url($image['path']) , array('html'=>TRUE, 'attributes'=> array('class' =>array('colorbox') )) );
+			break;
+		 
+		}
+		$element[$delta] = array(
+		  '#markup' => $html,
+		
+		);
+	  }
+	  break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ *
+ * Three widgets are provided.
+ * - A simple text-only widget where the user enters the '#ffffff'.
+ * - A 3-textfield widget that gathers the red, green, and blue values
+ *   separately.
+ * - A farbtastic colorpicker widget that chooses the value graphically.
+ *
+ * These widget types will eventually show up in hook_field_widget_form,
+ * where we will have to flesh them out.
+ *
+ * @see website_screenshot_field_widget_form()
+ */
+function website_screenshot_field_widget_info() {
+  return array(
+	'website_screenshot_2text' => array(
+	  'label' => t('Website Screenshot image'),
+	  'field types' => array('website_screenshot_image'),
+	),
+  
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ *
+ * hook_widget_form() is where Drupal tells us to create form elements for
+ * our field's widget.
+ *
+ * We provide one of three different forms, depending on the widget type of
+ * the Form API item provided.
+ *
+ * The 'website_screenshot_colorpicker' and 'website_screenshot_text' are essentially
+ * the same, but website_screenshot_colorpicker adds a javascript colorpicker
+ * helper.
+ *
+ * website_screenshot_3text displays three text fields, one each for red, green,
+ * and blue. However, the field type defines a single text column,
+ * rgb, which needs an HTML color spec. Define an element validate
+ * handler that converts our r, g, and b fields into a simulated single
+ * 'rgb' form element.
+ */
+function website_screenshot_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  
+  $url = isset($items[$delta]['url']) ? $items[$delta]['url'] : '';
+  $description = isset($items[$delta]['url']) ? $items[$delta]['description'] : '';
+  
+  $widget = $element;
+  $widget['#delta'] = $delta;
+  
+  switch ($instance['widget']['type']) {
+	case 'website_screenshot_2text':
+	  
+	  // Make this a fieldset with the three text fields.
+	  $widget += array(
+		'#type' => 'fieldset',
+		'#delta' => $delta,
+	  );
+	  
+	  $widget['url'] = array(
+		'#type' => 'textfield',
+		'#title' => 'URL address',
+		'#default_value' =>$url,
+	  );
+	  $widget['description'] = array(
+		'#type' => 'textfield',
+		'#title' => 'Description',
+		'#default_value' => $description //TODO sanitize output?
+	  );
+	  
+	  break;
+	
+  }
+  
+  $element['url'] = $widget['url'];
+  $element['description'] = $widget['description'];
+  return $element;
+}
+
+
+
+
+/**
+ * Implements hook_field_widget_error().
+ *
+ * hook_field_widget_error() lets us figure out what to do with errors
+ * we might have generated in hook_field_validate(). Generally, we'll just
+ * call form_error().
+ *
+ * @see website_screenshot_field_validate()
+ * @see form_error()
+ */
+function website_screenshot_field_widget_error($element, $error, $form, &$form_state) {
+  switch ($error['error']) {
+	case 'website_screenshot_invalid':
+	  form_error($element, $error['message']);
+	  break;
+  }
+}
+
+
+/**
+ * Implements hook_menu().
+ *
+ * Provides a simple user interface that tells the developer where to go.
+ */
+function website_screenshot_menu() {
+  
+  $items['admin/config/media/website_screenshot'] = array(
+	'title' => t('Website Screenshot'),
+	'description' => t('Website Screenshot default/fallback configuration'),
+	'page callback' => 'drupal_get_form',
+	'page arguments' => array('website_screenshot_configure'),
+	'access arguments' => array('access administration pages'),
+	'file' => 'website_screenshot.admin.inc',
+	'weight' => -10,
+  );
+  
+  
+  
+  $items['admin/config/media/website_screenshot/general'] = array(
+	'title' => 'General settings',
+	'type' => MENU_DEFAULT_LOCAL_TASK,
+	'weight' => -10,
+  );
+  
+  
+  
+  
+  
+  $items['examples/website_screenshot'] = array(
+	'title' => 'Website Screenshot',
+	'page callback' => '_website_screenshot_page',
+	'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * A simple page to explain to the developer what to do.
+ */
+function _website_screenshot_page() {
+  return t("The Website Screenshot module provides...  ");
+}
+/**
+ * @} End of "defgroup website_screenshot".
+ */
+
+
+function website_screenshot_field_instance_settings_form(){
+  $form['engine'] = array(
+	'#type' => 'select',
+	'#title' => t('Screenshot engine'),
+	'#options' =>website_screenshot_engines_list(),
+  );
+  return $form;
+}
+
+function website_screenshot_engines_list(){
+  $all_layouts = module_invoke_all('screenshot_engines');
+  foreach ($all_layouts as $key => $value) {
+	$list[$key] = $value['title'];
+  }
+  return $list;
+}
+
+
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function website_screenshot_field_formatter_settings_summary($field, $instance, $view_mode) {
+  /* dpm($field, '$field');
+   dpm($instance, '$instance');
+   dpm($view_mode, '$view_mode');*/
+  
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  
+  $summary = array();
+  
+  $image_styles = image_style_options(FALSE);
+  // Unset possible 'No defined styles' option.
+  unset($image_styles['']);
+  // Styles could be lost because of enabled/disabled modules that defines
+  // their styles in code.
+  if (isset($image_styles[$settings['image_style']])) {
+	$summary[] = t('Image style: @style', array('@style' => $image_styles[$settings['image_style']]));
+  }
+  else {
+	$summary[] = t('Original image');
+  }
+  
+  $link_types = array(
+	'url' => t('Linked to content'),
+	'file' => t('Linked to file'),
+  );
+  // Display this setting only if image is linked.
+  if (isset($link_types[$settings['link_destination']])) {
+	$summary[] = $link_types[$settings['link_destination']];
+  }
+  
+  return implode('<br />', $summary);
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function website_screenshot_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  
+  switch ($display['type']) {
+	case 'website_screenshot_image_link':
+	  $image_styles = image_style_options(FALSE);
+	  $element['image_style'] = array(
+		'#title' => t('Image style'),
+		'#type' => 'select',
+		'#default_value' => $settings['image_style'],
+		'#empty_option' => t('None (original image)'),
+		'#options' => $image_styles,
+	  );
+	  
+	  $link_types = array(
+		'url' => t('Remote URL'),
+		'file' => t('File'),
+	  );
+	  $element['link_destination'] = array(
+		'#title' => t('Link image to'),
+		'#type' => 'select',
+		'#default_value' => $settings['link_destination'],
+		'#empty_option' => t('Nothing'),
+		'#options' => $link_types,
+	  );
+	  break;
+	
+	case 'website_screenshot_simple_link':
+	  $link_types = array(
+		'url' => t('Remote URL'),
+		'no' => t('No link'),
+	  );
+	  $element['link_destination'] = array(
+		'#title' => t('Link destination to'),
+		'#type' => 'select',
+		'#default_value' => $settings['link_destination'],
+		'#empty_option' => t('Nothing'),
+		'#options' => $link_types,
+	  );
+	  
+	  break;
+  }
+  
+  
+  return $element;
+}
+
+
+function _wss_check_engine($engine) {
+  $engine = strtolower($engine);
+  $all_engines = array_keys(website_screenshot_engines_list());
+  if(in_array($engine, $all_engines)) {
+	//reconized engine
+	return $engine;
+  }
+  else {
+	//Exist some engine?
+	if(!$all_engines){
+	  return NULL;
+	}
+	//It's possible use the fallback engine?
+	$fallback = variable_get('website_screenshot_engine', 'thumbalizr');
+	if(in_array($fallback, $all_engines)) {
+	  return $fallback;
+	}
+	else{
+	  //Sorry...
+	  return $all_engines[0];
+	}
+	
+  }
+}
+
+
+function website_screenshot_save_image($filename, $image_data){
+  $filename = "website_screenshot/" . $filename.'.jpg' ;
+  
+  $dest = file_build_uri($filename);
+  if(!$file = file_save_data($image_data, $dest, FILE_EXISTS_REPLACE)){
+	drupal_set_message(t("ERROR: Image writing failed!"));
+	return FALSE;
+  }
+  return $file;
+}
+
+function website_screenshot_remove_all_screenshots(){
+  $thumbnail_dir = file_default_scheme() . '://website_screenshot/';
+  if (FALSE !== ($directory_resource = @opendir($thumbnail_dir))) {
+	while (FALSE !== ($file = readdir($directory_resource))) {
+	  if ($file != "." && $file != "..") {
+		@unlink($thumbnail_dir . $file);
+	  }
+	}
+	closedir($directory_resource);
+	drupal_set_message('All cached thumbshots got deleted');
+  }
+  else {
+	drupal_set_message('Unable to open screenshots directory. Check if it\'s writable.', 'error');
+	watchdog('website_screenshot', 'Unable to open screenshots cache directory on removing all screensghots.', NULL, WATCHDOG_WARNING);
+  }
+}
+
+function website_screenshot_refresh_all_screenshots() {
+  $urls_engines = [];
+  
+  $fields = field_read_fields(['type' => 'website_screenshot_image']);
+  $field_names = array_keys($fields);
+  foreach ($field_names as $name) {
+	$instance = field_read_instances(['field_name' => $name]);
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'node')
+	  ->fieldCondition($name);
+	$result = $query->execute();
+	
+	foreach ($result['node'] as $node) {
+	  $node_obj = node_load($node->nid);
+	  $field = $node_obj->$name;
+	  $urls_engines[] = [
+		'engine' => $instance['0']['settings']['engine'],
+		'url' => $field['und']['0']['url']
+	  ];
+	}
+  }
+  wss_screenshot_request_refresh($urls_engines);
+}
+
+
+/* ------- WSS API LIBRARY-----
+ *
+ * Use this api to code other modules!
+ *
+ */
+
+
+/**
+ * This function perform the screenshot request to remote service
+ *
+ *@param $url
+ *  string: The url to perform screenshoot
+ *
+ *@return
+ *  TRUE (int) if the request is correctly performed
+ *  FALSE (0) if the request is not performed
+ */
+
+function wss_screenshot_request($url, $engine='default', &$message = NULL) {
+  $engine= _wss_check_engine($engine);
+  if(!$engine){
+	$message = 'Error: impossible to fulfill the screenshot request, not available render engines ';
+	return FALSE;
+  }
+  $function = 'wss_'. $engine .'_request';
+  watchdog('WSS-request', "Screenshot of %url requested to %engine", array('%url'=>$url, '%engine'=>$engine), WATCHDOG_NOTICE);
+  $result = $function($url, $message);
+  return $result;
+}
+
+
+/**
+ * This function check the screenshot status to remote service
+ *
+ *@param $url
+ *  string: The url to perform screenshoot
+ *
+ *@return
+ *  TRUE (int) if the request is correctly performed
+ *  FALSE (0) if the request is not performed
+ */
+
+function wss_screenshot_request_status($url, $engine='default', &$message = NULL) {
+  $engine= _wss_check_engine($engine);
+  if(!$engine){
+	$message = 'Error: impossible to fulfill the screenshot request, not available render engines ';
+	return FALSE;
+  }
+  $function = 'wss_'. $engine .'_status';
+  $result = $function($url, $message);
+  watchdog('WSS-status', "Status of %url requested to %engine is %status",
+	array('%url'=>$url, '%engine'=>$engine, '%status' => ($result)? 'Ok' : 'Wait...' ), WATCHDOG_NOTICE);
+  
+  return $result;
+}
+
+
+/**
+ * This function download the screenshot from remote service
+ *
+ *@param $url
+ *  string: The url to perform screenshot
+ *
+ *@return
+ *  TRUE (int) if the request is correctly performed
+ *  FALSE (0) if the request is not performed
+ *  &message with some information
+ */
+
+function wss_screenshot_request_download($url, $engine='default', &$message = NULL) {
+  $engine= _wss_check_engine($engine);
+  if(!$engine){
+	$message = 'Error: impossible to fulfill the screenshot request, not available render engines ';
+	return FALSE;
+  }
+  $function = 'wss_'. $engine .'_download';
+  return $function($url,$message);
+  
+}
+
+/**
+ * This function performs all screenshots refresh request to remote service
+ *
+ * IMPORTANT: Remote service engine should implement it's own logic to handle the
+ * results of such requests. For example, ShrinkTheWeb screenshot engine adds
+ * callback URL where screenshots will be pushed when ready. This function just
+ * sends requests using batch API.
+ *
+ *@param $urls_engines
+ *  array: The urls and engines to perform screenshoot. Should looks like:
+ * [
+ *   [
+ *     'engine' => 'shrinktheweb',
+ *     'url' => 'http://bing.com'
+ *   ],
+ *   [
+ *     'engine' => 'bluga',
+ *     'url' => 'http://duckduckgo.com'
+ *   ],
+ * ]
+ *
+ */
+function wss_screenshot_request_refresh($urls_engines = array()) {
+  
+  foreach ($urls_engines as $url_engine) {
+	$engine = _wss_check_engine($url_engine['engine']);
+	if (!$engine) {
+	  $message = 'Error: impossible to fulfill the screenshot request, not available render engines';
+	  return;
+	}
+  }
+  
+  foreach ($urls_engines as $url_engine) {
+	$function = 'wss_' . $url_engine['engine'] . '_request_refresh';
+	$operations_request[] = array(
+	  'request_thumbnails_refresh',
+	  array($url_engine['url'], $function)
+	);
+  }
+  
+  if (count($operations_request) > 0) {
+	$batch = array(
+	  'operations' => $operations_request,
+	  'finished' => 'request_thumbnails_refresh_finished',
+	  'title' => t('Requesting thumbnails refresh'),
+	  'init_message' => t('Preparing to request thumbnails refresh'),
+	  'progress_message' => t('Requested refresh for @current of @total thumbnails.'),
+	  'error_message' => t('An error has occurred.'),
+	  'file' => drupal_get_path('module', 'website_screenshot') . '/refresh_thumbnails_batch.inc',
+	);
+	
+	batch_set($batch);
+  }
+}

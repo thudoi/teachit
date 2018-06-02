@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_pre_render().
+ */
+function mod_none_pre_render($element)
+{
+}

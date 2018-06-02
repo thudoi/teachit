@@ -1,0 +1,165 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function mod_sharepost_block_info() {
+  $block = array();
+  $block['sharepost'] = array(
+    'info' => t('Mod: SharePost'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  return $block;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function mod_sharepost_block_configure($delta = '') {
+
+  if ($delta == 'sharepost')
+  {
+    $social = variable_get("list_social_share");
+    $form['list_social_share'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Check social share'),
+        '#options' => array('sharepost_facebook'=>'Facebook','sharepost_twitter'=>'Twitter','sharepost_google'=>'Google Plus','sharepost_pinterest'=>'Pinterest'),
+        '#default_value' => (!empty($social) ? $social : ''),
+
+    );
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+
+function mod_sharepost_block_save($delta = '', $edit = array()) {
+
+  if ($delta == 'sharepost') {
+    variable_set('list_social_share', $edit['list_social_share']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mod_sharepost_block_view($delta = '') {
+  if($delta == 'sharepost')
+  {
+    if(variable_get('list_social_share')) {
+      $arr_social = array_diff(variable_get('list_social_share'),array(0));
+      $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos( $_SERVER["SERVER_PROTOCOL"],'/'))).':/';
+      foreach($arr_social as $key => $item) {
+        $variables['items'][] = theme($item,array('title'=>drupal_get_title(),'link_url'=>$protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
+      }
+      $variables['title'] = '';
+      $variables['type'] = 'ul';
+      $variables['attributes'] = array(
+         'class' => array(
+           'list_share'
+         )
+      );
+
+      //krumo($variables);
+      $block['subject']            = t('Share post');
+      $block['content']['#markup'] = '<div class="share_post">'.theme('list_sharepost',($variables)).'</div>';
+    }
+  }
+  return $block;
+}
+
+function mod_sharepost_theme()
+{
+  $item = array();
+  $item['list_sharepost'] = array(
+    'variable' => array(
+      'type' => null,
+      'title' => null,
+      'items' => null,
+      'attributes' => null,
+    )
+  );
+  $item['sharepost_facebook'] = array(
+    'variable' => array(
+      'text'  => 'Facebook',
+      'title' => null,
+      'link_url'    => null,
+      'attributes' => null,
+    )
+  );
+  $item['sharepost_google'] = array(
+    'text'  => 'Google',
+    'title' => NULL,
+    'link_url' => null,
+    'attributes' => null
+  );
+  $item['sharepost_twitter'] = array(
+    'variable' => array(
+      'text'  => 'Twitter',
+      'title' => null,
+      'link_url' => null,
+      'attributes' => null,
+    )
+  );
+  $item['sharepost_pinterest'] = array(
+    'variables' => array(
+      'text'  => 'Pinterest',
+      'title' => null,
+      'link_url' => null,
+      'attributes' => null,
+    )
+  );
+  return $item;
+}
+
+function mod_sharepost_preprocess_node(&$variables)
+{
+  if($variables['view_mode'] == 'full' && variable_get('list_social_share')) {
+    $arr_social = array_diff(variable_get('list_social_share'), array(0));
+    $protocol   = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, strpos($_SERVER["SERVER_PROTOCOL"], '/'))) . ':/';
+    foreach ($arr_social as $key => $item) {
+      $attr_item = array(
+        'html' => TRUE,
+        'attributes' => array('class'=> array('share-facebook'),'target'=>'_blank')
+      );
+      $list['items'][] = theme($item, array('title' => drupal_get_title(), 'link_url' => $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],'attributes' => $attr_item
+      ));
+    }
+    $list['title']      = '<span>'.t('Share Post').'</span>';
+    $list['type']       = 'ul';
+    $list['attributes'] = array(
+      'class' => array(
+        'list_share'
+      )
+    );
+    $variables['share_post'] = '<div class="share_post">'.theme('list_sharepost', $list).'</div>';
+  }
+}
+
+function theme_list_sharepost($variable)
+{
+  return theme_item_list($variable);
+}
+
+function theme_sharepost_facebook($variable)
+{
+
+  return l($variable['text'],'https://www.facebook.com/sharer.php?u='.$variable['link_url'],$variable['attributes']);
+}
+function theme_sharepost_google($variable)
+{
+
+  return l($variable['text'],'https://plus.google.com/share?url='.$variable['link_url'],$variable['attributes']);
+}
+function theme_sharepost_twitter($variable)
+{
+
+  return l($variable['text'],'http://twitter.com/share?text='.$variable['title'].'&url='.$variable['link_url'],$variable['attributes']);
+}
+function theme_sharepost_pinterest($variable)
+{
+
+  return l($variable['text'],'http://pinterest.com/pin/create/button/?url='.$variable['link_url'].'&description='.$variable['title'],$variable['attributes']);
+}

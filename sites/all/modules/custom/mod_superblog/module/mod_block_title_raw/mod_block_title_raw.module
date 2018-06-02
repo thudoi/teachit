@@ -1,0 +1,88 @@
+<?php
+/**
+ *  This module add plugin title raw allow input format
+ */
+
+
+/* @Author : Henry Tran
+ * @skype  : trankienan
+ * @email  : kienan91@gmail.com
+ *
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function mod_block_title_raw_form_alter(&$form, &$form_state, $form_id)
+{
+    if($form_id == 'block_admin_configure' || $form_id == 'block_add_block_form'){
+        $form['mod_block_title_raw'] = array(
+            '#weight' => 0
+        );
+        $form['mod_block_title_raw']['check_title_raw'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Used block title raw HTML'),
+            '#attributes' => array('class' => array('check_title_raw')),
+            '#default_value' => _mod_block_variable_get($form['module']['#value'],$form['delta']['#value'],'mod_block_title_raw_check'),
+        );
+        $form['mod_block_title_raw']['container_title'] = array(
+            '#type' => 'container',
+            '#states' => array(
+                'visible' => array(
+                    '.check_title_raw' => array('checked' => true)
+                )
+            ),
+        );
+        $title_raw = _mod_block_variable_get($form['module']['#value'],$form['delta']['#value'],'mod_block_title_raw_text');
+
+        $form['mod_block_title_raw']['container_title']['title_raw'] = array(
+            '#type' => 'text_format',
+            '#title' => t('Block title'),
+            '#default_value' => isset($title_raw['value']) ? $title_raw['value'] : '',
+            '#format' => isset($title_raw['format']) ? $title_raw['format'] : 'plain_text',
+
+        );
+        $form['settings']['title']['#states'] = array(
+            'invisible' => array(
+                '.check_title_raw' => array('checked' => true)
+            )
+        );
+        $form['#submit'][] = 'mod_block_title_raw_form_submit';
+
+    }
+}
+
+function mod_block_title_raw_preprocess_block(&$variables){
+    $block = $variables['elements']['#block'];
+    $module = $block->module;
+    $delta = $block->delta;
+    $title_raw_check = _mod_block_variable_get($module,$delta,'mod_block_title_raw_check');
+    $title_raw = _mod_block_variable_get($module,$delta,'mod_block_title_raw_text');
+    if($title_raw_check == 1 && isset($title_raw)){
+        $variables['title_raw_check'] = $title_raw_check;
+        $variables['title_raw'] = $title_raw;
+    }
+    $variables['theme_hook_suggestions'][] = 'block_raw';
+}
+
+
+function mod_block_title_raw_form_submit($form,&$form_state){
+    $values = $form_state['values'];
+
+    if($values['check_title_raw'] == 1 && !empty($values['title_raw']['value'])){
+        _mod_block_variable_set($values['module'],$values['delta'],'mod_block_title_raw_check',$values['check_title_raw']);
+        _mod_block_variable_set($values['module'],$values['delta'],'mod_block_title_raw_text',$values['title_raw']);
+    }
+    elseif($values['check_title_raw'] == 0) {
+        _mod_block_variable_set($values['module'],$values['delta'],'mod_block_title_raw_check',$values['check_title_raw']);
+        _mod_block_variable_set($values['module'],$values['delta'],'mod_block_title_raw_text','');
+    }
+}
+
+function _mod_block_variable_set($module, $delta, $name, $value) {
+     variable_set($module . $delta . $name, $value);
+}
+
+function _mod_block_variable_get($module, $delta, $name) {
+    return variable_get($module . $delta . $name, NULL);
+}

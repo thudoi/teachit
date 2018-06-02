@@ -1,0 +1,7 @@
+<?php
+
+function wss_bluga_uninstall() {
+  variable_del('screenshot_bluga_api_key');
+  variable_del('screenshot_bluga_size');
+
+}

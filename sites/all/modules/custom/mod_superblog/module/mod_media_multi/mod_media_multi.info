@@ -1,0 +1,5 @@
+name = Mod Media Multi
+description = Provie Field formatter support gallery,video
+core = 7.x
+version = 1.0
+dependencies = media

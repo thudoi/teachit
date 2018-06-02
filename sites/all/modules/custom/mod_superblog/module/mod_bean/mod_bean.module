@@ -1,0 +1,35 @@
+<?php
+
+module_load_include('inc','mod_bean','inc/bean_icon_link_social');
+
+/**
+ * Implements hook_bean_types_api_info().
+ */
+function mod_bean_bean_types_api_info() {
+  return array('api' => 4);
+}
+
+/**
+ * Implements hook_bean_types().
+ */
+function mod_bean_bean_types() {
+  $plugins = array();
+  bean_icon_link_social($plugins);
+  return $plugins;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mod_bean_theme() {
+ $items = array();
+ $items['icon_link'] = array(
+ 		'variables' => array(
+ 				'icon' => NULL,
+ 				'link' => NULL	
+ 		),
+ 		'path' => drupal_get_path('module','mod_bean').'/inc',
+ 		'file' => 'bean_icon_link_social.inc',
+ 	);
+ return $items;
+}

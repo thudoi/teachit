@@ -1,0 +1,8 @@
+name = Mansory View animation
+description = Provide style format Mansory View animation
+package = Custom module - Required
+core = 7.x
+version = "1.0"
+dependencies[] = views
+dependencies[] = masonry (>=3.x)
+files[] = views_plugin_style_masonry_view_animation.inc

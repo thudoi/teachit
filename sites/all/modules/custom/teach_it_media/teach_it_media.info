@@ -1,0 +1,8 @@
+name = Teach IT Media
+description = Custom embed any url.
+core = 7.x
+package = TEACH IT Media
+project status url = http://drupal.org
+version = "7.x-0.00"
+core = "7.x"
+project = "custom"

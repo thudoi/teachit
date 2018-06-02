@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install routines for mailchimp rules.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function mailchimp_rules_install() {
+  $key = variable_get('mailchimp_api_key');
+  if (!empty($key)) {
+    variable_set('mailchimp_rules_api_key', $key);
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function mailchimp_rules_update_7001() {
+  $key = variable_get('mailchimp_api_key');
+  if (!empty($key)) {
+    variable_set('mailchimp_rules_api_key', $key);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function mailchimp_rules_uninstall() {
+  variable_del('mailchimp_rules_api_key');
+}

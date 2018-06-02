@@ -1,0 +1,11 @@
+<?php 
+
+function mod_block_title_raw_install(){
+    // Set the modules' weight to 20, see
+    // http://drupal.org/node/445084#comment-1533280 for the reasoning.
+    db_query("UPDATE {system} SET weight = -1 WHERE name = 'mod_block_title_raw' and type = 'module'");
+}
+
+function mod_block_title_raw_uninstall(){
+    db_query("DELETE * FROM {variable} WHERE name = LIKE '%mod_block_title_raw%'");
+}

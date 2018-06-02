@@ -1,0 +1,11 @@
+name = Website Screenshot
+description = Website Screenshot field
+package = Website Screenshot
+core = 7.x
+configure = admin/config/media/website_screenshot
+; Information added by Drupal.org packaging script on 2016-10-26
+version = "7.x-1.0"
+core = "7.x"
+project = "website_screenshot"
+datestamp = "1477463941"
+

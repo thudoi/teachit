@@ -1,0 +1,24 @@
+<?php
+
+function mod_menu_link_uninstall()
+{
+  $menus = db_select('menu_links','m')
+    ->fields('m',array('mlid','options'))
+    ->execute();
+  if($menus) {
+    foreach ($menus as $menu) {
+      $options = unserialize($menu->options);
+      if (isset($options['group_mod_menu'])) {
+        unset($options['group_mod_menu']);
+        unset($options['html']);
+        db_update('menu_links')
+          ->fields(array(
+            'options' => serialize($options),
+          ))
+          ->condition('mlid', $menu->mlid)
+          ->execute();
+      }
+    }
+  }
+  cache_clear_all();
+}

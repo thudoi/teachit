@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function mod_media_thumbnail_field_formatter_info() {
+  $field = array();
+  $field['mod_media_thumbnail'] = array(
+    'label' => 'Media Thumbnail',
+    'field types' => array('media'),
+    'settings' => array(
+      'thumbnail_style' => null
+    )
+  );
+  return $field;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function mod_media_thumbnail_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $image_styles = image_style_options(FALSE, PASS_THROUGH);
+  // Unset possible 'No defined styles' option.
+  unset($image_styles['']);
+  $summary = t('Style @image meda thumbnail',array('@image' => $settings['thumbnail_style']));
+  return $summary;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function mod_media_thumbnail_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $image_styles = image_style_options(FALSE, PASS_THROUGH);
+  $element['thumbnail_style'] = array(
+    '#type' => 'select',
+    '#options' => $image_styles,
+    '#empty_option' => 'None (original image)',
+    '#default_value' => $settings['thumbnail_style']
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function mod_media_thumbnail_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $field_name = $instance['field_name'];
+  $entity_type_info = entity_get_info($entity_type);
+  $entity_id = $entity->{$entity_type_info['entity keys']['id']};
+  $settings = $display['settings'];
+  $style = $display['settings']['thumbnail_style'];
+  $element = array();
+  switch ($display['type']) {
+    case 'mod_media_thumbnail':
+      foreach ($items as $delta => $item) {
+          if($delta == 0){
+            $element[$delta] = array(
+              '#theme' => 'mod_media_thumbnail',
+              '#thumbnail_style' => $settings['thumbnail_style'],
+              '#item' => $item
+            );
+          }
+      }
+      break;
+  }
+  return $element;
+}
+
+function mod_media_thumbnail_theme()
+{
+  $item = array();
+  $item['mod_media_thumbnail'] = array(
+      'variables' => array('thumbnail_style'=>null,'item'=>null)
+  );
+  return $item;
+}

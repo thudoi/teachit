@@ -1,0 +1,82 @@
+<?php
+/**
+ * @file
+ * Provides a Views plugin for displaying content in a Masonry layout.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function masonry_view_animation_views_api() {
+    return array('api' => 3);
+}
+
+function masonry_view_animation_list_style()
+{
+    $animations = array('bounce', 'flash', 'pulse', 'rubberBand', 'shake', 'swing', 'tada', 'wobble', 'bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'bounceOut', 'bounceOutDown', 'bounceOutLeft', 'bounceOutRight', 'bounceOutUp', 'fadeIn', 'fadeInDown', 'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp', 'fadeInUpBig', 'fadeOut', 'fadeOutDown', 'fadeOutDownBig', 'fadeOutLeft', 'fadeOutLeftBig', 'fadeOutRight', 'fadeOutRightBig', 'fadeOutUp', 'fadeOutUpBig', 'flip', 'flipInX', 'flipInY', 'flipOutX', 'flipOutY', 'lightSpeedIn', 'lightSpeedOut', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight', 'hinge', 'rollIn', 'rollOut', 'zoomIn', 'zoomInDown', 'zoomInLeft', 'zoomInRight', 'zoomInUp', 'zoomOut', 'zoomOutDown', 'zoomOutLeft', 'zoomOutRight', 'zoomOutUp'
+    );
+    return array('none' => t(' - None - ')) + array_combine($animations, $animations);
+}
+
+/**
+ * Preprocess function for views_view_masonry.tpl.php.
+ */
+function template_preprocess_views_view_masonry_view_animation(&$vars) {
+    // Run preprocess function for unformatted style
+    template_preprocess_views_view_unformatted($vars);
+    $module_path = drupal_get_path('module', 'masonry_view_animation');
+    $library = libraries_get_libraries();
+    if (isset($library['appear'])) {
+        $path = $library['appear'];
+        drupal_add_js($path . '/jquery.appear.js');
+        drupal_add_js($module_path . '/js/masonry_view_animation.js');
+        drupal_add_js($module_path.'/js/wow.js');
+        drupal_add_css($module_path.'/css/view_animate.css');
+    }
+    else
+    {
+        drupal_set_message(t('Library jquery appear not existed, You need download jquery appear.js to directory "libraries/appear/jquery.appear.js"'),'warning');
+    }
+    // Get view options
+    $view = $vars['view'];
+    $options = $vars['options'];
+    $rows = $vars['rows'];
+    //Animation Style
+    $animation_style   = isset($options['masonry_anmation_style']) ? $options['masonry_anmation_style'] :'';
+    $delay_time = isset($options['masonry_time_deplay']) ? $options['masonry_time_deplay'] : '';
+    $distance_time = isset($options['masonry_time_distance_row']) ? $options['masonry_time_distance_row'] : '';
+    $set_distance =    $distance_time;
+    // Set up striping values.
+    foreach ($rows as $id => $row) {
+        if(!path_is_admin(current_path())) {
+            if ($animation_style) {
+                $vars['classes'][$id][] = 'appear-animation';
+                $vars['attributes'][$id]['data-appear-animation'][] = $animation_style;
+                if ($delay_time) {
+                    //$total = $delay_time + $distance_time;
+                    // $vars['attributes'][$id]['data-appear-animation-delay'][] = $delay_time;
+                    $num_distance = 0;
+                    if ($distance_time) {
+
+                        $num_distance = $distance_time;
+                        $vars['attributes'][$id]['data-appear-animation-delay'][] = $delay_time + $num_distance;
+
+                    } else {
+                        $vars['attributes'][$id]['data-appear-animation-delay'][] = $delay_time;
+                    }
+
+                    $distance_time += $set_distance;
+                }
+            }
+        }
+        // Flatten the classes to a string for each row for the template file.
+        $vars['attributes_array'][$id]['data-appear-animation'] = isset($vars['attributes'][$id]['data-appear-animation']) ? implode(' ', $vars['attributes'][$id]['data-appear-animation']) : '';
+        $vars['attributes_array'][$id]['data-appear-animation-delay'] = isset($vars['attributes'][$id]['data-appear-animation-delay']) ? implode(' ', $vars['attributes'][$id]['data-appear-animation-delay']) : '';
+    }
+
+    // Display content in a Masonry layout
+    $container = '.view-' . drupal_clean_css_identifier($view->name) . '.view-display-id-' . $view->current_display . ' .view-content';
+    $options['masonry_item_selector'] = '.masonry-item';
+    masonry_apply($container, $options);
+}
+

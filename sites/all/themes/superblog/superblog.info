@@ -1,0 +1,58 @@
+name = Super Blog
+description = This theme build by Joomlavi.com
+version = 1.0
+core = 7.x
+screenshot = 'screenshot.png'
+logo = "logo.png"
+favicon="favicon.png"
+engine = phptemplate
+
+;stylesheet
+stylesheets[all][] = vendor/bootstrap/bootstrap.min.css
+styleshetts[all][] = assets/css/animate.css
+stylesheets[all][] = assets/fonts/icomoon/font-icomoon.css
+stylesheets[all][] = vendor/magnific-popup/magnific-popup.css
+stylesheets[all][] = vendor/owl/owl.carousel.css
+stylesheets[all][] = vendor/prettyPhoto/prettyPhoto.css
+stylesheets[all][] = vendor/blueimp/blueimp-gallery.min.css
+stylesheets[all][] = assets/css/main.css
+
+;Scripts
+scripts[] = vendor/bootstrap/bootstrap.min.js
+scripts[] = vendor/bootstrap-progressbar/bootstrap-progressbar.min.js
+scripts[] = vendor/stellar/jquery.stellar.min.js
+scripts[] = vendor/headroom/headroom.min.js
+scripts[] = vendor/headroom/jQuery.headroom.min.js
+scripts[] = vendor/isotope/isotope.pkgd.min.js
+scripts[] = vendor/bpopup/jquery.bpopup.min.js
+scripts[] = vendor/magnific-popup/jquery.magnific-popup.min.js
+scripts[] = vendor/progressbar/progressbar.min.js
+scripts[] = vendor/owl/owl.carousel.min.js
+scripts[] = vendor/prettyPhoto/jquery.prettyPhoto.js
+scripts[] = vendor/blueimp/jquery.blueimp-gallery.min.js
+scripts[] = vendor/masonry/jquery.masonry.min.js
+scripts[] = vendor/infinite-scroll/jquery.infinitescroll.js
+scripts[] = assets/js/jquery.imagesloaded.js
+scripts[] = assets/js/script.js
+
+
+;Regions
+regions[top_ads] =  Top ads
+regions[top_panel] =  Top panel
+regions[panel_top_left] = Panel Top Left
+regions[panel_top_right] = Panel Top Right
+regions[navigation] = Navigation
+regions[slider] = Slider
+regions[breadcrumb] = Breadcrumb
+regions[page_title] = Page Title
+regions[sidebar] = Sidebar
+regions[sidebar_first] = Sidebar Left
+regions[content_top] = Content Top
+regions[content] = Content
+regions[sidebar_second] = Sidebar Right
+regions[footer_first]  = Footer First
+regions[footer_second] = Footer Second
+regions[footer_third]  = Footer Third
+regions[footer_four]   = Footer Four
+regions[copyright]     = Copyright
+regions[design_by]     = Design By

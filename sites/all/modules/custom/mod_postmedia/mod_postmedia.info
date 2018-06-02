@@ -1,0 +1,6 @@
+name = Module format image
+description = Provide field formatter image to show
+package = Custom module - Required
+core = 7.x
+dependencies[] = field
+version = "1.0"

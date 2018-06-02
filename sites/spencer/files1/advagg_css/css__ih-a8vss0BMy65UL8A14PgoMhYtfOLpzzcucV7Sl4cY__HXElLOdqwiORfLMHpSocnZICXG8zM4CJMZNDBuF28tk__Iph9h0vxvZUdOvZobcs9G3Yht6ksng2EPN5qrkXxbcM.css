@@ -1,0 +1,1012 @@
+/**
+   * @file
+   * Generic theme-independent base styles.
+   */
+  
+  /**
+   * Autocomplete.
+   *
+   * @see autocomplete.js
+   */
+  /* Suggestion list */
+  #autocomplete {
+    border: 1px solid;
+    overflow: hidden;
+    position: absolute;
+    z-index: 100;
+  }
+  #autocomplete ul {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+  }
+  #autocomplete li {
+    background: #fff;
+    color: #000;
+    cursor: default;
+    white-space: pre;
+    zoom: 1; /* IE7 */
+  }
+  /* Animated throbber */
+  html.js input.form-autocomplete {
+    background-image: url(//spencer.teachit.media/misc/throbber-inactive.png);
+    background-position: 100% center; /* LTR */
+    background-repeat: no-repeat;
+  }
+  html.js input.throbbing {
+    background-image: url(//spencer.teachit.media/misc/throbber-active.gif);
+    background-position: 100% center; /* LTR */
+  }
+  
+  /**
+   * Collapsible fieldsets.
+   *
+   * @see collapse.js
+   */
+  html.js fieldset.collapsed {
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    height: 1em;
+  }
+  html.js fieldset.collapsed .fieldset-wrapper {
+    display: none;
+  }
+  fieldset.collapsible {
+    position: relative;
+  }
+  fieldset.collapsible .fieldset-legend {
+    display: block;
+  }
+  
+  /**
+   * Resizable textareas.
+   *
+   * @see textarea.js
+   */
+  .form-textarea-wrapper textarea {
+    display: block;
+    margin: 0;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .resizable-textarea .grippie {
+    background: #eee url(//spencer.teachit.media/misc/grippie.png) no-repeat center 2px;
+    border: 1px solid #ddd;
+    border-top-width: 0;
+    cursor: s-resize;
+    height: 9px;
+    overflow: hidden;
+  }
+  
+  /**
+   * TableDrag behavior.
+   *
+   * @see tabledrag.js
+   */
+  body.drag {
+    cursor: move;
+  }
+  .draggable a.tabledrag-handle {
+    cursor: move;
+    float: left; /* LTR */
+    height: 1.7em;
+    margin-left: -1em; /* LTR */
+    overflow: hidden;
+    text-decoration: none;
+  }
+  a.tabledrag-handle:hover {
+    text-decoration: none;
+  }
+  a.tabledrag-handle .handle {
+    background: url(//spencer.teachit.media/misc/draggable.png) no-repeat 6px 9px;
+    height: 13px;
+    margin: -0.4em 0.5em; /* LTR */
+    padding: 0.42em 0.5em; /* LTR */
+    width: 13px;
+  }
+  a.tabledrag-handle-hover .handle {
+    background-position: 6px -11px;
+  }
+  div.indentation {
+    float: left; /* LTR */
+    height: 1.7em;
+    margin: -0.4em 0.2em -0.4em -0.4em; /* LTR */
+    padding: 0.42em 0 0.42em 0.6em; /* LTR */
+    width: 20px;
+  }
+  div.tree-child {
+    background: url(//spencer.teachit.media/misc/tree.png) no-repeat 11px center; /* LTR */
+  }
+  div.tree-child-last {
+    background: url(//spencer.teachit.media/misc/tree-bottom.png) no-repeat 11px center; /* LTR */
+  }
+  div.tree-child-horizontal {
+    background: url(//spencer.teachit.media/misc/tree.png) no-repeat -11px center;
+  }
+  .tabledrag-toggle-weight-wrapper {
+    text-align: right; /* LTR */
+  }
+  
+  /**
+   * TableHeader behavior.
+   *
+   * @see tableheader.js
+   */
+  table.sticky-header {
+    background-color: #fff;
+    margin-top: 0;
+  }
+  
+  /**
+   * Progress behavior.
+   *
+   * @see progress.js
+   */
+  /* Bar */
+  .progress .bar {
+    background-color: #fff;
+    border: 1px solid;
+  }
+  .progress .filled {
+    background-color: #000;
+    height: 1.5em;
+    width: 5px;
+  }
+  .progress .percentage {
+    float: right; /* LTR */
+  }
+  /* Throbber */
+  .ajax-progress {
+    display: inline-block;
+  }
+  .ajax-progress .throbber {
+    background: transparent url(//spencer.teachit.media/misc/throbber-active.gif) no-repeat 0px center;
+    float: left; /* LTR */
+    height: 15px;
+    margin: 2px;
+    width: 15px;
+  }
+  .ajax-progress .message {
+    padding-left: 20px;
+  }
+  tr .ajax-progress .throbber {
+    margin: 0 2px;
+  }
+  .ajax-progress-bar {
+    width: 16em;
+  }
+  
+  /**
+   * Inline items.
+   */
+  .container-inline div,
+  .container-inline label {
+    display: inline;
+  }
+  /* Fieldset contents always need to be rendered as block. */
+  .container-inline .fieldset-wrapper {
+    display: block;
+  }
+  
+  /**
+   * Prevent text wrapping.
+   */
+  .nowrap {
+    white-space: nowrap;
+  }
+  
+  /**
+   * For anything you want to hide on page load when JS is enabled, so
+   * that you can use the JS to control visibility and avoid flicker.
+   */
+  html.js .js-hide {
+    display: none;
+  }
+  
+  /**
+   * Hide elements from all users.
+   *
+   * Used for elements which should not be immediately displayed to any user. An
+   * example would be a collapsible fieldset that will be expanded with a click
+   * from a user. The effect of this class can be toggled with the jQuery show()
+   * and hide() functions.
+   */
+  .element-hidden {
+    display: none;
+  }
+  
+  /**
+   * Hide elements visually, but keep them available for screen-readers.
+   *
+   * Used for information required for screen-reader users to understand and use
+   * the site where visual display is undesirable. Information provided in this
+   * manner should be kept concise, to avoid unnecessary burden on the user.
+   * "!important" is used to prevent unintentional overrides.
+   */
+  .element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+  }
+  
+  /**
+   * The .element-focusable class extends the .element-invisible class to allow
+   * the element to be focusable when navigated to via the keyboard.
+   */
+  .element-invisible.element-focusable:active,
+  .element-invisible.element-focusable:focus {
+    position: static !important;
+    clip: auto;
+    overflow: visible;
+    height: auto;
+  }
+  
+  /**
+   * Markup free clearing.
+   *
+   * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+   */
+  .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  /* IE6 */
+  * html .clearfix {
+    height: 1%;
+  }
+  /* IE7 */
+  *:first-child + html .clearfix {
+    min-height: 1%;
+  }/**/
+/**
+   * @file
+   * Styles for menus and navigation markup.
+   */
+  
+  /**
+   * Markup generated by theme_menu_tree().
+   */
+  ul.menu {
+    border: none;
+    list-style: none;
+    text-align: left; /* LTR */
+  }
+  ul.menu li {
+    margin: 0 0 0 0.5em; /* LTR */
+  }
+  ul li.expanded {
+    list-style-image: url(//spencer.teachit.media/misc/menu-expanded.png);
+    list-style-type: circle;
+  }
+  ul li.collapsed {
+    list-style-image: url(//spencer.teachit.media/misc/menu-collapsed.png); /* LTR */
+    list-style-type: disc;
+  }
+  ul li.leaf {
+    list-style-image: url(//spencer.teachit.media/misc/menu-leaf.png);
+    list-style-type: square;
+  }
+  li.expanded,
+  li.collapsed,
+  li.leaf {
+    padding: 0.2em 0.5em 0 0; /* LTR */
+    margin: 0;
+  }
+  li a.active {
+    color: #000;
+  }
+  td.menu-disabled {
+    background: #ccc;
+  }
+  
+  /**
+   * Markup generated by theme_links().
+   */
+  ul.inline,
+  ul.links.inline {
+    display: inline;
+    padding-left: 0;
+  }
+  ul.inline li {
+    display: inline;
+    list-style-type: none;
+    padding: 0 0.5em;
+  }
+  
+  /**
+   * Markup generated by theme_breadcrumb().
+   */
+  .breadcrumb {
+    padding-bottom: 0.5em;
+  }
+  
+  /**
+   * Markup generated by theme_menu_local_tasks().
+   */
+  ul.primary {
+    border-bottom: 1px solid #bbb;
+    border-collapse: collapse;
+    height: auto;
+    line-height: normal;
+    list-style: none;
+    margin: 5px;
+    padding: 0 0 0 1em; /* LTR */
+    white-space: nowrap;
+  }
+  ul.primary li {
+    display: inline;
+  }
+  ul.primary li a {
+    background-color: #ddd;
+    border-color: #bbb;
+    border-style: solid solid none solid;
+    border-width: 1px;
+    height: auto;
+    margin-right: 0.5em; /* LTR */
+    padding: 0 1em;
+    text-decoration: none;
+  }
+  ul.primary li.active a {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #fff;
+  }
+  ul.primary li a:hover {
+    background-color: #eee;
+    border-color: #ccc;
+    border-bottom-color: #eee;
+  }
+  ul.secondary {
+    border-bottom: 1px solid #bbb;
+    padding: 0.5em 1em;
+    margin: 5px;
+  }
+  ul.secondary li {
+    border-right: 1px solid #ccc; /* LTR */
+    display: inline;
+    padding: 0 1em;
+  }
+  ul.secondary a {
+    padding: 0;
+    text-decoration: none;
+  }
+  ul.secondary a.active {
+    border-bottom: 4px solid #999;
+  }/**/
+/**
+   * @file
+   * Styles for system messages.
+   */
+  
+  div.messages {
+    background-position: 8px 8px; /* LTR */
+    background-repeat: no-repeat;
+    border: 1px solid;
+    margin: 6px 0;
+    padding: 10px 10px 10px 50px; /* LTR */
+  }
+  
+  div.status {
+    background-image: url(//spencer.teachit.media/misc/message-24-ok.png);
+    border-color: #be7;
+  }
+  div.status,
+  .ok {
+    color: #234600;
+  }
+  div.status,
+  table tr.ok {
+    background-color: #f8fff0;
+  }
+  
+  div.warning {
+    background-image: url(//spencer.teachit.media/misc/message-24-warning.png);
+    border-color: #ed5;
+  }
+  div.warning,
+  .warning {
+    color: #840;
+  }
+  div.warning,
+  table tr.warning {
+    background-color: #fffce5;
+  }
+  
+  div.error {
+    background-image: url(//spencer.teachit.media/misc/message-24-error.png);
+    border-color: #ed541d;
+  }
+  div.error,
+  .error {
+    color: #8c2e0b;
+  }
+  div.error,
+  table tr.error {
+    background-color: #fef5f1;
+  }
+  div.error p.error {
+    color: #333;
+  }
+  
+  div.messages ul {
+    margin: 0 0 0 1em; /* LTR */
+    padding: 0;
+  }
+  div.messages ul li {
+    list-style-image: none;
+  }/**/
+/**
+   * @file
+   * Basic styling for common markup.
+   */
+  
+  /**
+   * HTML elements.
+   */
+  fieldset {
+    margin-bottom: 1em;
+    padding: 0.5em;
+  }
+  form {
+    margin: 0;
+    padding: 0;
+  }
+  hr {
+    border: 1px solid gray;
+    height: 1px;
+  }
+  img {
+    border: 0;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  th {
+    border-bottom: 3px solid #ccc;
+    padding-right: 1em; /* LTR */
+    text-align: left; /* LTR */
+  }
+  tbody {
+    border-top: 1px solid #ccc;
+  }
+  tr.even,
+  tr.odd {
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 0.1em 0.6em;
+  }
+  
+  /**
+   * Markup generated by theme_tablesort_indicator().
+   */
+  th.active img {
+    display: inline;
+  }
+  td.active {
+    background-color: #ddd;
+  }
+  
+  /**
+   * Markup generated by theme_item_list().
+   */
+  .item-list .title {
+    font-weight: bold;
+  }
+  .item-list ul {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+  }
+  .item-list ul li {
+    margin: 0 0 0.25em 1.5em; /* LTR */
+    padding: 0;
+  }
+  
+  /**
+   * Markup generated by Form API.
+   */
+  .form-item,
+  .form-actions {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  tr.odd .form-item,
+  tr.even .form-item {
+    margin-top: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  .form-item .description {
+    font-size: 0.85em;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  label.option {
+    display: inline;
+    font-weight: normal;
+  }
+  .form-checkboxes .form-item,
+  .form-radios .form-item {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+  .form-type-radio .description,
+  .form-type-checkbox .description {
+    margin-left: 2.4em;
+  }
+  input.form-checkbox,
+  input.form-radio {
+    vertical-align: middle;
+  }
+  .marker,
+  .form-required {
+    color: #f00;
+  }
+  .form-item input.error,
+  .form-item textarea.error,
+  .form-item select.error {
+    border: 2px solid red;
+  }
+  
+  /**
+   * Inline items.
+   */
+  .container-inline .form-actions,
+  .container-inline.form-actions {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /**
+   * Markup generated by theme_more_link().
+   */
+  .more-link {
+    text-align: right; /* LTR */
+  }
+  
+  /**
+   * Markup generated by theme_more_help_link().
+   */
+  .more-help-link {
+    text-align: right; /* LTR */
+  }
+  .more-help-link a {
+    background: url(//spencer.teachit.media/misc/help.png) 0 50% no-repeat; /* LTR */
+    padding: 1px 0 1px 20px; /* LTR */
+  }
+  
+  /**
+   * Markup generated by theme_pager().
+   */
+  .item-list .pager {
+    clear: both;
+    text-align: center;
+  }
+  .item-list .pager li {
+    background-image: none;
+    display: inline;
+    list-style-type: none;
+    padding: 0.5em;
+  }
+  .pager-current {
+    font-weight: bold;
+  }
+  
+  /**
+   * Autocomplete.
+   *
+   * @see autocomplete.js
+   */
+  /* Suggestion list */
+  #autocomplete li.selected {
+    background: #0072b9;
+    color: #fff;
+  }
+  
+  /**
+   * Collapsible fieldsets.
+   *
+   * @see collapse.js
+   */
+  html.js fieldset.collapsible .fieldset-legend {
+    background: url(//spencer.teachit.media/misc/menu-expanded.png) 5px 65% no-repeat; /* LTR */
+    padding-left: 15px; /* LTR */
+  }
+  html.js fieldset.collapsed .fieldset-legend {
+    background-image: url(//spencer.teachit.media/misc/menu-collapsed.png); /* LTR */
+    background-position: 5px 50%; /* LTR */
+  }
+  .fieldset-legend span.summary {
+    color: #999;
+    font-size: 0.9em;
+    margin-left: 0.5em;
+  }
+  
+  /**
+   * TableDrag behavior.
+   *
+   * @see tabledrag.js
+   */
+  tr.drag {
+    background-color: #fffff0;
+  }
+  tr.drag-previous {
+    background-color: #ffd;
+  }
+  .tabledrag-toggle-weight {
+    font-size: 0.9em;
+  }
+  body div.tabledrag-changed-warning {
+    margin-bottom: 0.5em;
+  }
+  
+  /**
+   * TableSelect behavior.
+   *
+   * @see tableselect.js
+  */
+  tr.selected td {
+    background: #ffc;
+  }
+  td.checkbox,
+  th.checkbox {
+    text-align: center;
+  }
+  
+  /**
+   * Progress bar.
+   *
+   * @see progress.js
+   */
+  .progress {
+    font-weight: bold;
+  }
+  .progress .bar {
+    background: #ccc;
+    border-color: #666;
+    margin: 0 0.2em;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+  }
+  .progress .filled {
+    background: #0072b9 url(//spencer.teachit.media/misc/progress.gif);
+  }/**/
+/**
+   * @file
+   * Styles for administration pages.
+   */
+  
+  /**
+   * Administration blocks.
+   */
+  div.admin-panel {
+    margin: 0;
+    padding: 5px 5px 15px 5px;
+  }
+  div.admin-panel .description {
+    margin: 0 0 3px;
+    padding: 2px 0 3px 0;
+  }
+  div.admin-panel .body {
+    padding: 0 4px 2px 8px; /* LTR */
+  }
+  div.admin {
+    padding-top: 15px;
+  }
+  div.admin .left {
+    float: left; /* LTR */
+    width: 47%;
+    margin-left: 1em; /* LTR */
+  }
+  div.admin .right {
+    float: right; /* LTR */
+    width: 47%;
+    margin-right: 1em; /* LTR */
+  }
+  div.admin .expert-link {
+    text-align: right; /* LTR */
+    margin-right: 1em; /* LTR */
+    padding-right: 4px; /* LTR */
+  }
+  
+  /**
+   * Markup generated by theme_system_compact_link().
+   */
+  .compact-link {
+    margin: 0 0 0.5em 0;
+  }
+  
+  /**
+   * Quick inline admin links.
+   */
+  small .admin-link:before {
+    content: '[';
+  }
+  small .admin-link:after {
+    content: ']';
+  }
+  
+  /**
+   * Modules page.
+   */
+  #system-modules div.incompatible {
+    font-weight: bold;
+  }
+  div.admin-requirements,
+  div.admin-required {
+    font-size: 0.9em;
+    color: #444;
+  }
+  span.admin-disabled {
+    color: #800;
+  }
+  span.admin-enabled {
+    color: #080;
+  }
+  span.admin-missing {
+    color: #f00;
+  }
+  a.module-link {
+    display: block;
+    padding: 1px 0 1px 20px; /* LTR */
+    white-space: nowrap;
+  }
+  a.module-link-help {
+    background: url(//spencer.teachit.media/misc/help.png) 0 50% no-repeat; /* LTR */
+  }
+  a.module-link-permissions {
+    background: url(//spencer.teachit.media/misc/permissions.png) 0 50% no-repeat; /* LTR */
+  }
+  a.module-link-configure {
+    background: url(//spencer.teachit.media/misc/configure.png) 0 50% no-repeat; /* LTR */
+  }
+  .module-help {
+    margin-left: 1em; /* LTR */
+    float: right; /* LTR */
+  }
+  
+  /**
+   * Status report.
+   */
+  table.system-status-report td {
+    padding: 6px;
+    vertical-align: middle;
+  }
+  table.system-status-report tr.merge-up td {
+    padding: 0 6px 8px 28px; /* LTR */
+  }
+  table.system-status-report td.status-icon {
+    width: 16px;
+    padding-right: 0; /* LTR */
+  }
+  table.system-status-report td.status-icon div {
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+  }
+  table.system-status-report tr.error td.status-icon div {
+    background-image: url(//spencer.teachit.media/misc/message-16-error.png);
+  }
+  table.system-status-report tr.warning td.status-icon div {
+    background-image: url(//spencer.teachit.media/misc/message-16-warning.png);
+  }
+  tr.merge-down,
+  tr.merge-down td {
+    border-bottom-width: 0 !important;
+  }
+  tr.merge-up,
+  tr.merge-up td {
+    border-top-width: 0 !important;
+  }
+  
+  /**
+   * Theme settings.
+   */
+  .theme-settings-left {
+    float: left;
+    width: 49%;
+  }
+  .theme-settings-right {
+    float: right;
+    width: 49%;
+  }
+  .theme-settings-bottom {
+    clear: both;
+  }
+  
+  /**
+   * Appearance page.
+   */
+  table.screenshot {
+    margin-right: 1em; /* LTR */
+  }
+  .theme-info h2 {
+    margin-bottom: 0;
+  }
+  .theme-info p {
+    margin-top: 0;
+  }
+  .system-themes-list {
+    margin-bottom: 20px;
+  }
+  .system-themes-list-disabled {
+    border-top: 1px solid #cdcdcd;
+    padding-top: 20px;
+  }
+  .system-themes-list h2 {
+    margin: 0;
+  }
+  .theme-selector {
+    padding-top: 20px;
+  }
+  .theme-selector .screenshot,
+  .theme-selector .no-screenshot {
+    border: 1px solid #e0e0d8;
+    padding: 2px;
+    vertical-align: bottom;
+    width: 294px;
+    height: 219px;
+    line-height: 219px;
+    text-align: center;
+  }
+  .theme-default .screenshot {
+    border: 1px solid #aaa;
+  }
+  .system-themes-list-enabled .theme-selector .screenshot,
+  .system-themes-list-enabled .theme-selector .no-screenshot {
+    float: left; /* LTR */
+    margin: 0 20px 0 0; /* LTR */
+  }
+  .system-themes-list-disabled .theme-selector .screenshot,
+  .system-themes-list-disabled .theme-selector .no-screenshot {
+    width: 194px;
+    height: 144px;
+    line-height: 144px;
+  }
+  .theme-selector h3 {
+    font-weight: normal;
+  }
+  .theme-default h3 {
+    font-weight: bold;
+  }
+  .system-themes-list-enabled .theme-selector h3 {
+    margin-top: 0;
+  }
+  .system-themes-list-disabled .theme-selector {
+    width: 300px;
+    float: left; /* LTR */
+    padding: 20px 20px 20px 0; /* LTR */
+  }
+  .system-themes-list-enabled .theme-info {
+    max-width: 940px;
+  }
+  .system-themes-list-disabled .theme-info {
+    min-height: 170px;
+  }
+  .theme-selector .incompatible {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .theme-selector .operations {
+    margin: 10px 0 0 0;
+    padding: 0;
+  }
+  .theme-selector .operations li {
+    float: left; /* LTR */
+    margin: 0;
+    padding: 0 0.7em;
+    list-style-type: none;
+    border-right: 1px solid #cdcdcd;  /* LTR */
+  }
+  .theme-selector .operations li.last {
+    padding: 0 0 0 0.7em; /* LTR */
+    border-right: none; /* LTR */
+  }
+  .theme-selector .operations li.first {
+    padding: 0 0.7em 0 0; /* LTR */
+  }
+  #system-themes-admin-form {
+    clear: left;
+  }
+  
+  /**
+   * Exposed filters.
+   */
+  .exposed-filters .filters {
+    float: left; /* LTR */
+    margin-right: 1em; /* LTR */
+    width: 25em; /* IE6 */
+  }
+  .exposed-filters .form-item {
+    margin: 0 0 0.1em 0;
+    padding: 0;
+  }
+  .exposed-filters .form-item label {
+    float: left; /* LTR */
+    font-weight: normal;
+    width: 10em;
+  }
+  .exposed-filters .form-select {
+    width: 14em;
+  }
+  /* Current filters */
+  .exposed-filters .current-filters {
+    margin-bottom: 1em;
+  }
+  .exposed-filters .current-filters .placeholder {
+    font-style: normal;
+    font-weight: bold;
+  }
+  .exposed-filters .additional-filters {
+    float: left; /* LTR */
+    margin-right: 1em; /* LTR */
+  }/**/
+/**
+    * @file
+    * Styling for the Book module.
+    */
+  
+  .book-navigation .menu {
+    border-top: 1px solid #888;
+    padding: 1em 0 0 3em; /* LTR */
+  }
+  .book-navigation .page-links {
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    text-align: center;
+    padding: 0.5em;
+  }
+  .book-navigation .page-previous {
+    text-align: left;
+    width: 42%;
+    display: block;
+    float: left; /* LTR */
+  }
+  .book-navigation .page-up {
+    margin: 0 5%;
+    width: 4%;
+    display: block;
+    float: left; /* LTR */
+  }
+  .book-navigation .page-next {
+    text-align: right;
+    width: 42%;
+    display: block;
+    float: right;
+  }
+  #book-outline {
+    min-width: 56em;
+  }
+  .book-outline-form .form-item {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  html.js #edit-book-pick-book {
+    display: none;
+  }
+  .form-item-book-bid .description {
+    clear: both;
+  }
+  #book-admin-edit select {
+    margin-right: 24px;
+  }
+  #book-admin-edit select.progress-disabled {
+    margin-right: 0;
+  }
+  #book-admin-edit tr.ajax-new-content {
+    background-color: #ffd;
+  }
+  #book-admin-edit .form-item {
+    float: left;
+  }/**/

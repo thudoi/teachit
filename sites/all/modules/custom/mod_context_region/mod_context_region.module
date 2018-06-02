@@ -1,0 +1,41 @@
+<?php
+
+
+/**
+ * Implements hook_context_registry().
+ */
+function mod_context_region_context_registry() {
+  module_load_include('inc','mod_context_region','mod_context_region.plugins');
+  return _mod_context_registry();
+}
+
+
+/**
+ * Implements hook_context_plugins().
+ */
+function mod_context_region_context_plugins() {
+  module_load_include('inc','mod_context_region','mod_context_region.plugins');
+  return _mod_context_plugins();
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function mod_context_region_page_alter(&$page) {
+
+
+
+}
+
+function mod_context_region_preprocess_page(&$variables)
+{
+
+}
+
+function mod_context_region_preprocess_region(&$variables)
+{
+  if ($plugin = context_get_plugin('reaction', 'mod_region_class')) {
+    $plugin->execute_region($variables);
+  }
+
+}

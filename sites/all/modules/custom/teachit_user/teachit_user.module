@@ -1,0 +1,24 @@
+<?php
+/**
+ * implement hook_theme()
+ */
+
+function teachit_user_theme(){
+  return array(
+    'user_login' => array(
+      'template' => 'templates/user-login',
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function teachit_user_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id){
+    case 'user_login':
+
+      break;
+  }
+}

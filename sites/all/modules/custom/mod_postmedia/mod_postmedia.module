@@ -1,0 +1,41 @@
+<?php
+
+module_load_include('inc','mod_postmedia','mod_postmedia.field');
+
+
+function mod_postmedia_theme()
+{
+    $item = array();
+    $item['mod_postmedia'] = array(
+      'variables' => array(
+        'items' => null,
+      )
+    );
+  return $item;
+}
+/**
+ * Returns HTML for an image field formatter.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - item: Associative array of image data, which may include "uri", "alt",
+ *     "width", "height", "title" and "attributes".
+ *   - image_style: An optional image style.
+ *   - path: An array containing the link 'path' and link 'options'.
+ *
+ * @ingroup themeable
+ */
+
+function theme_mod_postmedia($variables)
+{
+    drupal_add_css(drupal_get_path('module','mod_postmedia').'/css/mod_postmedia.css');
+    $items = $variables['items'];
+  $output = '';
+  if (is_array($items))
+    foreach($items as $key => $item) {
+
+        $output = '<div class="post-media">'.$item.'</div>';
+    }
+    return $output;
+
+}

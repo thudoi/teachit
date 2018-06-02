@@ -1,0 +1,184 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic);
+
+.oss_vertical_tab {margin:10px 0px;}
+.oss_vertical_tab .vertical-tabs{margin: 0px;}
+.oss_bg_header{padding:15px 20px;background:#303641;border-bottom: 25px solid #262B34;border-radius: 10px 10px 0 0;}
+.oss_bg_header .label-setting{
+    font-family: 'Open Sans';
+    color:#fff;
+    font-size: 38px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 90px;
+}
+.oss_vertical_tab .vertical-tabs-list > li a {font-family: 'Open Sans',sans-serif;font-size: 14px;color: #303641;padding:14px 21px !important;}
+.form-type-radio {
+
+}
+.form-type-radio input[type="radio"]{
+    display: none;
+}
+.default-radios .form-type-radio > label{
+    cursor: pointer;
+    position: relative;
+    padding-left: 10px !important;
+}
+.default-radios .form-type-radio > label:before{
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border: 4px #303641 solid;
+    border-radius: 15px;
+    padding: 5px;
+    position: relative;
+    top: 7px;
+    left: -10px;
+}
+.default-radios .form-type-radio > label:after{
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    background: #0da344;
+    border-radius: 100%;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+.default-radios .form-type-radio input[type="radio"]:checked + label:after{
+    opacity: 1;
+}
+
+.default-checkboxs .form-type-checkbox input[type="checkbox"]{
+    display: none;
+}
+
+.default-checkboxs  .form-type-checkbox label{
+    cursor: pointer;
+    position: relative;
+    padding-left: 10px !important;
+}
+.default-checkboxs  .form-type-checkbox label:before{
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border: 4px #303641 solid;
+    padding: 5px;
+    position: relative;
+    top: 7px;
+    left: -10px;
+}
+.default-checkboxs .form-type-checkbox label:after{
+    content: '';
+    width: 9px;
+    height: 5px;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    border: 3px solid #0da344;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.default-checkboxs .form-type-checkbox input[type="checkbox"]:checked + label:after{
+    opacity: 1;
+}
+
+.oss_vertical_tab .vertical-tabs-list li i{
+    font-size: 1.33333em;
+    padding-right: 5px;
+    vertical-align: -6%;
+}
+#system-theme-settings input[type="submit"]{
+    background-color: #303641;
+    background-image: none;
+    border-radius: 0;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 10px 29px;
+}
+
+.btn{
+    position: relative;
+    text-transform: uppercase;
+    background-color: none;
+    vertical-align: middle;
+    display: inline-block;
+    border: 1px solid #dcdcdc !important;
+    border-radius: 0 !important;
+    line-height: 34px;
+    height: 36px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0 20px;
+    text-align: center;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+    color: inherit;
+}
+.btn.active,.btn:hover{
+    background-color: #0da344;
+    color:#fff !important;
+}
+/** Color Settings **/
+.list_colors_settings  .form-radios input[type="radio"]{display: none}
+.list_colors_settings  .form-radios .form-item{display: inline-block;margin-right: 10px;}
+.list_colors_settings  .form-radios .form-item label {display: block;cursor: pointer;max-width: 50px;max-height: 50px;}
+.list_colors_settings  .form-radios .form-item img{width: 50px;height: 50px;}
+.list_colors_settings  .form-radios input[type="radio"]:checked + label{box-shadow: 0px 0px 0px 2px #BD3A60;}
+
+/** Layout Style Setting **/
+.list_style_layout .form-radios input[type="radio"]{display: none}
+.list_style_layout .form-radios .form-item{display: inline-block;margin-right: 10px;}
+.list_style_layout .form-radios .form-item .btn{width: 125px;height: 35px;text-align: center}
+.list_style_layout .form-radios input[type="radio"]:checked + label > .btn{ background-color: #0da344;color:#fff !important;}
+
+/** Minicolors **/
+.minicolors {width: 300px;min-height: 35px;}
+
+/** List Background setting **/
+.list_bg_default .form-item{display: inline-block;}
+.list_bg_default .body-bg{
+    cursor: pointer;
+    border: 1px solid #fff;
+    display: block;
+    height: 28px;
+    width: 28px;
+}
+.body-bg-0{background-image:url(../assets/images/background/body-bg-0.png)}
+.body-bg-1{background-image:url(../assets/images/background/body-bg-1.png)}
+.body-bg-2{background-image:url(../assets/images/background/body-bg-2.png)}
+.body-bg-3{background-image:url(../assets/images/background/body-bg-3.png)}
+.body-bg-4{background-image:url(../assets/images/background/body-bg-4.png)}
+.body-bg-5{background-image:url(../assets/images/background/body-bg-5.png)}
+.body-bg-6{background-image:url(../assets/images/background/body-bg-6.png)}
+.body-bg-7{background-image:url(../assets/images/background/body-bg-7.png)}
+.body-bg-8{background-image:url(../assets/images/background/body-bg-8.png)}
+.body-bg-9{background-image:url(../assets/images/background/body-bg-9.png)}
+.body-bg-10{background-image:url(../assets/images/background/body-bg-10.png)}
+.body-bg-11{background-image:url(../assets/images/background/body-bg-11.png)}
+.body-bg-12{background-image:url(../assets/images/background/body-bg-12.png)}
+.body-bg-13{background-image:url(../assets/images/background/body-bg-13.png)}
+.body-bg-14{background-image:url(../assets/images/background/body-bg-14.png)}
+.body-bg-15{background-image:url(../assets/images/background/body-bg-15.png)}
+.body-bg-16{background-image:url(../assets/images/background/body-bg-16.png)}
+.body-bg-17{background-image:url(../assets/images/background/body-bg-17.png)}
+.body-bg-18{background-image:url(../assets/images/background/body-bg-18.png)}
+.body-bg-19{background-image:url(../assets/images/background/body-bg-19.png)}
+.body-bg-20{background-image:url(../assets/images/background/body-bg-20.png)}
+.body-bg-21{background-image:url(../assets/images/background/body-bg-21.png)}
+.body-bg-22{background-image:url(../assets/images/background/body-bg-22.png)}
+.body-bg-23{background-image:url(../assets/images/background/body-bg-23.png)}
+
+.list_bg_default .form-item:hover .body-bg,.list_bg_default input[type="radio"]:checked + label > .body-bg{border-color: #000000;}

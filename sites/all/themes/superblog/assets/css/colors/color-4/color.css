@@ -1,0 +1,40 @@
+a:hover, .color-main, #nav-mainmenu  ul.mega-menu li:hover > a, #nav-mainmenu  ul.mega-menu li.active > a, .dropdownMenu ul.menu > li:hover > a,  .dropdownMenu ul.menu > li.active > a,
+.widget_layered_nav ul li.chosen a, .active > a, .product-price .price, .searchform-wp .btn:hover, [class*="bg-icon-color"][class*="icon-"]:hover:before,
+.portfolioFilter > .filter-link > a:hover, .btn.btn-outline, .jv-table-pricing.simple .jv-table-price-wrap, .jv-table-pricing.feature i, .message.warning, .message.info, .message a.cancel:hover, .social-color li a:hover,
+.social-color-border li a, .testimonials-style1  .owl-buttons > div:hover, .testimonials-style1 .item-content:before, .testimonials-style2 .item-content:before , .count-section-01 p,
+.progressbar-container.vertical .progressbar-back-text, .list-checked.primary li::before, .count-section-01 .counter h3 , .widget .round-icon:hover, .sub-title, #top_panel .widget_shopping_cart .total .amount,
+#nav-mainmenu-mobile ul.mega-menu > li.parent-showsub > a, #nav-mainmenu-mobile ul.mega-menu li.active > a,.page-node .blog-content-post .info_post > li i,.counter_number .couting_text,ul.product-categories ul li a.facetapi-active,.table-wishlist .price,.table-compare .price_wrap,
+.tb-megamenu .dropdown-menu li > a:hover,
+.tb-megamenu .dropdown-menu li > a:focus,
+.tb-megamenu .dropdown-submenu:hover > a,
+.tb-megamenu .nav > .active > a, .tb-megamenu .nav > .active > a:hover, .tb-megamenu .nav > .active > a:focus
+{
+	color: #31aae2
+}
+.btn:hover,  input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover, .button:hover, input.btn-primary, button.btn-primary, .btn-primary, .shop-info-detail .imgsubproduct .active .item img, ul.jv-nav-tabs,
+.show-loading .loading-ball .ball, .loading-ball .ball1, .shop-info-detail  .imgsubproduct   .active .item img, [class*="bg-icon-color"][class*="icon-"]:hover:before,
+.portfolioFilter > .filter-link > a.active, .btn.btn-outline, .jv-table-pricing.background, .tab-style-1 ul.tablist li a:hover:before, .tab-style-1 ul.tablist, .widget-team .item-inner,
+.tab-style-2 ul.tablist li.active a:before, .tab-style-2 ul.tablist li:hover a:before, .message.info, .social-color li a:hover, .social-color-border li a, .count-section-01.style-3 .counter, .widget .round-icon:hover,.comments-list:after
+{
+	border-color: #31aae2;
+}
+.btn:hover,  input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover, .button:hover, input.btn-primary, button.btn-primary, .btn-primary,
+.btn.active,
+.bg-main, ul.jv-nav-tabs  li:hover a, ul.jv-nav-tabs  li.active a, span.onsale, .widget_price_filter .ui-slider-horizontal .ui-slider-handle,
+.widget_price_filter .ui-slider-horizontal .ui-slider-range, .thumbnail_large .link-detail i, .timeline-year .years::after, .titl-line > span, .portfolioFilter > .filter-link > a.active,
+#top_search, .jv-table-pricing.background .jv-table-head, .tab-style-1 ul.tablist li.active a, .panel-group .accordion-background .panel-heading, .message.error, .social-color li a,
+.progressbar-container .progressbar, .progressbar-container.basic .progressbar, .progressbar-container.style-tooltip .progressbar, .tp-caption[class*="icon-"]::before, .row-special-offers  .widget:before, #back-top,
+ #nav-mainmenu-mobile ul.mega-menu li.active > a:not([class*="icon-"]):after,.share_post .item-list h3 > span,.share_post .list_share li a,.share_post .item-list h3:before,
+.comment-wrapper h2.title > span,.comments-list .comment-box .comment-head,
+.shop-products-list  .product-action:hover .item-btn-compare > a.actived:after,
+.shop-products-list  .product-action:hover .item-btn-wishlist > a.actived:after,
+.widget_price_filter .ui-widget-header,
+.widget_price_filter .ui-slider .ui-slider-handle,.btn-primary
+{
+	background-color: #31aae2;
+}
+
+.block-piechart .piechart.default path:last-child {stroke: #31aae2; }
+
+.social-effect li a:after  { box-shadow: 3px 3px #31aae2; -webkit-box-shadow: 3px 3px #31aae2; }
+.comments-list .comment-box:after{border-color:transparent #31aae2;}

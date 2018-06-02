@@ -1,0 +1,5 @@
+#flickr_gallery{
+
+}
+#flickr_gallery .images > a {float:left;width: 96px;}
+#flickr_gallery .images > a > img{display: block;padding:2px;overflow: hidden;width: 96px;height: 96px;}

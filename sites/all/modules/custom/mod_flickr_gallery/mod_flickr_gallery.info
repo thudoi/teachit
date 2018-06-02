@@ -1,0 +1,5 @@
+name = Mod Flick Gallery
+description = Provide Block Flick Gallery
+core = 7.x
+version = 1.0
+package = Custom module - Required
