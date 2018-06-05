@@ -55,7 +55,7 @@
  */
 
 $sites = array(
-  'teachit.test' => 'spencer',
+  'teachit.test' => 'black',
   'spencer.teachit.media' => 'spencer',
   'johnwspencer.pro' => 'spencer',
   'johnwspencer.online' => 'spencer',
