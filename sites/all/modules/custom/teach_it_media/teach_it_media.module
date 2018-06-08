@@ -263,8 +263,6 @@ function teach_it_media_node_insert($node)
 function _teach_it_media_tweet($message,$image) {
 // add the codebird library
     require_once('codebird/src/codebird.php');
-  print_r($message);
-  die('xxx');
     $consumerKey = variable_get('consumerKey','');
     $consumerSecret = variable_get('consumerSecret','');
     $accessToken = variable_get('accessToken','');
