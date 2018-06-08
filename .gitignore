@@ -5,7 +5,7 @@ sites/*/settings*.php
 sites/*/files
 sites/*/private
 sites/*/cache
-sites/sites.php
+sites/site*.php
 .idea/*
 .DS_Store
 .DS_Store?
