@@ -571,10 +571,9 @@
   Drupal.behaviors.frontend = {
     attach:function (context,settings) {
       var height_sub = jQuery('.region-sub .main-feature img').height();
-      var height_main = jQuery('.main-category .sub-fearture img').height();
+      var height_main = (jQuery('.main-category .sub-fearture .media-left').width()*130)/232;
       var height_sub_sub = jQuery('.region-sub .sub-fearture .media-left').width();
       height_sub_sub = (height_sub_sub*130)/232;
-      console.log(height_main);
       jQuery('.main-category .sub-fearture .field-type-media iframe').height(height_main);
       jQuery('.main-category .sub-fearture .media-facebook-video .fb_iframe_widget_fluid_desktop').height(height_main);
       jQuery('.main-category .sub-fearture .file-video-youtube .media-youtube-player').height(height_main);
