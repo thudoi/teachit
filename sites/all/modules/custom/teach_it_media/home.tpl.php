@@ -28,7 +28,9 @@ if($main_node):
 
         <div class="sub-fearture">
 		  <?php foreach ($nodes as $key=>$node): ?>
-			<?php $node_view = node_view($node,'grid'); ?>
+			<?php
+        if($key < 5){
+          $node_view = node_view($node,'grid'); ?>
               <div data-history-node-id="16" class="node node--type-article node--view-mode-mini smartcard dsc-mini-card media">
                   <div class="media-left ">
                       <div class="field field--name-field-image field--type-image field--label-hidden  field--item">
@@ -51,7 +53,8 @@ if($main_node):
                       <div class="field field--name-node-title field--type-ds field--label-hidden field--item"><h3><?php print l($node->title,'node/'.$node->nid); ?></h3></div>
                   </div>
               </div>
-		  <?php endforeach;?>
+		  <?php }
+		    endforeach;?>
         </div>
         <div class="line-break"></div>
     </div>
