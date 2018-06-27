@@ -3171,6 +3171,7 @@ ul.infouser i{display:inline-block;font-size:30px;margin-right:10px;text-align:c
 	padding-top: 5px;
 }
 .top-panel{
+  height: 64px;
 	padding-right: 0;
 	padding-left: 0;
 }
