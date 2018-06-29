@@ -3424,7 +3424,7 @@ div.modal-forms-modal-content {
 		background-color: white;
 	}
 	#header .container, #header .logo-table-cell{
-		height: 100%;
+		/*height: 100%;*/
 	}
 	#header .container a.jvlogo{
 		/*top: -20px;*/
