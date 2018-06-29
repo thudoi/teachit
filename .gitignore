@@ -10,4 +10,4 @@ sites/sites*.php
 .DS_Store
 .DS_Store?
 sites/.DS_Store
-drush
+drush/*
