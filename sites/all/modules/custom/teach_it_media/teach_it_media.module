@@ -132,15 +132,18 @@ function teach_it_media_theme($existing, $type, $theme, $path) {
 function teach_it_home_page_callback(){
     $vid = taxonomy_vocabulary_machine_name_load("category_blog")->vid;
     $terms = taxonomy_get_tree($vid);
+    $return = '';
     if($terms[0]->tid){
-        $content = taxonomy_select_nodes($terms[0]->tid, $pager = TRUE, $limit = 5, $order = array('t.created' => 'DESC'));
+      $content = taxonomy_select_nodes($terms[0]->tid, $pager = TRUE, $limit = 5, $order = array('t.created' => 'DESC'));
+      $nodes_main = node_load_multiple($content);
+      $title_main = l($terms[0]->name,'taxonomy/term/'.$terms[0]->tid);
+      $return .= theme('home',array('nodes'=>$nodes_main,'title'=>$title_main));
+      $return .= '<div class="region-sub">';
+        unset($terms[0]);
     }
-    $nodes_main = node_load_multiple($content);
-    $title_main = l($terms[0]->name,'taxonomy/term/'.$terms[0]->tid);
-    $return = theme('home',array('nodes'=>$nodes_main,'title'=>$title_main));
-    $return .= '<div class="region-sub">';
     foreach ($terms as $key => $value){
-        if($key!=0){
+      $term = taxonomy_term_load($value->tid);
+        if(!isset($term->field_frontpage['und'][0]['value'])){
             $content = taxonomy_select_nodes($value->tid, $pager = TRUE, $limit = 5, $order = array('t.created' => 'DESC'));
             $nodes_sub = node_load_multiple($content);
             $title_sub = l($value->name,'taxonomy/term/'.$value->tid);
