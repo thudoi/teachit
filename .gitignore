@@ -11,3 +11,4 @@ sites/*/cache
 .DS_Store?
 sites/.DS_Store
 /drush/*
+cache/*
