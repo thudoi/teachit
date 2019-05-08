@@ -6,66 +6,7 @@
     if($page['top_ads']):
     global $base_url;
     $bg_img = variable_get('mod_superblog_header_bg');
-      if(strpos( $_SERVER['HTTP_HOST'], 'education') !== false){
-        $brand =  "/sites/all/themes/superblog/assets/images/edu_brand.png";
-        $nav = '
-        <li ><a class="color-white" href="http://ell.teachit.education/">ELL</a></li>
-        <li ><a class="color-white" href="http://ela.teachit.education/">ELA</a></li>
-        <li ><a class="color-white" href="http://civics.teachit.education/">Civics</a></li>
-        <li ><a class="color-white" href="http://socialjustice.teachit.education/">Social Justice</a></li>
-        <li ><a class="color-white" href="http://math.teachit.education/">Math</a></li>
-        <li ><a class="color-white" href="http://science.teachit.education/">Science</a></li>
-        ';
-      }else{
-        $brand =  "/sites/all/themes/superblog/assets/images/brand.png";
-        $nav = '
-                            <li ><a class="color-white" href="http://black.teachit.media">Black Thoughts Today</a></li>
-                            <li><a class="color-white" href="http://iamreal.hiphop">I Am Real Hip Hop</a></li>
-                            <li><a class="color-white" href="http://live.teachit.media">Live Life Outloud</a></li>
-                            <li><a class="color-white" href="http://offyear.teachit.media">Off Year</a></li>
-                            <li><a class="color-white" href="http://oliver.teachit.media">Oliver\'s Twist</a></li>
-                            <li><a class="color-white" href="http://brothers.teachit.media">The Brothers Brunch</a></li>
-                            <li><a class="color-white" href="http://dopedads.teachit.media">We Are Dope Dads</a></li>
-                            <li><a class="color-white" href="http://arianna.teachit.media">Arianna</a></li>
-                            <li><a class="color-white" href="http://spencer.teachit.media">Spencer </a></li>';
-      }
     ?>
-<div class="top-nav">
-    <div class="container-fluid">
-        <div class="priority-nav">
-            <nav class="navbar mg-bt-0">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle bg-white" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar bg-black"></span>
-                            <span class="icon-bar bg-black"></span>
-                            <span class="icon-bar bg-black"></span>
-                        </button>
-                        <span class="logo-table navbar-brand color-white">
-                            <span class="logo-table-cell">
-                                <img class="logo" alt="<?php print $site_name ?>" src="<?php print $brand ?>">
-                            </span>
-                        </span>
-                    </div>
-                    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="true" style="">
-                        <ul class="nav navbar-nav">
-                          <?php print $nav ?>
-                        </ul>
-                        <ul class="nav navbar-nav float-right">
-                          <?php if(user_is_logged_in()): ?>
-                            <?php global $user; ?>
-                              <li><a href="<?php print base_path().'user/'.$user->uid ?>"><i class="icon-user color-white"></i></a></li>
-                          <?php else: ?>
-                              <li><a href="<?php print base_path().'modal_forms/nojs/login' ?>" class="ctools-use-modal ctools-modal-modal-popup-medium"><i class="icon-user11 color-white"></i></a></li>
-                          <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-</div>
 <div id="top_ads">
   <div class="container">
       <div class="col-xs-12 col-md-12">
