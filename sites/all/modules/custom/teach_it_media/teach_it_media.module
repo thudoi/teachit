@@ -260,7 +260,7 @@ function teach_it_media_node_insert($node)
                     break;
             }
         }
-        _teach_it_media_tweet($title.' '.$alias,$url);
+//        _teach_it_media_tweet($title.' '.$alias,$url);
     }
 }
 function _teach_it_media_tweet($message,$image) {
