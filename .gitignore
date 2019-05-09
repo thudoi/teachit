@@ -6,4 +6,4 @@ sites/*/files
 sites/*/private
 .idea/*
 cache/*
-sites/sites*.php
+sites/*sites*.php
