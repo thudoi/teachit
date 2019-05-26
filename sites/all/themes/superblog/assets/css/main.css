@@ -880,7 +880,7 @@ ul.jv-nav-tabs li:hover a,ul.jv-nav-tabs li.active a { color: white }
 	.tb-megamenu .mega-inner{padding:0px !important;}
 
 	.tb-megamenu .mega-nav > li a, .tb-megamenu .dropdown-menu .mega-nav > li a{
-		padding:10px 0px !important;
+		/*padding:10px 0px !important;*/
 	}
 	.tb-megamenu .dropdown-menu > div > .tb-megamenu-row{padding:5px 15px;}
 	.tb-megamenu-block .widget-title{
