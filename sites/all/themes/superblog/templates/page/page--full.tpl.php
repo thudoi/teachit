@@ -80,9 +80,6 @@
   <div id="mainsite">
     <?php include_once "include/header.inc"; ?>
     <div class="clearfix"></div>
-    <?php if($page['slider']):
-      print render($page['slider']);
-    endif;?>
     <?php if($page['page_title']):
       print render($page['page_title']);
     endif;
@@ -94,13 +91,11 @@
               <?php print render($page['sidebar_first']); ?>
             </aside>  <!-- /#sidebar-first -->
           <?php endif; ?>
-          <div>
             <?php if (!empty($page['highlighted'])): ?>
               <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
             <?php endif; ?>
             <div class="container">
               <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
-              <a id="main-content"></a>
               <?php print render($title_prefix); ?>
               <?php if (!empty($title)): ?>
                 <h1 class="page-header"><?php print $title; ?></h1>
@@ -116,11 +111,9 @@
               <?php if (!empty($action_links)): ?>
                 <ul class="action-links"><?php print render($action_links); ?></ul>
               <?php endif; ?>
-            </div>
             <?php print render($page['content_top'])?>
             <?php print render($page['content']); ?>
           </div>
-
           <?php if (!empty($page['sidebar_second'])): ?>
             <aside class="col-sm-4" role="complementary">
               <?php print render($page['sidebar_second']); ?>

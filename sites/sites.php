@@ -55,7 +55,7 @@
  */
 
 $sites = array(
-  'teachit.test' => 'hiphop',
+  'teachit.test' => 'civics',
   'memosandnotes.com' => 'spencer',
   'www.memosandnotes.com' => 'spencer',
   'blackthoughts.today' => 'black',
